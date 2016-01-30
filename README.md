@@ -12,6 +12,6 @@
  Restful（Web service方式，为传递json等格式使用）、<br>
  gRPC/ Dubbo框架（rpc框架，为了让平台服务和MVC分离。我看了代码风格，感觉和netty类似，结果是基于netty开发的，或者扩展的）、<br>
  rabbitmq（目前待定）。<br>
- 其中mysql、rabbitmq、redis的集群等配置，略。<br>
- <br>
+ 其中mysql、rabbitmq、redis的集群等配置，略。<br><br>
+
 插件管理方面，用的maven。同时，我也也为了照顾、方便小白，我连会用到的tomcat，都会写在pom.xml中，只要使用者run一下，就可以使用，无需多余的配置操作。<br>
