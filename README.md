@@ -14,4 +14,5 @@
  rabbitmq（目前待定）。
  其中mysql、rabbitmq、redis的集群等配置，略。
 
+
 插件管理方面，用的maven。同时，我也也为了照顾、方便小白，我连会用到的tomcat，都会写在pom.xml中，只要使用者run一下，就可以使用，无需多余的配置操作。
