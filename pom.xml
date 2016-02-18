@@ -13,7 +13,7 @@
         <slf4j.version>1.7.14</slf4j.version>
         <junit.version>4.12</junit.version>
 
-        <spring.version>4.0.9.RELEASE</spring.version>
+        <spring.version>4.2.4.RELEASE</spring.version>
 
     </properties>
 
@@ -25,8 +25,26 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
         <!--     end      -->
 
         <!--tomcat-->
@@ -51,21 +69,23 @@
 
     <build>
         <plugins>
-        <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>tomcat-maven-plugin</artifactId>
-            <version>1.1</version>
-            <configuration>
+            <plugin>
 
-                <path>/</path>
-                <port>8080</port>
-                <uriEncoding>UTF-8</uriEncoding>
-                <!--<url>http://localhost:8080/</url>-->
-                <server>tomcat7</server>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>2.2</version>
 
-            </configuration>
+                <configuration>
 
-        </plugin>
+                    <path>/</path>
+                    <port>8080</port>
+                    <uriEncoding>UTF-8</uriEncoding>
+                    <!--<url>http://localhost:8080/</url>-->
+                    <server>tomcat7</server>
+
+                </configuration>
+
+            </plugin>
         </plugins>
     </build>
 

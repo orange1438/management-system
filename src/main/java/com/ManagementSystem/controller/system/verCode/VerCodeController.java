@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
@@ -26,10 +27,11 @@ import java.util.Random;
 public class VerCodeController {
 
     @RequestMapping
-    public void generate(HttpServletResponse response){
+    public void generate(HttpServletRequest request,HttpServletResponse response){
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         String code = drawImg(output);
 
+//        System.out.println("客户端传的Get时间值："+request.getParameter("t"));
 //        Subject currentUser = SecurityUtils.getSubject();
 //        Session session = currentUser.getSession();
 //        session.setAttribute(Const.SESSION_SECURITY_CODE, code);

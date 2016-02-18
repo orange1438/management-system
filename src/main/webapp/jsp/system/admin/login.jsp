@@ -6,11 +6,11 @@
 
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-<title>s</title>
-<meta charset="UTF-8" />
+<title>${pd.SYSNAME}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <link rel="stylesheet" href="/static/login/bootstrap.min.css" />
@@ -71,14 +71,17 @@
 								style="height:16px; padding-top:0px;" />
 						</div>
 						<div style="float: left;">
-							<i><img style="height:22px;" id="codeImg" alt="点击更换"
-								title="点击更换" src="" /></i>
+							<i>
+								<img style="height:22px;" id="codeImg" alt="点击更换" title="点击更换" src="" />
+							</i>
 						</div>
 
 						<span class="pull-right" style="padding-right:3%;"><a
-							href="javascript:quxiao();" class="btn btn-success">取消</a></span> <span
+							href="javascript:quxiao();" class="btn btn-success">取消</a></span>
+						<span
 							class="pull-right"><a onclick="severCheck();"
-							class="flip-link btn btn-info" id="to-recover">登录</a></span>
+							class="flip-link btn btn-info" id="to-recover">登录</a>
+						</span>
 
 					</div>
 				</div>
@@ -88,8 +91,8 @@
 
 			<div class="controls">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr">Copyright © FH
-							2100</span></font>
+					<font color="white"><span id="nameerr">Copyright © Orange
+							2016</span></font>
 				</div>
 			</div>
 		</div>
@@ -111,7 +114,12 @@
 				
 				var loginname = $("#loginname").val();
 				var password = $("#password").val();
-				var code = "qq313596790fh"+loginname+",fh,"+password+"QQ978336446fh"+",fh,"+$("#code").val();
+				var code = "http://www.cnblogs.com/orange1438"
+						+loginname
+						+",orange,"
+						+password
+						+"http://www.cnblogs.com/orange1438"
+						+",orange,"+$("#code").val();
 				$.ajax({
 					type: "POST",
 					url: 'login_login',
@@ -164,8 +172,8 @@
 		});
 
 		function genTimestamp() {
-			var time = new Date();
-			return time.getTime();
+			var curtime = (new Date()).getTime();//毫秒数
+			return new Date(curtime);
 		}
 
 		function changeCode() {
