@@ -31,7 +31,7 @@ public class VerCodeController {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         String code = drawImg(output);
 
-//        System.out.println("客户端传的Get时间值："+request.getParameter("t"));
+//        System.out.println("瀹㈡埛绔紶鐨凣et鏃堕棿鍊硷細"+request.getParameter("t"));
 //        Subject currentUser = SecurityUtils.getSubject();
 //        Session session = currentUser.getSession();
 //        session.setAttribute(Const.SESSION_SECURITY_CODE, code);
