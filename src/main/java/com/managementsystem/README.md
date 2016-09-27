@@ -1,6 +1,7 @@
 # 包说明
 *   dao:存放操作数据增删改查的类<br>
 *   dto:数据传输对象存放的类，原本想取名model的，model感觉有歧义<br>
+*   mapper:mybatis生成的mapper包<br>
 *   entity:存放和数据表字段对应的类<br>
 *   exception:存放所有的自定义异常的类<br>
 *   service:服务层，存放所有逻辑操作的类<br>
