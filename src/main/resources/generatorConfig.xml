@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <!-- 参考官方文档
 http://www.mybatis.org/generator/configreference/xmlconfig.html
+http://generator.sturgeon.mopaas.com/index.html
 -->
 <generatorConfiguration>
 
@@ -31,7 +32,7 @@ http://www.mybatis.org/generator/configreference/xmlconfig.html
 
         <!-- 插件 ：其他插件参考http://www.jianshu.com/p/1b826d43dbaf-->
         <!--插件 ：用来给Java模型生成equals和hashcode方法-->
-        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+        <!--<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>-->
         <!--插件 ：用来为生成的Java模型类添加序列化接口-->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
         <!--插件 ：生成的Java模型创建一个toString方法-->
@@ -40,7 +41,7 @@ http://www.mybatis.org/generator/configreference/xmlconfig.html
         <!-- 注释 -->
         <commentGenerator>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-            <property name="suppressAllComments" value="true"/>
+            <property name="suppressAllComments" value="false"/>
             <!-- 是否生成注释代时间戳-->
             <property name="suppressDate" value="true"/>
         </commentGenerator>
@@ -88,6 +89,7 @@ http://www.mybatis.org/generator/configreference/xmlconfig.html
 
         <!-- 指定生成的数据库表 -->
         <!-- domainObjectName：指定生成的实体类的文件名 -->
+        <table tableName="sys_role" domainObjectName="roleEntity"/>
         <table tableName="sys_user" domainObjectName="userEntity"/>
 
         <!-- 其他需求：有些表的字段需要指定java类型 -->
