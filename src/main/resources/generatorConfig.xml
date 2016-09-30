@@ -43,8 +43,10 @@ http://generator.sturgeon.mopaas.com/index.html
         <commentGenerator>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressAllComments" value="false"/>
-            <!-- 是否生成注释代时间戳-->
+
+            <!-- 是否去掉注释代时间戳 true：是 ： false:否,默认yyyy-MM-dd HH:mm:ss（1.3.5-chinese-annotation修改版）-->
             <property name="suppressDate" value="true"/>
+            <property name="dateFormat" value="yyyy/MM/dd HH:mm:ss"/>
         </commentGenerator>
 
         <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
@@ -90,8 +92,8 @@ http://generator.sturgeon.mopaas.com/index.html
 
         <!-- 指定生成的数据库表 -->
         <!-- domainObjectName：指定生成的实体类的文件名 -->
-        <table tableName="sys_role" domainObjectName="roleEntity"/>
         <table tableName="sys_user" domainObjectName="userEntity"/>
+        <table tableName="sys_role" domainObjectName="roleEntity"/>
 
         <!-- 其他需求：有些表的字段需要指定java类型 -->
         <!--<table schema="management_system" tableName="s_user"-->

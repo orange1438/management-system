@@ -24,3 +24,4 @@
 
 ## 插件maven
 同时，我也为了照顾、方便小白，我连会用到的tomcat，都会写在pom.xml中，只要使用者run一下，就可以使用，无需多余的配置操作。<br>
+注：我使用的org.mybatis.generator的版本是我自己修改的<a target=_blank href="https://github.com/orange1438/mybatis-generator-core-chinese-annotation">1.3.5-chinese-annotation-by-orange1438版本</a><br>
