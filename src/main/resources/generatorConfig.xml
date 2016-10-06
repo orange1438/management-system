@@ -38,6 +38,10 @@ http://generator.sturgeon.mopaas.com/index.html
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
         <!--插件 ：生成的Java模型创建一个toString方法-->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value="Example$"/>
+            <property name="replaceString" value="Criteria"/>
+        </plugin>
 
         <!-- 注释 -->
         <commentGenerator>
@@ -66,12 +70,17 @@ http://generator.sturgeon.mopaas.com/index.html
         <!-- 生成实体类的位置 -->
         <javaModelGenerator targetPackage="com.managementsystem.entity"
                             targetProject="src\main\java">
+            <!--  for MyBatis3/MyBatis3Simple
+                自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
+            -->
+            <property name="constructorBased" value="false"/>
+
             <!-- 是否在当前路径下新加一层schema,
                 eg：false路径com.managementsystem.entity,
                     true:com.managementsystem.entity.[schemaName]
              -->
             <property name="enableSubPackages" value="true"/>
-            <!-- 是否针对string类型的字段在set的时候进行trim调用:清理前后的空格 -->
+            <!-- 是否针对string类型的字段在set/get的时候进行trim调用:清理前后的空格 -->
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
@@ -82,6 +91,15 @@ http://generator.sturgeon.mopaas.com/index.html
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
+
+        <!-- 对于mybatis来说，即生成Mapper接口，注意，如果没有配置该元素，那么默认不会生成Mapper接口
+           targetPackage/targetProject:同javaModelGenerator
+           type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）：
+               1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML；
+               2，MIXEDMAPPER：使用混合配置，会生成Mapper接口，并适当添加合适的Annotation，但是XML会生成在XML中；
+               3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；
+           注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
+       -->
         <!-- 生成mapper接口生成的位置 -->
         <javaClientGenerator type="XMLMAPPER"
                              targetPackage="com.managementsystem.mapper"
