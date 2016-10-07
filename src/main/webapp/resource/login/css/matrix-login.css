@@ -55,6 +55,10 @@ body {   padding: 0;    margin-top:0px;margin: 0px;}
 #loginbox form#recoverform { z-index: 100;     display:none;}
 #loginbox form#recoverform .form-actions {    margin-top: 10px;}
 #loginbox .main_input_box { margin:0 auto; text-align:center; font-size:13px;}
+
+#loginbox .main_input_box span {
+ color: white
+}
 #loginbox .main_input_box .add-on{  padding:9.6px 9px; *line-height:31px; color:#fff;  width:30px; display:inline-block;}
 #loginbox .main_input_box input{ height:30px; border:0px; display:inline-block; width:75%; line-height:28px;  margin-bottom:3px;}
 #loginbox .controls{ padding:0 20px;}

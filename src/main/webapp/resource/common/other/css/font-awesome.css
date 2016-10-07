@@ -144,14 +144,6 @@ ul.icons li [class*=" icon-"] {
   margin-left: 6px;
 }
 
-.login_code{
-  width:68%;
-}
-
-.codediv{
-  width:20%;
-}
-
 [class^="icon-"].pull-left,
 [class*=" icon-"].pull-left {
   margin-right: .35em;

@@ -1,0 +1,63 @@
+/**************************
+*
+*	单独为登录页面写需要的css标签
+*
+**************************/
+
+.lgoin_main_wrap {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    position: absolute;
+}
+
+.remember_password_wrap {
+    float: right;
+    padding-right: 10%;
+}
+
+.remember_password_before_name {
+    float: left;
+    margin-top: 3px;
+    margin-right: 2px;
+}
+
+.remember_password_before_name span {
+    color: white;
+}
+
+.remember_password_last_btn {
+    float: left;
+}
+
+.remember_password_last_btn input {
+    padding-top: 0px;
+}
+
+.verification_wrap {
+    width: 86%;
+    padding-left: 8%;
+}
+
+.verification_wrap_left {
+    float: left;
+}
+
+.login_code_div {
+    width: 20%;
+}
+
+.login_code_div input {
+    width: 68%;
+    height: 16px;
+    padding-top: 0px;
+}
+
+.login_code_img {
+    height: 22px;
+}
+
+.login_cancel {
+    padding-right: 3%;
+}
+

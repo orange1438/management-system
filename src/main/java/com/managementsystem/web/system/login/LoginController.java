@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /*
@@ -41,12 +43,17 @@ public class LoginController{
 	 * @return
 	 */
 	@RequestMapping(value="/login_toLogin")
-	public ModelAndView toLogin()throws Exception{
+	public ModelAndView toLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String path = request.getContextPath();
+		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
+
+		Map map = new HashMap();
+		map.put("SysName", "Orange"); //填入系统名称
+		map.put("BasePath", basePath); // 根目录地址，为动静分离资源做准备，可能需要单独的静态服务器而准备的
+
 		ModelAndView mv = new ModelAndView();
-		Map pd =  new HashMap();
-		pd.put("SYSNAME", "Orange"); //读取系统名称
 		mv.setViewName("system/admin/login");
-		mv.addObject("pd",pd);
+		mv.addAllObjects(map);
 
 		return mv;
 	}
