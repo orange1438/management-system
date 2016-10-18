@@ -21,7 +21,7 @@
        <mvc:default-servlet-handler/>
 
        <!-- 3.扫描包下所有使用注解的类型,相关的bean -->
-       <context:component-scan base-package="com.managementsystem.web"/>
+    <context:component-scan base-package="indi.orange1438.managementsystem.web"/>
 
        <!-- 4.配置SpringMVC的视图解析器,显示viewResolver -->
        <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
