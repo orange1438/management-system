@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="cacheEnabled" value="true"/><!-- 全局映射器启用缓存 -->
+        <setting name="useGeneratedKeys" value="true"/>
+        <setting name="defaultExecutorType" value="REUSE"/>
+    </settings>
+    <!--<typeAliases>-->
+    <!--<typeAlias type="com.cmcc.base12582.service.common.helper.db.entity.PageData" alias="pd"/>-->
+    <!--<typeAlias type="com.cmcc.base12582.service.common.helper.db.entity.Page" alias="Page"/>-->
+    <!--</typeAliases>-->
+    <!--<plugins>-->
+    <!--<plugin interceptor="com.cmcc.base12582.service.common.helper.db.plugin.PagePlugin">-->
+    <!--<property name="dialect" value="oracle"/>-->
+    <!--<property name="pageSqlId" value=".*listPage.*"/>-->
+    <!--</plugin>-->
+    <!--<plugin interceptor="com.cmcc.base12582.service.common.helper.db.plugin.paginator.pagehelper.PageHelper">-->
+    <!--<property name="dialect" value="oracle"/>-->
+    <!--<property name="reasonable" value="false"/>-->
+    <!--<property name="rowBoundsWithCount" value="true"/>-->
+    <!--</plugin>-->
+    <!--</plugins>-->
+</configuration>

@@ -38,10 +38,17 @@ http://generator.sturgeon.mopaas.com/index.html
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
         <!--插件 ：生成的Java模型创建一个toString方法-->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
-        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
-            <property name="searchString" value="Example$"/>
-            <property name="replaceString" value="Criteria"/>
-        </plugin>
+
+        <!--<plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">-->
+        <!--<property name="fileName" value="mybatis-config.xml"/>-->
+        <!--<property name="targetPackage" value="mybatis.mapper"/>-->
+        <!--<property name="targetProject" value="src\main\resources"/>-->
+        <!--</plugin>-->
+
+        <!--<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">-->
+        <!--<property name="searchString" value="Example$"/>-->
+        <!--<property name="replaceString" value="Criteria"/>-->
+        <!--</plugin>-->
 
         <!-- 注释 -->
         <commentGenerator>
@@ -71,7 +78,7 @@ http://generator.sturgeon.mopaas.com/index.html
         </javaTypeResolver>
 
         <!-- 生成实体类的位置 -->
-        <javaModelGenerator targetPackage="com.managementsystem.entity"
+        <javaModelGenerator targetPackage="indi.orange1438.managementsystem.dao.entity"
                             targetProject="src\main\java">
             <!--  for MyBatis3/MyBatis3Simple
                 自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
@@ -79,8 +86,8 @@ http://generator.sturgeon.mopaas.com/index.html
             <property name="constructorBased" value="false"/>
 
             <!-- 是否在当前路径下新加一层schema,
-                eg：false路径com.managementsystem.entity,
-                    true:com.managementsystem.entity.[schemaName]
+                eg：false路径 项目名.entity,
+                    true:项目名.entity.[schemaName]
              -->
             <property name="enableSubPackages" value="true"/>
             <!-- 是否针对string类型的字段在set/get的时候进行trim调用:清理前后的空格 -->
@@ -105,7 +112,7 @@ http://generator.sturgeon.mopaas.com/index.html
        -->
         <!-- 生成mapper接口生成的位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.managementsystem.mapper"
+                             targetPackage="indi.orange1438.managementsystem.dao.mapper"
                              targetProject="src\main\java">
             <!-- 解释同上:生成实体类的位置 -->
             <property name="enableSubPackages" value="true"/>
