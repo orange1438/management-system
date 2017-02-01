@@ -1,12 +1,13 @@
 ﻿# ManagementSystem Introduce
-1.项目目的：是对互联网上的FhAdmin管理系统的重构（多数都重新开发），如果想看“易扩容的、易开发的”架构，请浏览我的
-<a target=_blank href="https://github.com/orange1438/SpringBootService">《SpringBootService》</a>
-项目。<br>
+1.项目目的：是对互联网上的FhAdmin管理系统的重构（多数都重新开发），做到通用的管理平台。
+如果想看“易扩容的、易开发的”架构，请浏览我的<a target=_blank href="https://github.com/orange1438/SpringBootService">《SpringBootService》</a>项目。<br>
 
 2.管理系统通常会在一台服务器部署使用（管理的系统，一般都是内部企业的使用，中国企业算有1-2万人，一台服务器足以承受）<br>
-3.权限管理方面，不晓得用什么好，是Shiro，还是其他什么？目前还没确定，可能自己重头设计<br>
-4.代码编码：utf-8编码<br>
-- - -
+3.权限管理方面，根据RBAC原则，重新设计数据表，做到权限达到细颗粒的权限控制（以按钮为例）<br>
+4.代码编码：utf-8编码<br><br>
+- - - 
+
+## 在代码、前端的文件夹等对应地方，增加了ReadMe.md，用来说明相应的命名规范
 
 ### 使用的框架
 *   bootstrap（前端）、<br>

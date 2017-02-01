@@ -1,4 +1,4 @@
-package com.managementsystem.web.system.verCode;
+package indi.orange1438.managementsystem.web.system.verCode;
 
 
 import org.springframework.stereotype.Controller;
