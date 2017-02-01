@@ -3,9 +3,11 @@ package indi.orange1438.managementsystem.web.system.login;
 import java.util.HashMap;
 import java.util.Map;
 
+import indi.orange1438.managementsystem.util.RequestParameter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -59,12 +61,13 @@ public class LoginController{
 	}
 	
 	/**
-	 * 请求登录，验证用户
+	 * 请求登录接口，验证用户
 	 */
-	@RequestMapping(value="/login_login" ,produces="application/json;charset=UTF-8")
+	@RequestMapping(value = "/login_login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public Object login()throws Exception{
-
+		Map map = RequestParameter.getParameterMap();
+		String name = map.get("loginName").toString();
 		return null;
 	}
 	

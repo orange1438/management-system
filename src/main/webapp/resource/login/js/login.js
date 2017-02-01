@@ -39,17 +39,34 @@ function severCheck() {
     if (verifyCheck()) {
         var loginName = $("#loginName").val();
         var password = $("#password").val();
-        var code = "http://www.cnblogs.com/orange1438"
-            + loginName
-            + ",orange,"
-            + password
-            + "http://www.cnblogs.com/orange1438"
-            + ",orange," + $("#verCode").val();
+        var code = $("#verCode").val();
+
+        // 1.直接写标准json格式
+        var json = "{\"loginName\":'" + loginName
+            + "',\"password\":'" + password
+            + "',\"code\":'" + code
+            + "',\"tm\":'" + new Date().getDate() + "'}";
+
+        // 2.序列化成get格式后，在转成标准json格式
+        // var strJson = getToJsonString($.param({loginName:loginName,password:password,code:code,tm:new Date().getDate()}));
+        // console.log(strJson);
+
+        // 3.json对象转json格式字符串
+        // var JsonOB = new Object();
+        // JsonOB.loginName=loginName;
+        // JsonOB.password=password;
+        // JsonOB.code=code;
+        // JsonOB.tm=new Date().getTime();
+        // var JsonOBStr=JSON.stringify(JsonOB);
+        // console.log(JsonOBStr);
+
         $.ajax({
-            type: "POST",
+            type: 'POST',
             url: 'login_login',
-            data: {KEYDATA: code, tm: new Date().getDate()},
+            async: true,    //或false,是否异步
+            data: json,
             dataType: 'json',
+            timeout: 10000,    //超时时间
             cache: false,
             success: function (data) {
                 if ("success" == data.result) {

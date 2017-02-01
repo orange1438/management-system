@@ -16,6 +16,8 @@
 
     <%--验证码需要--%>
     <script type="text/javascript" src="${BasePath}/resource/common/jquery/jquery-1.5.1.min.js"></script>
+
+    <script type="text/javascript" src="${BasePath}/resource/common/other/js/getToJson.js"></script>
     <script type="text/javascript" src="${BasePath}/resource/login/js/login.js"></script>
 </head>
 <body>

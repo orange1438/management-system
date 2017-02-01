@@ -99,11 +99,6 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.5.4</version>
-        </dependency>
 
         <!-- servlet 以下2选1 -->
         <!-- 外部的tomcat和mavan tomcat插件均可启动-->
@@ -168,6 +163,23 @@
             <version>${spring.version}</version>
         </dependency>
         <!--     end      -->
+
+        <!-- 以下是常用工具 -->
+        <!-- org.apache.commons-->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <!-- end -->
+
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.24</version>
+        </dependency>
+        <!-- end -->
 
     </dependencies>
 

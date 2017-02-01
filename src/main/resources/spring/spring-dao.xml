@@ -21,40 +21,51 @@
     <context:property-placeholder location="classpath:app.properties"/>
 
     <!--2.配置连接池属性-->
+    <!-- 阿里 druid常用说明：http://www.cnblogs.com/wuyun-blog/p/5679073.html
+    http://www.cnblogs.com/xiaoliang-y/p/6079186.html -->
     <!-- 阿里 druid数据库连接池 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
         <!-- 数据库基本信息配置 -->
-        <property name="url" value="${url}"/>
-        <property name="username" value="${username}"/>
-        <property name="password" value="${password}"/>
-        <property name="driverClassName" value="${driverClassName}"/>
+        <property name="url" value="${jdbc.dataSource.url}"/>
+        <property name="username" value="${jdbc.dataSource.username}"/>
+        <property name="password" value="${jdbc.dataSource.password}"/>
+        <property name="driverClassName" value="${jdbc.dataSource.driverClassName}"/>
 
-        <!-- 配置监控统计拦截的filters -->
-        <property name="filters" value="${filters}"/>
         <!-- 最大并发连接数 -->
-        <property name="maxActive" value="${maxActive}"/>
+        <property name="maxActive" value="200"/>
         <!-- 初始化连接数量 -->
-        <property name="initialSize" value="${initialSize}"/>
-        <!-- 配置获取连接等待超时的时间 -->
-        <property name="maxWait" value="${maxWait}"/>
+        <property name="initialSize" value="5"/>
+        <!-- 配置获取连接等待超时的时间 毫秒-->
+        <property name="maxWait" value="10000"/>
         <!-- 最小空闲连接数 -->
-        <property name="minIdle" value="${minIdle}"/>
+        <property name="minIdle" value="1"/>
         <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
-        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
         <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}"/>
-        <property name="validationQuery" value="${validationQuery}"/>
-        <property name="testWhileIdle" value="${testWhileIdle}"/>
-        <property name="testOnBorrow" value="${testOnBorrow}"/>
-        <property name="testOnReturn" value="${testOnReturn}"/>
-        <property name="maxOpenPreparedStatements" value="${maxOpenPreparedStatements}"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="false"/>
         <!-- 打开removeAbandoned功能 -->
-        <property name="removeAbandoned" value="${removeAbandoned}"/>
+        <property name="removeAbandoned" value="true"/>
         <!-- 1800秒，也就是30分钟 -->
-        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}"/>
+        <property name="removeAbandonedTimeout" value="1800"/>
         <!-- 关闭abanded连接时输出错误日志 -->
-        <property name="logAbandoned" value="${logAbandoned}"/>
+        <property name="logAbandoned" value="true"/>
+
+        <!-- 配置监控统计拦截的filters :stat是监控，log4j是日志-->
+        <property name="filters" value="stat"/>
+        <property name="proxyFilters">
+            <list>
+                <ref bean="logFilter"/>
+            </list>
+        </property>
     </bean>
+    <bean id="logFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+        <property name="statementExecutableSqlLogEnable" value="false"/>
+    </bean>
+
     <!-- 基本数据源配置-->
     <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">-->
     <!--<property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
@@ -97,7 +108,6 @@
     </bean>
 
     <!-- 拦截器方式配置事物 -->
-    <!--
     <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="add*" propagation="REQUIRED" />
@@ -120,10 +130,11 @@
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="transactionPointcut" expression="execution(* com.cmcc.base12582.biz..*.*(..))" />
+        <!--定义在service包里的任意方法的执行-->
+        <aop:pointcut id="transactionPointcut"
+                      expression="execution(* indi.orange1438.managementsystem.service.*.*(..))"/>
         <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
     </aop:config>
-    -->
     <!--或者-->
     <!--配置基于注解的声明式事务
     默认使用注解来管理事务行为-->
