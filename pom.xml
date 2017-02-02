@@ -164,6 +164,14 @@
         </dependency>
         <!--     end      -->
 
+        <!-- spring-context-support:ehcache 所需要的 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!--     end      -->
+
         <!-- 以下是常用工具 -->
         <!-- org.apache.commons-->
         <dependency>
@@ -178,6 +186,14 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.24</version>
+        </dependency>
+        <!-- end -->
+
+        <!-- ehcache 缓存，可分布式配置 -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>2.10.3</version>
         </dependency>
         <!-- end -->
 
