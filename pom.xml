@@ -241,6 +241,8 @@
                 <configuration>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
+                    <!-- 指定配置文件的路径，默认是在resources下-->
+                    <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
                 </configuration>
                 <executions>
                     <execution>
