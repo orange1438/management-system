@@ -8,7 +8,7 @@ import javax.servlet.ServletContextListener;
  *
  * @author orange1438
  *         github: github.com/orange1438
- *         data: 2017/02/19 18:22
+ *         date: 2017/02/19 18:22
  */
 public class WebAppContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {

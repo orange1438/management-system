@@ -5,7 +5,7 @@ package indi.orange1438.managementsystem.util;
  *
  * @author orange1438
  *         github: github.com/orange1438
- *         data: 2017/02/18 19:47
+ *         date: 2017/02/18 19:47
  */
 public class Const {
     // 验证码

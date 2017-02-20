@@ -13,7 +13,7 @@ import com.dyuproject.protostuff.runtime.RuntimeSchema;
  *
  * @author orange1438
  *         github: github.com/orange1438
- *         data: 2017/02/19 12:24
+ *         date: 2017/02/19 12:24
  */
 public class ProtostuffHelper {
     private static Map<Class<?>, Schema<?>> cachedSchema = new ConcurrentHashMap<Class<?>, Schema<?>>();

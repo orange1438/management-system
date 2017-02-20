@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author orange1438
  *         github: github.com/orange1438
- *         data: 2017/02/02 20:44
+ *         date: 2017/02/02 20:44
  */
 public class RequestParameter {
 
