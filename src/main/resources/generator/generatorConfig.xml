@@ -127,7 +127,7 @@ http://generator.sturgeon.mopaas.com/index.html
 
         <!-- 指定生成的数据库表 -->
         <!-- domainObjectName：指定生成的实体类的文件名 -->
-        <table tableName="sys_user" domainObjectName="User"/>
+        <table tableName="sys_user" domainObjectName="UserEntity"/>
 
         <!-- 其他需求：有些表的字段需要指定java类型 -->
         <!--<table schema="management_system" tableName="sys_role" domainObjectName="SysRole"-->

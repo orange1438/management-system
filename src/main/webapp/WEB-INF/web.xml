@@ -12,16 +12,25 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:spring/spring-*.xml</param-value>
+            <param-value>classpath:spring/spring-context.xml</param-value>
         </init-param>
-
     </servlet>
+    <!-- 配置spring的默认profile -->
+    <context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>pro</param-value>
+    </context-param>
 
     <servlet-mapping>
         <servlet-name>spring-dispatcher</servlet-name>
         <!--默认匹配所有的请求-->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <!-- tomcat等容器 启动之后执行,可用于MQ等其他服务的初始化 -->
+    <listener>
+        <listener-class>indi.orange1438.managementsystem.listener.WebAppContextListener</listener-class>
+    </listener>
 
     <!-- 错误提指定页面 -->
     <error-page>

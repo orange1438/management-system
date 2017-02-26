@@ -1,6 +1,7 @@
 package indi.orange1438.managementsystem.web.system.verCode;
 
 
+import indi.orange1438.managementsystem.util.Const;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -8,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
@@ -31,10 +33,8 @@ public class VerCodeController {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         String code = drawImg(output);
 
-//        System.out.println("客户端传的Get时间值："+request.getParameter("t"));
-//        Subject currentUser = SecurityUtils.getSubject();
-//        Session session = currentUser.getSession();
-//        session.setAttribute(Const.SESSION_SECURITY_CODE, code);
+        // session
+        request.getSession().setAttribute(Const.SESSION_SECURITY_CODE, code);
 
         try {
             ServletOutputStream out = response.getOutputStream();

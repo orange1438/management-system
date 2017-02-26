@@ -3,16 +3,24 @@ package indi.orange1438.managementsystem.web.system.login;
 import java.util.HashMap;
 import java.util.Map;
 
+import indi.orange1438.managementsystem.dao.entity.UserEntity;
+import indi.orange1438.managementsystem.service.system.UserService;
+import indi.orange1438.managementsystem.util.Const;
 import indi.orange1438.managementsystem.util.RequestParameter;
+import indi.orange1438.managementsystem.util.helper.StringHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 /*
@@ -21,11 +29,14 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class LoginController{
 
+	@Resource(name = "userService")
+	private UserService userService;
+
 	/**
 	 * 获取登录用户的IP
 	 * @throws Exception 
 	 */
-	public void getRemortIP(String USERNAME) throws Exception {  
+	public void getRemortIP(String USERNAME) throws Exception {
 //		PageData pd = new PageData();
 //		HttpServletRequest request = this.getRequest();
 //		String ip = "";
@@ -45,7 +56,7 @@ public class LoginController{
 	 * @return
 	 */
 	@RequestMapping(value="/login_toLogin")
-	public ModelAndView toLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView toLoginPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String path = request.getContextPath();
 		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
 
@@ -59,23 +70,57 @@ public class LoginController{
 
 		return mv;
 	}
-	
+
 	/**
 	 * 请求登录接口，验证用户
 	 */
 	@RequestMapping(value = "/login_login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public Object login()throws Exception{
-		Map map = RequestParameter.getParameterMap();
-		String name = map.get("loginName").toString();
-		return null;
+	public Object loginApi() throws Exception {
+		Map requestMap = RequestParameter.getParameterMap();
+		String userName = null == requestMap.get("loginName") ? "" : requestMap.get("loginName").toString();
+		String password = null == requestMap.get("password") ? "" : requestMap.get("password").toString();
+		String code = null == requestMap.get("code") ? "" : requestMap.get("code").toString();
+
+		String resultInfo = "";
+		if (null != userName && null != password) {
+			if (null == code || "".equals(code)) {
+				resultInfo = "nullcode"; //验证码为空
+			} else {
+				// 获取session
+				HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+				HttpSession session = request.getSession();
+				String sessionCode = session != null ? session.getAttribute(Const.SESSION_SECURITY_CODE).toString() : "";
+
+				if (StringHelper.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(code)) {
+					//
+					UserEntity userEntity = userService.getUserEntityByNameAndPwd(userName, password);
+					if (null != userEntity) {
+
+					} else {
+						resultInfo = "usererror";                //用户名或密码有误
+					}
+				} else {
+					resultInfo = "codeerror";                    //验证码输入有误
+				}
+				if (StringHelper.isEmpty(resultInfo)) {
+					resultInfo = "success";                    //验证成功
+				}
+			}
+		} else {
+			resultInfo = "error";    //缺少参数
+		}
+
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("result", resultInfo);
+		return map;
 	}
 	
 	/**
 	 * 访问系统首页
 	 */
 	@RequestMapping(value="/main/{changeMenu}")
-	public ModelAndView login_index(@PathVariable("changeMenu") String changeMenu){
+	public ModelAndView loginIndexPage(@PathVariable("changeMenu") String changeMenu) {
 		return null;
 	}
 	
