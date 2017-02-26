@@ -39,6 +39,13 @@ http://generator.sturgeon.mopaas.com/index.html
         <!--插件 ：生成的Java模型创建一个toString方法-->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
 
+        <!-- 统一Mapper 接口 -->
+        <plugin type="org.mybatis.generator.plugins.MapperPlugin">
+            <property name="interfaceName" value="IMapper"/>
+            <!-- 是否删除Mapper类里的方法，默认删除-->
+            <property name="deleteMethod" value="true"/>
+        </plugin>
+
         <!--<plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">-->
         <!--<property name="fileName" value="mybatis-config.xml"/>-->
         <!--<property name="targetPackage" value="mybatis.mapper"/>-->
@@ -78,7 +85,7 @@ http://generator.sturgeon.mopaas.com/index.html
         </javaTypeResolver>
 
         <!-- 生成实体类的位置 -->
-        <javaModelGenerator targetPackage="${jdbc.generator.targetPackage}.dao.entity"
+        <javaModelGenerator targetPackage="${jdbc.modelGenerator.targetPackage}"
                             targetProject="src\main\java">
             <!--  for MyBatis3/MyBatis3Simple
                 自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
@@ -112,7 +119,7 @@ http://generator.sturgeon.mopaas.com/index.html
        -->
         <!-- 生成mapper接口生成的位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="${jdbc.generator.targetPackage}.dao.mapper"
+                             targetPackage="${jdbc.clientGenerator.targetPackage}"
                              targetProject="src\main\java">
             <!-- 解释同上:生成实体类的位置 -->
             <property name="enableSubPackages" value="true"/>
@@ -120,12 +127,13 @@ http://generator.sturgeon.mopaas.com/index.html
 
         <!-- 指定生成的数据库表 -->
         <!-- domainObjectName：指定生成的实体类的文件名 -->
-        <table tableName="sys_user" domainObjectName="userEntity"/>
+        <table tableName="sys_user" domainObjectName="User"/>
 
         <!-- 其他需求：有些表的字段需要指定java类型 -->
-        <!--<table schema="management_system" tableName="s_user"-->
-        <!--domainObjectName="UserEntity" enableCountByExample="false"-->
-        <!--enableDeleteByExample="false" enableSelectByExample="false"-->
+        <!--<table schema="management_system" tableName="sys_role" domainObjectName="SysRole"-->
+        <!--enableCountByExample="false"-->
+        <!--enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false"-->
         <!--enableUpdateByExample="false">-->
         <!--&lt;!&ndash; schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample-->
         <!--是否生成 example类   &ndash;&gt;-->
