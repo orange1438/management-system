@@ -98,7 +98,7 @@
         <!--注入SqlSessionFactory-->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 给出需要扫描的Dao接口-->
-        <property name="basePackage" value="indi.orange1438.managementsystem.dao.mapper"/>
+        <property name="basePackage" value="indi.orange1438.managementsystem.dao"/>
     </bean>
 
     <!-- 配置事务管理器 -->

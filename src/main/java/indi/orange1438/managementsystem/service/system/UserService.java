@@ -15,7 +15,7 @@ import java.util.List;
  *         github: github.com/orange1438
  *         date: 2017/02/26 12:19
  */
-@Service("userService")
+@Service
 public class UserService {
 
     @Autowired

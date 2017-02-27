@@ -12,8 +12,9 @@
 
     <import resource="spring-dao.xml"/>
     <import resource="spring-service.xml"/>
-    <import resource="spring-ehcache.xml"/>
     <import resource="spring-web.xml"/>
+    <import resource="spring-shiro.xml"/>
+
     <beans profile="dev">
         <context:property-placeholder location="classpath*:development/jdbc.properties"/>
     </beans>

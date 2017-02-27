@@ -8,6 +8,11 @@ import indi.orange1438.managementsystem.service.system.UserService;
 import indi.orange1438.managementsystem.util.Const;
 import indi.orange1438.managementsystem.util.RequestParameter;
 import indi.orange1438.managementsystem.util.helper.StringHelper;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +34,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController{
 
-	@Resource(name = "userService")
+	@Autowired
 	private UserService userService;
 
 	/**
@@ -93,12 +98,13 @@ public class LoginController{
 				String sessionCode = session != null ? session.getAttribute(Const.SESSION_SECURITY_CODE).toString() : "";
 
 				if (StringHelper.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(code)) {
-					//
-					UserEntity userEntity = userService.getUserEntityByNameAndPwd(userName, password);
-					if (null != userEntity) {
-
-					} else {
-						resultInfo = "usererror";                //用户名或密码有误
+					//shiro加入身份验证
+					Subject subject = SecurityUtils.getSubject();
+					UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
+					try {
+						subject.login(token);
+					} catch (AuthenticationException e) {
+						resultInfo = "usererror";       //用户名或密码有误
 					}
 				} else {
 					resultInfo = "codeerror";                    //验证码输入有误
