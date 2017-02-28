@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class UserEntity implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = 4190517613083182847L;
+    private static final long serialVersionUID = -3499309619012208964L;
 
     // 用户ID
     private Long userId;
@@ -52,9 +52,6 @@ public class UserEntity implements Serializable {
 
     // 修改人
     private String modifier;
-
-    // xxxxx
-    private byte[] xxxxx;
 
     /** 
      * 获取 用户ID sys_user.USER_ID
@@ -296,22 +293,6 @@ public class UserEntity implements Serializable {
         this.modifier = modifier == null ? null : modifier.trim();
     }
 
-    /** 
-     * 获取 xxxxx sys_user.xxxxx
-     * @return xxxxx
-     */
-    public byte[] getXxxxx() {
-        return xxxxx;
-    }
-
-    /** 
-     * 设置 xxxxx sys_user.xxxxx
-     * @param xxxxx xxxxx
-     */
-    public void setXxxxx(byte[] xxxxx) {
-        this.xxxxx = xxxxx;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -334,7 +315,6 @@ public class UserEntity implements Serializable {
         sb.append(", creater=").append(creater);
         sb.append(", modifyTime=").append(modifyTime);
         sb.append(", modifier=").append(modifier);
-        sb.append(", xxxxx=").append(xxxxx);
         sb.append("]");
         return sb.toString();
     }
