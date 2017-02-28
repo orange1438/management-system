@@ -3,8 +3,12 @@ package indi.orange1438.managementsystem.web.system.login;
 import java.util.HashMap;
 import java.util.Map;
 
+import indi.orange1438.managementsystem.dao.entity.UserEntity;
+import indi.orange1438.managementsystem.service.system.UserService;
 import indi.orange1438.managementsystem.util.Const;
 import indi.orange1438.managementsystem.util.RequestParameter;
+import indi.orange1438.managementsystem.util.TableProperties;
+import indi.orange1438.managementsystem.util.helper.DateHelper;
 import indi.orange1438.managementsystem.util.helper.StringHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +19,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +29,9 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class LoginController{
+
+    @Resource(name = "userService")
+    UserService userService;
 
 	/**
 	 * 获取登录用户的IP
@@ -84,8 +92,20 @@ public class LoginController{
 				String sessionCode = session != null ? session.getAttribute(Const.SESSION_SECURITY_CODE).toString() : "";
 
 				if (StringHelper.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(code)) {
-					resultInfo = "usererror";       //用户名或密码有误
-				} else {
+                    UserEntity userEntity = userService.getUserEntityByNameAndPwd(userName, password);
+                    if (null != userEntity) {
+                        userEntity.setLastLoginTime(DateHelper.getDateTimeNow());
+                        userEntity.setLoginIp(getIpAddr(request));
+                        userEntity.setLoginCount(userEntity.getLoginCount() + 1L);
+                        TableProperties.createProperties(userEntity, userEntity.getTrueName());
+                        userService.updateUserByUserId(userEntity);
+
+                        session.setAttribute(Const.SESSION_USER, userEntity);
+                        session.removeAttribute(Const.SESSION_SECURITY_CODE);
+                    } else {
+                        resultInfo = "usererror";       //用户名或密码有误
+                    }
+                } else {
 					resultInfo = "codeerror";                    //验证码输入有误
 				}
 				if (StringHelper.isEmpty(resultInfo)) {
