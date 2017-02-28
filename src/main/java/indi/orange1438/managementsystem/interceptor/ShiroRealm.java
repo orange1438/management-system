@@ -2,6 +2,8 @@ package indi.orange1438.managementsystem.interceptor;
 
 import indi.orange1438.managementsystem.dao.entity.UserEntity;
 import indi.orange1438.managementsystem.service.system.UserService;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;

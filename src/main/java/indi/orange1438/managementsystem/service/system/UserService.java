@@ -4,6 +4,7 @@ import indi.orange1438.managementsystem.dao.UserEntityDAO;
 import indi.orange1438.managementsystem.dao.entity.UserEntity;
 import indi.orange1438.managementsystem.dao.entity.UserEntityExample;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class UserService {
      * @param password 密码
      * @return
      */
+    @Cacheable(value = "userCache", key = "#userName")
     public UserEntity getUserEntityByNameAndPwd(String userName, String password) {
         UserEntityExample userEntityExample = new UserEntityExample();
         userEntityExample.createCriteria().andUserNameEqualTo(userName).andPasswordEqualTo(password);

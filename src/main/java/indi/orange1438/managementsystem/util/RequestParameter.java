@@ -6,6 +6,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,10 +23,13 @@ public class RequestParameter {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             request.setCharacterEncoding("UTF-8");
             String paramStr = IOUtils.toString(request.getInputStream(), "UTF-8");
+            if (null == paramStr || paramStr.isEmpty()) {
+                return new HashMap();
+            }
             return (Map) JSON.parse(paramStr);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return new HashMap();
     }
 }

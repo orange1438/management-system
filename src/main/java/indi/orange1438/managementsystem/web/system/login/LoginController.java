@@ -3,8 +3,6 @@ package indi.orange1438.managementsystem.web.system.login;
 import java.util.HashMap;
 import java.util.Map;
 
-import indi.orange1438.managementsystem.dao.entity.UserEntity;
-import indi.orange1438.managementsystem.service.system.UserService;
 import indi.orange1438.managementsystem.util.Const;
 import indi.orange1438.managementsystem.util.RequestParameter;
 import indi.orange1438.managementsystem.util.helper.StringHelper;
@@ -12,7 +10,6 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +19,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -33,9 +29,6 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class LoginController{
-
-	@Autowired
-	private UserService userService;
 
 	/**
 	 * 获取登录用户的IP
@@ -83,9 +76,9 @@ public class LoginController{
 	@ResponseBody
 	public Object loginApi() throws Exception {
 		Map requestMap = RequestParameter.getParameterMap();
-		String userName = null == requestMap.get("loginName") ? "" : requestMap.get("loginName").toString();
-		String password = null == requestMap.get("password") ? "" : requestMap.get("password").toString();
-		String code = null == requestMap.get("code") ? "" : requestMap.get("code").toString();
+        String userName = null == requestMap.get("loginName") ? null : requestMap.get("loginName").toString();
+        String password = null == requestMap.get("password") ? null : requestMap.get("password").toString();
+        String code = null == requestMap.get("code") ? null : requestMap.get("code").toString();
 
 		String resultInfo = "";
 		if (null != userName && null != password) {
