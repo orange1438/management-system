@@ -1,4 +1,4 @@
-package indi.orange1438.managementsystem.util.helper;
+package indi.orange1438.managementsystem.util;
 
 import java.util.regex.*;
 
@@ -9,7 +9,7 @@ import java.util.regex.*;
  *         github: github.com/orange1438
  *         data: 2017/02/18 22:03
  */
-public final class ValidateHelper {
+public final class ValidateUtils {
     //-----------------------------------
     //该类不能被继承，不能被实例化
     //-------------------------------------

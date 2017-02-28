@@ -1,7 +1,5 @@
 package indi.orange1438.managementsystem.util;
 
-import indi.orange1438.managementsystem.util.helper.DateHelper;
-
 import java.lang.reflect.Method;
 import java.util.Date;
 
@@ -27,7 +25,7 @@ public class TableProperties {
             method.invoke(object, creater);
 
             method = clazz.getDeclaredMethod("setCreateTime", Date.class);
-            method.invoke(object, DateHelper.getDateTimeNow());
+            method.invoke(object, DateUtils.getDateTimeNow());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,7 +44,7 @@ public class TableProperties {
             method.invoke(object, modifier);
 
             method = clazz.getDeclaredMethod("setModifyTime", Date.class);
-            method.invoke(object, DateHelper.getDateTimeNow());
+            method.invoke(object, DateUtils.getDateTimeNow());
         } catch (Exception e) {
             e.printStackTrace();
         }

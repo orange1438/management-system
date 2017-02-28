@@ -1,4 +1,4 @@
-package indi.orange1438.managementsystem.util.helper;
+package indi.orange1438.managementsystem.util;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,7 +15,7 @@ import com.dyuproject.protostuff.runtime.RuntimeSchema;
  *         github: github.com/orange1438
  *         date: 2017/02/19 12:24
  */
-public class ProtostuffHelper {
+public class ProtostuffUtils {
     private static Map<Class<?>, Schema<?>> cachedSchema = new ConcurrentHashMap<Class<?>, Schema<?>>();
 
     private static <T> Schema<T> getSchema(Class<T> clazz) {
@@ -71,10 +71,10 @@ public class ProtostuffHelper {
     public static void main(String[] args) {
         String obj = "测试数据";
 
-        byte[] bytes = ProtostuffHelper.serialize(obj);
+        byte[] bytes = ProtostuffUtils.serialize(obj);
         System.out.println("序列化后：" + bytes.toString());
 
-        String xxx = ProtostuffHelper.deserialize(bytes, String.class);
+        String xxx = ProtostuffUtils.deserialize(bytes, String.class);
         System.out.println("反序列化后：" + xxx);
     }
 }

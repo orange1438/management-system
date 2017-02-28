@@ -1,4 +1,4 @@
-package indi.orange1438.managementsystem.util.helper;
+package indi.orange1438.managementsystem.util;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  *         github: github.com/orange1438
  *         data: 2017/02/18 21:40
  */
-public final class StringHelper {
+public final class StringUtils {
     //-----------------------------------
     //该类不能被继承，不能被实例化
     //-------------------------------------

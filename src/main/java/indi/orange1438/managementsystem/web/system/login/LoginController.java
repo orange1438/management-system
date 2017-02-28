@@ -8,8 +8,9 @@ import indi.orange1438.managementsystem.service.system.UserService;
 import indi.orange1438.managementsystem.util.Const;
 import indi.orange1438.managementsystem.util.RequestParameter;
 import indi.orange1438.managementsystem.util.TableProperties;
-import indi.orange1438.managementsystem.util.helper.DateHelper;
-import indi.orange1438.managementsystem.util.helper.StringHelper;
+import indi.orange1438.managementsystem.util.DateUtils;
+import indi.orange1438.managementsystem.util.IpUtils;
+import indi.orange1438.managementsystem.util.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,23 +34,7 @@ public class LoginController{
     @Resource(name = "userService")
     UserService userService;
 
-	/**
-	 * 获取登录用户的IP
-	 * @throws Exception
-	 */
-	public String getIpAddr(HttpServletRequest request) {
-		String ip = request.getHeader("x-forwarded-for");
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getHeader("Proxy-Client-IP");
-		}
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getHeader("WL-Proxy-Client-IP");
-		}
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-			ip = request.getRemoteAddr();
-		}
-		return ip;
-	}
+
 
 	/**
 	 * 访问登录页
@@ -91,12 +76,12 @@ public class LoginController{
 				HttpSession session = request.getSession();
 				String sessionCode = session != null ? session.getAttribute(Const.SESSION_SECURITY_CODE).toString() : "";
 
-				if (StringHelper.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(code)) {
-                    UserEntity userEntity = userService.getUserEntityByNameAndPwd(userName, password);
+				if (StringUtils.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(code)) {
+					UserEntity userEntity = userService.getUserEntityByNameAndPwd(userName, password);
                     if (null != userEntity) {
-                        userEntity.setLastLoginTime(DateHelper.getDateTimeNow());
-                        userEntity.setLoginIp(getIpAddr(request));
-                        userEntity.setLoginCount(userEntity.getLoginCount() + 1L);
+						userEntity.setLastLoginTime(DateUtils.getDateTimeNow());
+						userEntity.setLoginIp(IpUtils.getIpAddr(request));
+						userEntity.setLoginCount(userEntity.getLoginCount() + 1L);
                         TableProperties.createProperties(userEntity, userEntity.getTrueName());
                         userService.updateUserByUserId(userEntity);
 
@@ -108,7 +93,7 @@ public class LoginController{
                 } else {
 					resultInfo = "codeerror";                    //验证码输入有误
 				}
-				if (StringHelper.isEmpty(resultInfo)) {
+				if (StringUtils.isEmpty(resultInfo)) {
 					resultInfo = "success";                    //验证成功
 				}
 			}

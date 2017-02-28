@@ -1,4 +1,4 @@
-package indi.orange1438.managementsystem.util.helper;
+package indi.orange1438.managementsystem.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,7 +14,7 @@ import java.util.Date;
  *         github: github.com/orange1438
  *         data: 2017/02/18 22:29
  */
-public class DateHelper {
+public class DateUtils {
     //默认格式
     private static String datePattern = "yyyy-MM-dd";
     private static String timePattern = datePattern + " HH:mm:ss";
@@ -234,7 +234,7 @@ public class DateHelper {
      * @return
      */
     public synchronized static boolean isLastDay(Date date) {
-        synchronized (DateHelper.class) {
+        synchronized (DateUtils.class) {
             boolean isLastDay = false;
             Calendar cal = Calendar.getInstance();
             int month = cal.get(Calendar.MONTH) + 1; //当前月
