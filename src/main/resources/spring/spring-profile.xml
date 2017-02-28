@@ -10,10 +10,11 @@
                 http://www.springframework.org/schema/aop
                 http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <import resource="spring-dao.xml"/>
-    <import resource="spring-service.xml"/>
-    <import resource="spring-web.xml"/>
-    <import resource="spring-shiro.xml"/>
-    <import resource="spring-profile.xml"/>
+    <beans profile="dev">
+        <context:property-placeholder location="classpath*:development/jdbc.properties"/>
+    </beans>
+    <beans profile="pro">
+        <context:property-placeholder location="classpath*:production/jdbc.properties"/>
+    </beans>
 
 </beans>

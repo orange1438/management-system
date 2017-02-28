@@ -18,7 +18,7 @@
     <!--配置整合mybatis过程-->
 
     <!--１.配置数据库相关参数 : 在context配置 -->
-    <!--<context:property-placeholder location="classpath:jdbc.properties"/>-->
+    <!--<context:property-placeholder location="classpath:development/jdbc.properties"/>-->
 
     <!--2.配置连接池属性-->
     <!-- 阿里 druid常用说明：http://www.cnblogs.com/wuyun-blog/p/5679073.html

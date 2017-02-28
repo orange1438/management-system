@@ -9,12 +9,12 @@
 
     <description>ehcache缓存配置管理文件</description>
     <!-- 如果以下包报红、报错，说明缺少 spring-context-support包  -->
-    <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+    <bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation" value="classpath:development/ehcache.xml"/>
     </bean>
 
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
-        <property name="cacheManager" ref="ehcache"/>
+        <property name="cacheManager" ref="cacheManagerFactory"/>
     </bean>
 
     <!-- 启用缓存注解开关 -->
