@@ -32,12 +32,12 @@
   -->
     <!-- 主要记录session 把原来的session存入二级缓存总 -->
     <!-- http://www.cnblogs.com/liujiduo/p/5007043.html 睡觉，有空在弄-->
-    <cache name="session"
-           maxEntriesLocalHeap="1000"
+    <cache name="userCache"
+           maxElementsInMemory="1000"
            eternal="false"
-           overflowToDisk="true"
-           timeToIdleSeconds="1800"
-           timeToLiveSeconds="1800"
+           overflowToDisk="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="120"
            memoryStoreEvictionPolicy="LFU"
     />
 </ehcache>  
