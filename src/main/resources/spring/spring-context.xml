@@ -13,7 +13,7 @@
     <import resource="spring-dao.xml"/>
     <import resource="spring-service.xml"/>
     <import resource="spring-web.xml"/>
-    <import resource="spring-shiro.xml"/>
+    <!--<import resource="spring-shiro.xml"/>-->
     <import resource="spring-profile.xml"/>
 
 </beans>

@@ -6,10 +6,6 @@ import java.util.Map;
 import indi.orange1438.managementsystem.util.Const;
 import indi.orange1438.managementsystem.util.RequestParameter;
 import indi.orange1438.managementsystem.util.helper.StringHelper;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +16,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -32,29 +27,27 @@ public class LoginController{
 
 	/**
 	 * 获取登录用户的IP
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public void getRemortIP(String USERNAME) throws Exception {
-//		PageData pd = new PageData();
-//		HttpServletRequest request = this.getRequest();
-//		String ip = "";
-//		if (request.getHeader("x-forwarded-for") == null) {
-//			ip = request.getRemoteAddr();
-//	    }else{
-//	    	ip = request.getHeader("x-forwarded-for");
-//	    }
-//		pd.put("USERNAME", USERNAME);
-//		pd.put("IP", ip);
-//		userService.saveIP(pd);
-	}  
-	
-	
+	public String getIpAddr(HttpServletRequest request) {
+		String ip = request.getHeader("x-forwarded-for");
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		return ip;
+	}
+
 	/**
 	 * 访问登录页
-	 * @return
 	 */
 	@RequestMapping(value="/login_toLogin")
-	public ModelAndView toLoginPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView toLoginPage(HttpServletRequest request) throws Exception {
 		String path = request.getContextPath();
 		String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
 
@@ -91,14 +84,7 @@ public class LoginController{
 				String sessionCode = session != null ? session.getAttribute(Const.SESSION_SECURITY_CODE).toString() : "";
 
 				if (StringHelper.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(code)) {
-					//shiro加入身份验证
-					Subject subject = SecurityUtils.getSubject();
-					UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
-					try {
-						subject.login(token);
-					} catch (AuthenticationException e) {
-						resultInfo = "usererror";       //用户名或密码有误
-					}
+					resultInfo = "usererror";       //用户名或密码有误
 				} else {
 					resultInfo = "codeerror";                    //验证码输入有误
 				}

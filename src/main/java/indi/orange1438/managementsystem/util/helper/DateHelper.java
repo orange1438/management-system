@@ -96,6 +96,21 @@ public class DateHelper {
     /**
      * 获取当前时间
      *
+     * @return
+     */
+    public synchronized static Date getDateTimeNow() {
+        SimpleDateFormat sdf = new SimpleDateFormat(timePattern);
+        try {
+            return sdf.parse(sdf.format(new Date()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取当前时间
+     *
      * @param pattern 时间格式
      * @return
      */
@@ -267,8 +282,8 @@ public class DateHelper {
     }
 
     /**
-     * @param s
-     * @param e
+     * @param s start 开始时间
+     * @param e end 结束时间
      * @return boolean
      * @throws
      * @Title: 比较时间

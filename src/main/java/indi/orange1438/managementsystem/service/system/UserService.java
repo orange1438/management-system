@@ -27,7 +27,7 @@ public class UserService {
      *
      * @param userName 用户名
      * @param password 密码
-     * @return
+     * @return 用户
      */
     @Cacheable(value = "userCache", key = "#userName")
     public UserEntity getUserEntityByNameAndPwd(String userName, String password) {
@@ -38,5 +38,10 @@ public class UserService {
             return userEntityList.get(0);
         }
         return null;
+    }
+
+
+    public int updateUserByUserId(UserEntity userEntity) {
+        return userDAO.updateByPrimaryKeySelective(userEntity);
     }
 }
