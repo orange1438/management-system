@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class UserEntity implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = -3499309619012208964L;
+    private static final long serialVersionUID = 4398549512905949055L;
 
     // 用户ID
     private Long userId;
