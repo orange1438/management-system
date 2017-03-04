@@ -5,6 +5,7 @@
              ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
