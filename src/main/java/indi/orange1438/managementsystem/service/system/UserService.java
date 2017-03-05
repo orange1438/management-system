@@ -1,8 +1,8 @@
 package indi.orange1438.managementsystem.service.system;
 
-import indi.orange1438.managementsystem.dao.UserEntityDAO;
-import indi.orange1438.managementsystem.dao.entity.UserEntity;
-import indi.orange1438.managementsystem.dao.entity.UserEntityExample;
+import indi.orange1438.managementsystem.dao.UserDAO;
+import indi.orange1438.managementsystem.dao.entity.User;
+import indi.orange1438.managementsystem.dao.entity.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.List;
 public class UserService {
 
     @Autowired
-    UserEntityDAO userDAO;
+    UserDAO userDAO;
 
     /**
      * 登录判断:通过用户名和密码得到用户
@@ -30,10 +30,10 @@ public class UserService {
      * @return 用户
      */
     @Cacheable(value = "userCache", key = "#userName")
-    public UserEntity getUserEntityByNameAndPwd(String userName, String password) {
-        UserEntityExample userEntityExample = new UserEntityExample();
+    public User getUserEntityByNameAndPwd(String userName, String password) {
+        UserExample userEntityExample = new UserExample();
         userEntityExample.createCriteria().andUserNameEqualTo(userName).andPasswordEqualTo(password);
-        List<UserEntity> userEntityList = userDAO.selectByExample(userEntityExample);
+        List<User> userEntityList = userDAO.selectByExample(userEntityExample);
         if (null != userEntityList && 0 < userEntityList.size()) {
             return userEntityList.get(0);
         }
@@ -41,7 +41,7 @@ public class UserService {
     }
 
 
-    public int updateUserByUserId(UserEntity userEntity) {
+    public int updateUserByUserId(User userEntity) {
         return userDAO.updateByPrimaryKeySelective(userEntity);
     }
 }

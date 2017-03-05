@@ -3,7 +3,7 @@ package indi.orange1438.managementsystem.web.system.login;
 import java.util.HashMap;
 import java.util.Map;
 
-import indi.orange1438.managementsystem.dao.entity.UserEntity;
+import indi.orange1438.managementsystem.dao.entity.User;
 import indi.orange1438.managementsystem.service.system.UserService;
 import indi.orange1438.managementsystem.util.Const;
 import indi.orange1438.managementsystem.util.TableProperties;
@@ -69,15 +69,15 @@ public class LoginController extends BaseController {
                 String sessionCode = session != null ? session.getAttribute(Const.SESSION_SECURITY_CODE).toString() : "";
 
                 if (StringUtils.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(code)) {
-                    UserEntity userEntity = userService.getUserEntityByNameAndPwd(userName, password);
-                    if (null != userEntity) {
-                        userEntity.setLastLoginTime(DateUtils.getDateTimeNow());
-                        userEntity.setLoginIp(IpUtils.getIpAddr(request));
-                        userEntity.setLoginCount(userEntity.getLoginCount() + 1L);
-                        TableProperties.modifyProperties(userEntity, userEntity.getTrueName());
-                        userService.updateUserByUserId(userEntity);
+                    User user = userService.getUserEntityByNameAndPwd(userName, password);
+                    if (null != user) {
+                        user.setLastLoginTime(DateUtils.getDateTimeNow());
+                        user.setLoginIp(IpUtils.getIpAddr(request));
+                        user.setLoginCount(user.getLoginCount() + 1L);
+                        TableProperties.modifyProperties(user, user.getTrueName());
+                        userService.updateUserByUserId(user);
 
-                        session.setAttribute(Const.SESSION_USER, userEntity);
+                        session.setAttribute(Const.SESSION_USER, user);
                         session.removeAttribute(Const.SESSION_SECURITY_CODE);
                     } else {
                         resultInfo = "usererror";       //用户名或密码有误
@@ -107,7 +107,7 @@ public class LoginController extends BaseController {
 
         try {
             HttpSession session = this.getSession();
-            UserEntity userEntity = (UserEntity) session.getAttribute(Const.SESSION_USER);
+            User userEntity = (User) session.getAttribute(Const.SESSION_USER);
             if (userEntity != null) {
                 mv.setViewName("system/admin/index");
                 mv.addObject("user", userEntity);

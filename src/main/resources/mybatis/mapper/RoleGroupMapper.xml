@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.orange1438.managementsystem.dao.RoleGroupDAO">
+    <resultMap id="BaseResultMap" type="indi.orange1438.managementsystem.dao.entity.RoleGroup">
+        <id column="ROLE_GROUP_ID" jdbcType="BIGINT" property="roleGroupId"/>
+        <result column="ROLE_ID" jdbcType="BIGINT" property="roleId"/>
+        <result column="GROUP_ID" jdbcType="BIGINT" property="groupId"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="CREATER" jdbcType="VARCHAR" property="creater"/>
+        <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="MODIFIER" jdbcType="VARCHAR" property="modifier"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        ROLE_GROUP_ID, ROLE_ID, GROUP_ID, CREATE_TIME, CREATER, MODIFY_TIME, MODIFIER
+    </sql>
+    <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroupExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from sys_role_group
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role_group
+        where ROLE_GROUP_ID = #{roleGroupId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sys_role_group
+        where ROLE_GROUP_ID = #{roleGroupId,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroupExample">
+        delete from sys_role_group
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroup">
+        insert into sys_role_group (ROLE_GROUP_ID, ROLE_ID, GROUP_ID,
+        CREATE_TIME, CREATER, MODIFY_TIME,
+        MODIFIER)
+        values (#{roleGroupId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{groupId,jdbcType=BIGINT},
+        #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP},
+        #{modifier,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroup">
+        insert into sys_role_group
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleGroupId != null">
+                ROLE_GROUP_ID,
+            </if>
+            <if test="roleId != null">
+                ROLE_ID,
+            </if>
+            <if test="groupId != null">
+                GROUP_ID,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="creater != null">
+                CREATER,
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME,
+            </if>
+            <if test="modifier != null">
+                MODIFIER,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleGroupId != null">
+                #{roleGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=BIGINT},
+            </if>
+            <if test="groupId != null">
+                #{groupId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creater != null">
+                #{creater,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroupExample"
+            resultType="java.lang.Long">
+        select count(*) from sys_role_group
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update sys_role_group
+        <set>
+            <if test="record.roleGroupId != null">
+                ROLE_GROUP_ID = #{record.roleGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="record.roleId != null">
+                ROLE_ID = #{record.roleId,jdbcType=BIGINT},
+            </if>
+            <if test="record.groupId != null">
+                GROUP_ID = #{record.groupId,jdbcType=BIGINT},
+            </if>
+            <if test="record.createTime != null">
+                CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.creater != null">
+                CREATER = #{record.creater,jdbcType=VARCHAR},
+            </if>
+            <if test="record.modifyTime != null">
+                MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.modifier != null">
+                MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update sys_role_group
+        set ROLE_GROUP_ID = #{record.roleGroupId,jdbcType=BIGINT},
+        ROLE_ID = #{record.roleId,jdbcType=BIGINT},
+        GROUP_ID = #{record.groupId,jdbcType=BIGINT},
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+        CREATER = #{record.creater,jdbcType=VARCHAR},
+        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+        MODIFIER = #{record.modifier,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroup">
+        update sys_role_group
+        <set>
+            <if test="roleId != null">
+                ROLE_ID = #{roleId,jdbcType=BIGINT},
+            </if>
+            <if test="groupId != null">
+                GROUP_ID = #{groupId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creater != null">
+                CREATER = #{creater,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                MODIFIER = #{modifier,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ROLE_GROUP_ID = #{roleGroupId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroup">
+        update sys_role_group
+        set ROLE_ID = #{roleId,jdbcType=BIGINT},
+        GROUP_ID = #{groupId,jdbcType=BIGINT},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+        CREATER = #{creater,jdbcType=VARCHAR},
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+        MODIFIER = #{modifier,jdbcType=VARCHAR}
+        where ROLE_GROUP_ID = #{roleGroupId,jdbcType=BIGINT}
+    </update>
+    <resultMap id="BaseResultMap" type="indi.orange1438.managementsystem.dao.entity.RoleGroup">
+        <id column="ROLE_GROUP_ID" jdbcType="BIGINT" property="roleGroupId"/>
+        <result column="ROLE_ID" jdbcType="BIGINT" property="roleId"/>
+        <result column="GROUP_ID" jdbcType="BIGINT" property="groupId"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="CREATER" jdbcType="VARCHAR" property="creater"/>
+        <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="MODIFIER" jdbcType="VARCHAR" property="modifier"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        ROLE_GROUP_ID, ROLE_ID, GROUP_ID, CREATE_TIME, CREATER, MODIFY_TIME, MODIFIER
+    </sql>
+    <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroupExample"
+            resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from sys_role_group
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role_group
+        where ROLE_GROUP_ID = #{roleGroupId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sys_role_group
+        where ROLE_GROUP_ID = #{roleGroupId,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroupExample">
+        delete from sys_role_group
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroup">
+        insert into sys_role_group (ROLE_GROUP_ID, ROLE_ID, GROUP_ID,
+        CREATE_TIME, CREATER, MODIFY_TIME,
+        MODIFIER)
+        values (#{roleGroupId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{groupId,jdbcType=BIGINT},
+        #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP},
+        #{modifier,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroup">
+        insert into sys_role_group
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleGroupId != null">
+                ROLE_GROUP_ID,
+            </if>
+            <if test="roleId != null">
+                ROLE_ID,
+            </if>
+            <if test="groupId != null">
+                GROUP_ID,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="creater != null">
+                CREATER,
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME,
+            </if>
+            <if test="modifier != null">
+                MODIFIER,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleGroupId != null">
+                #{roleGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=BIGINT},
+            </if>
+            <if test="groupId != null">
+                #{groupId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creater != null">
+                #{creater,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                #{modifier,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroupExample"
+            resultType="java.lang.Long">
+        select count(*) from sys_role_group
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update sys_role_group
+        <set>
+            <if test="record.roleGroupId != null">
+                ROLE_GROUP_ID = #{record.roleGroupId,jdbcType=BIGINT},
+            </if>
+            <if test="record.roleId != null">
+                ROLE_ID = #{record.roleId,jdbcType=BIGINT},
+            </if>
+            <if test="record.groupId != null">
+                GROUP_ID = #{record.groupId,jdbcType=BIGINT},
+            </if>
+            <if test="record.createTime != null">
+                CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.creater != null">
+                CREATER = #{record.creater,jdbcType=VARCHAR},
+            </if>
+            <if test="record.modifyTime != null">
+                MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.modifier != null">
+                MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update sys_role_group
+        set ROLE_GROUP_ID = #{record.roleGroupId,jdbcType=BIGINT},
+        ROLE_ID = #{record.roleId,jdbcType=BIGINT},
+        GROUP_ID = #{record.groupId,jdbcType=BIGINT},
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+        CREATER = #{record.creater,jdbcType=VARCHAR},
+        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+        MODIFIER = #{record.modifier,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroup">
+        update sys_role_group
+        <set>
+            <if test="roleId != null">
+                ROLE_ID = #{roleId,jdbcType=BIGINT},
+            </if>
+            <if test="groupId != null">
+                GROUP_ID = #{groupId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creater != null">
+                CREATER = #{creater,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyTime != null">
+                MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifier != null">
+                MODIFIER = #{modifier,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ROLE_GROUP_ID = #{roleGroupId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroup">
+        update sys_role_group
+        set ROLE_ID = #{roleId,jdbcType=BIGINT},
+        GROUP_ID = #{groupId,jdbcType=BIGINT},
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+        CREATER = #{creater,jdbcType=VARCHAR},
+        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+        MODIFIER = #{modifier,jdbcType=VARCHAR}
+        where ROLE_GROUP_ID = #{roleGroupId,jdbcType=BIGINT}
+    </update>
+</mapper>

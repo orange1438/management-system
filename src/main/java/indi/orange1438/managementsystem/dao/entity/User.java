@@ -4,9 +4,14 @@ package indi.orange1438.managementsystem.dao.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UserEntity implements Serializable {
+/**
+ * 系统用户表 sys_user
+ *
+ * @author orange1438 code generator
+ */
+public class User implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = 4398549512905949055L;
+    private static final long serialVersionUID = -6658375769025099185L;
 
     // 用户ID
     private Long userId;
@@ -31,6 +36,9 @@ public class UserEntity implements Serializable {
 
     // 电子邮箱
     private String email;
+
+    // 皮肤  默认：default
+    private String skin;
 
     // 上次登录时间
     private Date lastLoginTime;
@@ -181,6 +189,24 @@ public class UserEntity implements Serializable {
         this.email = email == null ? null : email.trim();
     }
 
+    /**
+     * 获取 皮肤 sys_user.SKIN
+     *
+     * @return 皮肤
+     */
+    public String getSkin() {
+        return skin;
+    }
+
+    /**
+     * 设置 皮肤 sys_user.SKIN
+     *
+     * @param skin 皮肤
+     */
+    public void setSkin(String skin) {
+        this.skin = skin == null ? null : skin.trim();
+    }
+
     /** 
      * 获取 上次登录时间 sys_user.LAST_LOGIN_TIME
      * @return 上次登录时间
@@ -308,6 +334,7 @@ public class UserEntity implements Serializable {
         sb.append(", trueName=").append(trueName);
         sb.append(", mobile=").append(mobile);
         sb.append(", email=").append(email);
+        sb.append(", skin=").append(skin);
         sb.append(", lastLoginTime=").append(lastLoginTime);
         sb.append(", loginIp=").append(loginIp);
         sb.append(", loginCount=").append(loginCount);

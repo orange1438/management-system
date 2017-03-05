@@ -127,7 +127,16 @@ http://generator.sturgeon.mopaas.com/index.html
 
         <!-- 指定生成的数据库表 -->
         <!-- domainObjectName：指定生成的实体类的文件名 -->
-        <table tableName="sys_user" domainObjectName="UserEntity"/>
+        <table tableName="sys_user" domainObjectName="User"/>
+        <table tableName="sys_user_role" domainObjectName="UserRole"/>
+        <table tableName="sys_role_permission" domainObjectName="RolePermission"/>
+        <table tableName="sys_role_group" domainObjectName="RoleGroup"/>
+        <table tableName="sys_role" domainObjectName="Role"/>
+        <table tableName="sys_permission_menu" domainObjectName="PermissionMenu"/>
+        <table tableName="sys_permission" domainObjectName="Permission"/>
+        <table tableName="sys_menu" domainObjectName="Menu"/>
+        <table tableName="sys_group_menu" domainObjectName="GroupMenu"/>
+        <table tableName="sys_group" domainObjectName="Group"/>
 
         <!-- 其他需求：有些表的字段需要指定java类型 -->
         <!--<table schema="management_system" tableName="sys_role" domainObjectName="SysRole"-->

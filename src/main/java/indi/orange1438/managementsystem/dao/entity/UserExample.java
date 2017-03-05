@@ -8,9 +8,8 @@ import java.util.List;
 /**
  * 本文件由 https://github.com/orange1438/mybatis-generator-core-chinese-annotation1.3.5-chinese-annotation 自动生成
  * @author orange1438 code generator
- * date:2017-03-04 14:59:09
  */
-public class UserEntityExample {
+public class UserExample {
     // 排序字段
     protected String orderByClause;
 
@@ -23,7 +22,7 @@ public class UserEntityExample {
     /** 
      * 构造查询条件
      */
-    public UserEntityExample() {
+    public UserExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -690,6 +689,76 @@ public class UserEntityExample {
 
         public Criteria andEmailNotBetween(String value1, String value2) {
             addCriterion("EMAIL not between", value1, value2, "email");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinIsNull() {
+            addCriterion("SKIN is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinIsNotNull() {
+            addCriterion("SKIN is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinEqualTo(String value) {
+            addCriterion("SKIN =", value, "skin");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinNotEqualTo(String value) {
+            addCriterion("SKIN <>", value, "skin");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinGreaterThan(String value) {
+            addCriterion("SKIN >", value, "skin");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinGreaterThanOrEqualTo(String value) {
+            addCriterion("SKIN >=", value, "skin");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinLessThan(String value) {
+            addCriterion("SKIN <", value, "skin");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinLessThanOrEqualTo(String value) {
+            addCriterion("SKIN <=", value, "skin");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinLike(String value) {
+            addCriterion("SKIN like", value, "skin");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinNotLike(String value) {
+            addCriterion("SKIN not like", value, "skin");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinIn(List<String> values) {
+            addCriterion("SKIN in", values, "skin");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinNotIn(List<String> values) {
+            addCriterion("SKIN not in", values, "skin");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinBetween(String value1, String value2) {
+            addCriterion("SKIN between", value1, value2, "skin");
+            return (Criteria) this;
+        }
+
+        public Criteria andSkinNotBetween(String value1, String value2) {
+            addCriterion("SKIN not between", value1, value2, "skin");
             return (Criteria) this;
         }
 
