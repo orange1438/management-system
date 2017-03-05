@@ -1,9 +1,12 @@
 package indi.orange1438.managementsystem.web.system.login;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import indi.orange1438.managementsystem.dao.entity.Menu;
 import indi.orange1438.managementsystem.dao.entity.User;
+import indi.orange1438.managementsystem.service.system.MenuService;
 import indi.orange1438.managementsystem.service.system.UserService;
 import indi.orange1438.managementsystem.util.Const;
 import indi.orange1438.managementsystem.util.TableProperties;
@@ -31,6 +34,9 @@ public class LoginController extends BaseController {
 
     @Resource(name = "userService")
     UserService userService;
+
+    @Resource(name = "menuService")
+    private MenuService menuService;
 
     /**
      * 访问登录页
@@ -79,6 +85,8 @@ public class LoginController extends BaseController {
 
                         session.setAttribute(Const.SESSION_USER, user);
                         session.removeAttribute(Const.SESSION_SECURITY_CODE);
+
+                        List<Menu> menuList = menuService.getMenuByUserId(user.getUserId());
                     } else {
                         resultInfo = "usererror";       //用户名或密码有误
                     }
