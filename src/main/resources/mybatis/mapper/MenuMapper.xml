@@ -7,7 +7,7 @@
         <result column="MENU_URL" jdbcType="VARCHAR" property="menuUrl"/>
         <result column="PARENT_ID" jdbcType="BIGINT" property="parentId"/>
         <result column="MENU_ICON" jdbcType="VARCHAR" property="menuIcon"/>
-        <result column="ORDER" jdbcType="INTEGER" property="order"/>
+        <result column="MENU_ORDER" jdbcType="INTEGER" property="menuOrder"/>
         <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="CREATER" jdbcType="VARCHAR" property="creater"/>
         <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
@@ -74,7 +74,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-        MENU_ID, MENU_NAME, MENU_URL, PARENT_ID, MENU_ICON, ORDER, CREATE_TIME, CREATER,
+        MENU_ID, MENU_NAME, MENU_URL, PARENT_ID, MENU_ICON, MENU_ORDER, CREATE_TIME, CREATER,
         MODIFY_TIME, MODIFIER
     </sql>
     <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.MenuExample"
@@ -109,15 +109,15 @@
         </if>
     </delete>
     <insert id="insert" parameterType="indi.orange1438.managementsystem.dao.entity.Menu">
-        insert into sys_menu (MENU_ID, MENU_NAME, MENU_URL,
-        PARENT_ID, MENU_ICON, ORDER,
-        CREATE_TIME, CREATER, MODIFY_TIME,
-        MODIFIER)
-        values (#{menuId,jdbcType=BIGINT}, #{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR},
-        #{parentId,jdbcType=BIGINT}, #{menuIcon,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER},
-        #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP},
-        #{modifier,jdbcType=VARCHAR})
-    </insert>
+    insert into sys_menu (MENU_ID, MENU_NAME, MENU_URL, 
+      PARENT_ID, MENU_ICON, MENU_ORDER, 
+      CREATE_TIME, CREATER, MODIFY_TIME, 
+      MODIFIER)
+    values (#{menuId,jdbcType=BIGINT}, #{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=BIGINT}, #{menuIcon,jdbcType=VARCHAR}, #{menuOrder,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=VARCHAR})
+  </insert>
     <insert id="insertSelective" parameterType="indi.orange1438.managementsystem.dao.entity.Menu">
         insert into sys_menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -136,8 +136,8 @@
             <if test="menuIcon != null">
                 MENU_ICON,
             </if>
-            <if test="order != null">
-                ORDER,
+            <if test="menuOrder != null">
+                MENU_ORDER,
             </if>
             <if test="createTime != null">
                 CREATE_TIME,
@@ -168,8 +168,8 @@
             <if test="menuIcon != null">
                 #{menuIcon,jdbcType=VARCHAR},
             </if>
-            <if test="order != null">
-                #{order,jdbcType=INTEGER},
+            <if test="menuOrder != null">
+                #{menuOrder,jdbcType=INTEGER},
             </if>
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
@@ -210,8 +210,8 @@
             <if test="record.menuIcon != null">
                 MENU_ICON = #{record.menuIcon,jdbcType=VARCHAR},
             </if>
-            <if test="record.order != null">
-                ORDER = #{record.order,jdbcType=INTEGER},
+            <if test="record.menuOrder != null">
+                MENU_ORDER = #{record.menuOrder,jdbcType=INTEGER},
             </if>
             <if test="record.createTime != null">
                 CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
@@ -237,7 +237,7 @@
         MENU_URL = #{record.menuUrl,jdbcType=VARCHAR},
         PARENT_ID = #{record.parentId,jdbcType=BIGINT},
         MENU_ICON = #{record.menuIcon,jdbcType=VARCHAR},
-        ORDER = #{record.order,jdbcType=INTEGER},
+        MENU_ORDER = #{record.menuOrder,jdbcType=INTEGER},
         CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
         CREATER = #{record.creater,jdbcType=VARCHAR},
         MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
@@ -261,8 +261,8 @@
             <if test="menuIcon != null">
                 MENU_ICON = #{menuIcon,jdbcType=VARCHAR},
             </if>
-            <if test="order != null">
-                ORDER = #{order,jdbcType=INTEGER},
+            <if test="menuOrder != null">
+                MENU_ORDER = #{menuOrder,jdbcType=INTEGER},
             </if>
             <if test="createTime != null">
                 CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
@@ -280,16 +280,16 @@
         where MENU_ID = #{menuId,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="indi.orange1438.managementsystem.dao.entity.Menu">
-        update sys_menu
-        set MENU_NAME = #{menuName,jdbcType=VARCHAR},
-        MENU_URL = #{menuUrl,jdbcType=VARCHAR},
-        PARENT_ID = #{parentId,jdbcType=BIGINT},
-        MENU_ICON = #{menuIcon,jdbcType=VARCHAR},
-        ORDER = #{order,jdbcType=INTEGER},
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-        CREATER = #{creater,jdbcType=VARCHAR},
-        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
-        MODIFIER = #{modifier,jdbcType=VARCHAR}
-        where MENU_ID = #{menuId,jdbcType=BIGINT}
-    </update>
+    update sys_menu
+    set MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      MENU_URL = #{menuUrl,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=BIGINT},
+      MENU_ICON = #{menuIcon,jdbcType=VARCHAR},
+      MENU_ORDER = #{menuOrder,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      MODIFIER = #{modifier,jdbcType=VARCHAR}
+    where MENU_ID = #{menuId,jdbcType=BIGINT}
+  </update>
 </mapper>

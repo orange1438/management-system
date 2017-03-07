@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * 本文件由 https://github.com/orange1438/mybatis-generator-core-chinese-annotation1.3.5-chinese-annotation 自动生成
- *
  * @author orange1438 code generator
  */
 public class MenuExample {
@@ -20,62 +19,59 @@ public class MenuExample {
     // 查询条件
     protected List<Criteria> oredCriteria;
 
-    /**
+    /** 
      * 构造查询条件
      */
     public MenuExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
-    /**
+    /** 
      * 设置排序字段
-     *
      * @param orderByClause 排序字段
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
-    /**
+    /** 
      * 获取排序字段
      */
     public String getOrderByClause() {
         return orderByClause;
     }
 
-    /**
+    /** 
      * 设置过滤重复数据
-     *
      * @param distinct 是否过滤重复数据
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
     }
 
-    /**
+    /** 
      * 是否过滤重复数据
      */
     public boolean isDistinct() {
         return distinct;
     }
 
-    /**
+    /** 
      * 获取当前的查询条件实例
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
     }
 
-    /**
+    /** 
      * 增加或者的查询条件,用于构建或者查询
-     *
      * @param criteria 过滤条件实例
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
     }
 
-    /**
+    /** 
      * 创建一个新的或者查询条件
      */
     public Criteria or() {
@@ -84,7 +80,7 @@ public class MenuExample {
         return criteria;
     }
 
-    /**
+    /** 
      * 创建一个查询条件
      */
     public Criteria createCriteria() {
@@ -95,7 +91,7 @@ public class MenuExample {
         return criteria;
     }
 
-    /**
+    /** 
      * 内部构建查询条件对象
      */
     protected Criteria createCriteriaInternal() {
@@ -103,7 +99,7 @@ public class MenuExample {
         return criteria;
     }
 
-    /**
+    /** 
      * 清除查询条件
      */
     public void clear() {
@@ -486,63 +482,63 @@ public class MenuExample {
             return (Criteria) this;
         }
 
-        public Criteria andOrderIsNull() {
-            addCriterion("ORDER is null");
+        public Criteria andMenuOrderIsNull() {
+            addCriterion("MENU_ORDER is null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIsNotNull() {
-            addCriterion("ORDER is not null");
+        public Criteria andMenuOrderIsNotNull() {
+            addCriterion("MENU_ORDER is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOrderEqualTo(Integer value) {
-            addCriterion("ORDER =", value, "order");
+        public Criteria andMenuOrderEqualTo(Integer value) {
+            addCriterion("MENU_ORDER =", value, "menuOrder");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNotEqualTo(Integer value) {
-            addCriterion("ORDER <>", value, "order");
+        public Criteria andMenuOrderNotEqualTo(Integer value) {
+            addCriterion("MENU_ORDER <>", value, "menuOrder");
             return (Criteria) this;
         }
 
-        public Criteria andOrderGreaterThan(Integer value) {
-            addCriterion("ORDER >", value, "order");
+        public Criteria andMenuOrderGreaterThan(Integer value) {
+            addCriterion("MENU_ORDER >", value, "menuOrder");
             return (Criteria) this;
         }
 
-        public Criteria andOrderGreaterThanOrEqualTo(Integer value) {
-            addCriterion("ORDER >=", value, "order");
+        public Criteria andMenuOrderGreaterThanOrEqualTo(Integer value) {
+            addCriterion("MENU_ORDER >=", value, "menuOrder");
             return (Criteria) this;
         }
 
-        public Criteria andOrderLessThan(Integer value) {
-            addCriterion("ORDER <", value, "order");
+        public Criteria andMenuOrderLessThan(Integer value) {
+            addCriterion("MENU_ORDER <", value, "menuOrder");
             return (Criteria) this;
         }
 
-        public Criteria andOrderLessThanOrEqualTo(Integer value) {
-            addCriterion("ORDER <=", value, "order");
+        public Criteria andMenuOrderLessThanOrEqualTo(Integer value) {
+            addCriterion("MENU_ORDER <=", value, "menuOrder");
             return (Criteria) this;
         }
 
-        public Criteria andOrderIn(List<Integer> values) {
-            addCriterion("ORDER in", values, "order");
+        public Criteria andMenuOrderIn(List<Integer> values) {
+            addCriterion("MENU_ORDER in", values, "menuOrder");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNotIn(List<Integer> values) {
-            addCriterion("ORDER not in", values, "order");
+        public Criteria andMenuOrderNotIn(List<Integer> values) {
+            addCriterion("MENU_ORDER not in", values, "menuOrder");
             return (Criteria) this;
         }
 
-        public Criteria andOrderBetween(Integer value1, Integer value2) {
-            addCriterion("ORDER between", value1, value2, "order");
+        public Criteria andMenuOrderBetween(Integer value1, Integer value2) {
+            addCriterion("MENU_ORDER between", value1, value2, "menuOrder");
             return (Criteria) this;
         }
 
-        public Criteria andOrderNotBetween(Integer value1, Integer value2) {
-            addCriterion("ORDER not between", value1, value2, "order");
+        public Criteria andMenuOrderNotBetween(Integer value1, Integer value2) {
+            addCriterion("MENU_ORDER not between", value1, value2, "menuOrder");
             return (Criteria) this;
         }
 

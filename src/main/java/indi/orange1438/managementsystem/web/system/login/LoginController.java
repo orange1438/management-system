@@ -1,11 +1,13 @@
 package indi.orange1438.managementsystem.web.system.login;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import indi.orange1438.managementsystem.dao.entity.Menu;
 import indi.orange1438.managementsystem.dao.entity.User;
+import indi.orange1438.managementsystem.dto.MenuDTO;
 import indi.orange1438.managementsystem.service.system.MenuService;
 import indi.orange1438.managementsystem.service.system.UserService;
 import indi.orange1438.managementsystem.util.Const;
@@ -85,8 +87,6 @@ public class LoginController extends BaseController {
 
                         session.setAttribute(Const.SESSION_USER, user);
                         session.removeAttribute(Const.SESSION_SECURITY_CODE);
-
-                        List<Menu> menuList = menuService.getMenuByUserId(user.getUserId());
                     } else {
                         resultInfo = "usererror";       //用户名或密码有误
                     }
@@ -115,10 +115,18 @@ public class LoginController extends BaseController {
 
         try {
             HttpSession session = this.getSession();
-            User userEntity = (User) session.getAttribute(Const.SESSION_USER);
-            if (userEntity != null) {
+            User user = (User) session.getAttribute(Const.SESSION_USER);
+            if (user != null) {
+                List<MenuDTO> menuList = new ArrayList<MenuDTO>();
+                if (null == session.getAttribute(Const.SESSION_MENULIST)) {
+                    menuList = menuService.getMenuDTOByUserId(user.getUserId());
+                    session.setAttribute(Const.SESSION_MENULIST, menuList);            //菜单权限放入session中
+                } else {
+                    menuList = (List<MenuDTO>) session.getAttribute(Const.SESSION_MENULIST);
+                }
                 mv.setViewName("system/admin/index");
-                mv.addObject("user", userEntity);
+                mv.addObject("user", user);
+                mv.addObject("menuList", menuList);
             } else {
                 mv.setViewName("system/admin/login");//session失效后跳转登录页面
             }
