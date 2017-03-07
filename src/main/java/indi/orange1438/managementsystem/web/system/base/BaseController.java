@@ -49,7 +49,7 @@ public class BaseController {
     }
 
     /**
-     * 得到json数据请求的变量参数
+     * 得到json数据请求的变量post参数
      */
     public Map getParameterMap() {
         try {

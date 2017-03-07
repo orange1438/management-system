@@ -17,7 +17,7 @@ function siMenu(id,fid,MENU_NAME,MENU_URL){
 	$("#"+fid).attr("class","active open");
 	$("#"+id).attr("class","active");
 	top.mainFrame.tabAddHandler(id,MENU_NAME,MENU_URL);
-	if(MENU_URL != "druid/index.html"){
+    if (MENU_URL != "/druid/index.html") {
 		jzts();
 	}
 }

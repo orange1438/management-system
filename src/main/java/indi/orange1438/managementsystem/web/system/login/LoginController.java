@@ -28,8 +28,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
-/*
- * 总入口
+/**
+ * 登录
+ *
+ * @author orange1438
+ *         github: github.com/orange1438
+ *         date: 2017/03/07 22:42
  */
 @Controller
 public class LoginController extends BaseController {
