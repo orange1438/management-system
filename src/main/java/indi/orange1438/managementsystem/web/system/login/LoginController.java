@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import indi.orange1438.managementsystem.dao.entity.Menu;
+
 import indi.orange1438.managementsystem.dao.entity.User;
 import indi.orange1438.managementsystem.dto.MenuDTO;
 import indi.orange1438.managementsystem.service.system.MenuService;
@@ -47,7 +47,6 @@ public class LoginController extends BaseController {
     public ModelAndView toLoginPage() throws Exception {
         Map map = new HashMap();
         map.put("SysName", "Orange"); //填入系统名称
-        map.put("BasePath", this.getBasePath()); // 根目录地址，为动静分离资源做准备，可能需要单独的静态服务器而准备的
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("system/admin/login");
@@ -137,7 +136,6 @@ public class LoginController extends BaseController {
 
         Map map = new HashMap();
         map.put("SysName", "Orange"); //填入系统名称
-        map.put("BasePath", this.getBasePath()); // 根目录地址，为动静分离资源做准备，可能需要单独的静态服务器而准备的
         mv.addAllObjects(map);
         return mv;
     }
