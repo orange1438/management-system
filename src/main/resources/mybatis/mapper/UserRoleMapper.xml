@@ -6,7 +6,7 @@
         <result column="ROLE_ID" jdbcType="BIGINT" property="roleId"/>
         <result column="USER_ID" jdbcType="BIGINT" property="userId"/>
         <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="CREATER" jdbcType="VARCHAR" property="creater"/>
+        <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
         <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
         <result column="MODIFIER" jdbcType="VARCHAR" property="modifier"/>
     </resultMap>
@@ -71,7 +71,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-        USER_ROLE_ID, ROLE_ID, USER_ID, CREATE_TIME, CREATER, MODIFY_TIME, MODIFIER
+        USER_ROLE_ID, ROLE_ID, USER_ID, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
     </sql>
     <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.UserRoleExample"
             resultMap="BaseResultMap">
@@ -106,10 +106,10 @@
     </delete>
     <insert id="insert" parameterType="indi.orange1438.managementsystem.dao.entity.UserRole">
         insert into sys_user_role (USER_ROLE_ID, ROLE_ID, USER_ID,
-        CREATE_TIME, CREATER, MODIFY_TIME,
+        CREATE_TIME, CREATOR, MODIFY_TIME,
         MODIFIER)
         values (#{userRoleId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
-        #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP},
+        #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP},
         #{modifier,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="indi.orange1438.managementsystem.dao.entity.UserRole">
@@ -127,8 +127,8 @@
             <if test="createTime != null">
                 CREATE_TIME,
             </if>
-            <if test="creater != null">
-                CREATER,
+            <if test="creator != null">
+                CREATOR,
             </if>
             <if test="modifyTime != null">
                 MODIFY_TIME,
@@ -150,8 +150,8 @@
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="creater != null">
-                #{creater,jdbcType=VARCHAR},
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
             </if>
             <if test="modifyTime != null">
                 #{modifyTime,jdbcType=TIMESTAMP},
@@ -183,8 +183,8 @@
             <if test="record.createTime != null">
                 CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="record.creater != null">
-                CREATER = #{record.creater,jdbcType=VARCHAR},
+            <if test="record.creator != null">
+                CREATOR = #{record.creator,jdbcType=VARCHAR},
             </if>
             <if test="record.modifyTime != null">
                 MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
@@ -203,7 +203,7 @@
         ROLE_ID = #{record.roleId,jdbcType=BIGINT},
         USER_ID = #{record.userId,jdbcType=BIGINT},
         CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-        CREATER = #{record.creater,jdbcType=VARCHAR},
+        CREATOR = #{record.creator,jdbcType=VARCHAR},
         MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
         MODIFIER = #{record.modifier,jdbcType=VARCHAR}
         <if test="_parameter != null">
@@ -222,8 +222,8 @@
             <if test="createTime != null">
                 CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="creater != null">
-                CREATER = #{creater,jdbcType=VARCHAR},
+            <if test="creator != null">
+                CREATOR = #{creator,jdbcType=VARCHAR},
             </if>
             <if test="modifyTime != null">
                 MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
@@ -239,7 +239,7 @@
         set ROLE_ID = #{roleId,jdbcType=BIGINT},
         USER_ID = #{userId,jdbcType=BIGINT},
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-        CREATER = #{creater,jdbcType=VARCHAR},
+        CREATOR = #{creator,jdbcType=VARCHAR},
         MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
         MODIFIER = #{modifier,jdbcType=VARCHAR}
         where USER_ROLE_ID = #{userRoleId,jdbcType=BIGINT}

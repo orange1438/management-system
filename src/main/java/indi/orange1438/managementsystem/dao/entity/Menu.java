@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Menu implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = -6673666022085527601L;
+    private static final long serialVersionUID = 5401061643413580552L;
 
     // 菜单ID
     private Long menuId;
@@ -27,6 +27,9 @@ public class Menu implements Serializable {
     // 菜单图标名
     private String menuIcon;
 
+    // 菜单类型{1系统、2业务}
+    private String menuType;
+
     // 排序  默认：0
     private Integer menuOrder;
 
@@ -34,7 +37,7 @@ public class Menu implements Serializable {
     private Date createTime;
 
     // 创建人
-    private String creater;
+    private String creator;
 
     // 修改时间  默认：CURRENT_TIMESTAMP
     private Date modifyTime;
@@ -123,6 +126,24 @@ public class Menu implements Serializable {
     }
 
     /**
+     * 获取 菜单类型{1系统、2业务} sys_menu.MENU_TYPE
+     *
+     * @return 菜单类型{1系统、2业务}
+     */
+    public String getMenuType() {
+        return menuType;
+    }
+
+    /**
+     * 设置 菜单类型{1系统、2业务} sys_menu.MENU_TYPE
+     *
+     * @param menuType 菜单类型{1系统、2业务}
+     */
+    public void setMenuType(String menuType) {
+        this.menuType = menuType == null ? null : menuType.trim();
+    }
+
+    /** 
      * 获取 排序 sys_menu.MENU_ORDER
      * @return 排序
      */
@@ -130,7 +151,7 @@ public class Menu implements Serializable {
         return menuOrder;
     }
 
-    /**
+    /** 
      * 设置 排序 sys_menu.MENU_ORDER
      * @param menuOrder 排序
      */
@@ -154,20 +175,20 @@ public class Menu implements Serializable {
         this.createTime = createTime;
     }
 
-    /** 
-     * 获取 创建人 sys_menu.CREATER
+    /**
+     * 获取 创建人 sys_menu.CREATOR
      * @return 创建人
      */
-    public String getCreater() {
-        return creater;
+    public String getCreator() {
+        return creator;
     }
 
-    /** 
-     * 设置 创建人 sys_menu.CREATER
-     * @param creater 创建人
+    /**
+     * 设置 创建人 sys_menu.CREATOR
+     * @param creator 创建人
      */
-    public void setCreater(String creater) {
-        this.creater = creater == null ? null : creater.trim();
+    public void setCreator(String creator) {
+        this.creator = creator == null ? null : creator.trim();
     }
 
     /** 
@@ -214,9 +235,10 @@ public class Menu implements Serializable {
         sb.append(", menuUrl=").append(menuUrl);
         sb.append(", parentId=").append(parentId);
         sb.append(", menuIcon=").append(menuIcon);
+        sb.append(", menuType=").append(menuType);
         sb.append(", menuOrder=").append(menuOrder);
         sb.append(", createTime=").append(createTime);
-        sb.append(", creater=").append(creater);
+        sb.append(", creator=").append(creator);
         sb.append(", modifyTime=").append(modifyTime);
         sb.append(", modifier=").append(modifier);
         sb.append("]");

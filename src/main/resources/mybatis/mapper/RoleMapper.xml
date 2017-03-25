@@ -5,8 +5,15 @@
         <id column="ROLE_ID" jdbcType="BIGINT" property="roleId"/>
         <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName"/>
         <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+        <result column="MENU_RIGHTS" jdbcType="VARCHAR" property="menuRights"/>
+        <result column="ADD_RIGHTS" jdbcType="VARCHAR" property="addRights"/>
+        <result column="DELETE_RIGHTS" jdbcType="VARCHAR" property="deleteRights"/>
+        <result column="EDIT_RIGHTS" jdbcType="VARCHAR" property="editRights"/>
+        <result column="VIEW_RIGHTS" jdbcType="VARCHAR" property="viewRights"/>
+        <result column="IMPORT_RIGHTS" jdbcType="VARCHAR" property="importRights"/>
+        <result column="EXPORT_RIGHTS" jdbcType="VARCHAR" property="exportRights"/>
         <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="CREATER" jdbcType="VARCHAR" property="creater"/>
+        <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
         <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
         <result column="MODIFIER" jdbcType="VARCHAR" property="modifier"/>
     </resultMap>
@@ -71,7 +78,8 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-        ROLE_ID, ROLE_NAME, DESCRIPTION, CREATE_TIME, CREATER, MODIFY_TIME, MODIFIER
+        ROLE_ID, ROLE_NAME, DESCRIPTION, MENU_RIGHTS, ADD_RIGHTS, DELETE_RIGHTS, EDIT_RIGHTS,
+        VIEW_RIGHTS, IMPORT_RIGHTS, EXPORT_RIGHTS, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
     </sql>
     <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.RoleExample"
             resultMap="BaseResultMap">
@@ -106,11 +114,15 @@
     </delete>
     <insert id="insert" parameterType="indi.orange1438.managementsystem.dao.entity.Role">
         insert into sys_role (ROLE_ID, ROLE_NAME, DESCRIPTION,
-        CREATE_TIME, CREATER, MODIFY_TIME,
-        MODIFIER)
+        MENU_RIGHTS, ADD_RIGHTS, DELETE_RIGHTS,
+        EDIT_RIGHTS, VIEW_RIGHTS, IMPORT_RIGHTS,
+        EXPORT_RIGHTS, CREATE_TIME, CREATOR,
+        MODIFY_TIME, MODIFIER)
         values (#{roleId,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
-        #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP},
-        #{modifier,jdbcType=VARCHAR})
+        #{menuRights,jdbcType=VARCHAR}, #{addRights,jdbcType=VARCHAR}, #{deleteRights,jdbcType=VARCHAR},
+        #{editRights,jdbcType=VARCHAR}, #{viewRights,jdbcType=VARCHAR}, #{importRights,jdbcType=VARCHAR},
+        #{exportRights,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR},
+        #{modifyTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="indi.orange1438.managementsystem.dao.entity.Role">
         insert into sys_role
@@ -124,11 +136,32 @@
             <if test="description != null">
                 DESCRIPTION,
             </if>
+            <if test="menuRights != null">
+                MENU_RIGHTS,
+            </if>
+            <if test="addRights != null">
+                ADD_RIGHTS,
+            </if>
+            <if test="deleteRights != null">
+                DELETE_RIGHTS,
+            </if>
+            <if test="editRights != null">
+                EDIT_RIGHTS,
+            </if>
+            <if test="viewRights != null">
+                VIEW_RIGHTS,
+            </if>
+            <if test="importRights != null">
+                IMPORT_RIGHTS,
+            </if>
+            <if test="exportRights != null">
+                EXPORT_RIGHTS,
+            </if>
             <if test="createTime != null">
                 CREATE_TIME,
             </if>
-            <if test="creater != null">
-                CREATER,
+            <if test="creator != null">
+                CREATOR,
             </if>
             <if test="modifyTime != null">
                 MODIFY_TIME,
@@ -147,11 +180,32 @@
             <if test="description != null">
                 #{description,jdbcType=VARCHAR},
             </if>
+            <if test="menuRights != null">
+                #{menuRights,jdbcType=VARCHAR},
+            </if>
+            <if test="addRights != null">
+                #{addRights,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteRights != null">
+                #{deleteRights,jdbcType=VARCHAR},
+            </if>
+            <if test="editRights != null">
+                #{editRights,jdbcType=VARCHAR},
+            </if>
+            <if test="viewRights != null">
+                #{viewRights,jdbcType=VARCHAR},
+            </if>
+            <if test="importRights != null">
+                #{importRights,jdbcType=VARCHAR},
+            </if>
+            <if test="exportRights != null">
+                #{exportRights,jdbcType=VARCHAR},
+            </if>
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="creater != null">
-                #{creater,jdbcType=VARCHAR},
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
             </if>
             <if test="modifyTime != null">
                 #{modifyTime,jdbcType=TIMESTAMP},
@@ -180,11 +234,32 @@
             <if test="record.description != null">
                 DESCRIPTION = #{record.description,jdbcType=VARCHAR},
             </if>
+            <if test="record.menuRights != null">
+                MENU_RIGHTS = #{record.menuRights,jdbcType=VARCHAR},
+            </if>
+            <if test="record.addRights != null">
+                ADD_RIGHTS = #{record.addRights,jdbcType=VARCHAR},
+            </if>
+            <if test="record.deleteRights != null">
+                DELETE_RIGHTS = #{record.deleteRights,jdbcType=VARCHAR},
+            </if>
+            <if test="record.editRights != null">
+                EDIT_RIGHTS = #{record.editRights,jdbcType=VARCHAR},
+            </if>
+            <if test="record.viewRights != null">
+                VIEW_RIGHTS = #{record.viewRights,jdbcType=VARCHAR},
+            </if>
+            <if test="record.importRights != null">
+                IMPORT_RIGHTS = #{record.importRights,jdbcType=VARCHAR},
+            </if>
+            <if test="record.exportRights != null">
+                EXPORT_RIGHTS = #{record.exportRights,jdbcType=VARCHAR},
+            </if>
             <if test="record.createTime != null">
                 CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="record.creater != null">
-                CREATER = #{record.creater,jdbcType=VARCHAR},
+            <if test="record.creator != null">
+                CREATOR = #{record.creator,jdbcType=VARCHAR},
             </if>
             <if test="record.modifyTime != null">
                 MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
@@ -202,8 +277,15 @@
         set ROLE_ID = #{record.roleId,jdbcType=BIGINT},
         ROLE_NAME = #{record.roleName,jdbcType=VARCHAR},
         DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+        MENU_RIGHTS = #{record.menuRights,jdbcType=VARCHAR},
+        ADD_RIGHTS = #{record.addRights,jdbcType=VARCHAR},
+        DELETE_RIGHTS = #{record.deleteRights,jdbcType=VARCHAR},
+        EDIT_RIGHTS = #{record.editRights,jdbcType=VARCHAR},
+        VIEW_RIGHTS = #{record.viewRights,jdbcType=VARCHAR},
+        IMPORT_RIGHTS = #{record.importRights,jdbcType=VARCHAR},
+        EXPORT_RIGHTS = #{record.exportRights,jdbcType=VARCHAR},
         CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-        CREATER = #{record.creater,jdbcType=VARCHAR},
+        CREATOR = #{record.creator,jdbcType=VARCHAR},
         MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
         MODIFIER = #{record.modifier,jdbcType=VARCHAR}
         <if test="_parameter != null">
@@ -219,11 +301,32 @@
             <if test="description != null">
                 DESCRIPTION = #{description,jdbcType=VARCHAR},
             </if>
+            <if test="menuRights != null">
+                MENU_RIGHTS = #{menuRights,jdbcType=VARCHAR},
+            </if>
+            <if test="addRights != null">
+                ADD_RIGHTS = #{addRights,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteRights != null">
+                DELETE_RIGHTS = #{deleteRights,jdbcType=VARCHAR},
+            </if>
+            <if test="editRights != null">
+                EDIT_RIGHTS = #{editRights,jdbcType=VARCHAR},
+            </if>
+            <if test="viewRights != null">
+                VIEW_RIGHTS = #{viewRights,jdbcType=VARCHAR},
+            </if>
+            <if test="importRights != null">
+                IMPORT_RIGHTS = #{importRights,jdbcType=VARCHAR},
+            </if>
+            <if test="exportRights != null">
+                EXPORT_RIGHTS = #{exportRights,jdbcType=VARCHAR},
+            </if>
             <if test="createTime != null">
                 CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="creater != null">
-                CREATER = #{creater,jdbcType=VARCHAR},
+            <if test="creator != null">
+                CREATOR = #{creator,jdbcType=VARCHAR},
             </if>
             <if test="modifyTime != null">
                 MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
@@ -238,8 +341,15 @@
         update sys_role
         set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
         DESCRIPTION = #{description,jdbcType=VARCHAR},
+        MENU_RIGHTS = #{menuRights,jdbcType=VARCHAR},
+        ADD_RIGHTS = #{addRights,jdbcType=VARCHAR},
+        DELETE_RIGHTS = #{deleteRights,jdbcType=VARCHAR},
+        EDIT_RIGHTS = #{editRights,jdbcType=VARCHAR},
+        VIEW_RIGHTS = #{viewRights,jdbcType=VARCHAR},
+        IMPORT_RIGHTS = #{importRights,jdbcType=VARCHAR},
+        EXPORT_RIGHTS = #{exportRights,jdbcType=VARCHAR},
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-        CREATER = #{creater,jdbcType=VARCHAR},
+        CREATOR = #{creator,jdbcType=VARCHAR},
         MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
         MODIFIER = #{modifier,jdbcType=VARCHAR}
         where ROLE_ID = #{roleId,jdbcType=BIGINT}

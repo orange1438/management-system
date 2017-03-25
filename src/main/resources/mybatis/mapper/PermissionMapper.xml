@@ -18,7 +18,7 @@
         <result column="EXPORT_RIGHTS" jdbcType="BIT" property="exportRights"/>
         <result column="EXPORT_TITLE" jdbcType="VARCHAR" property="exportTitle"/>
         <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="CREATER" jdbcType="VARCHAR" property="creater"/>
+        <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
         <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
         <result column="MODIFIER" jdbcType="VARCHAR" property="modifier"/>
     </resultMap>
@@ -85,7 +85,7 @@
     <sql id="Base_Column_List">
         PERMISSION_ID, PERMISSION_NAME, DESCRIPTION, ADD_RIGHTS, ADD_TITLE, DELETE_RIGHTS,
         DELETE_TITLE, EDIT_RIGHTS, EDIT_TITLE, VIEW_RIGHTS, VIEW_TITLE, IMPORT_RIGHTS, IMPORT_TITLE,
-        EXPORT_RIGHTS, EXPORT_TITLE, CREATE_TIME, CREATER, MODIFY_TIME, MODIFIER
+        EXPORT_RIGHTS, EXPORT_TITLE, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
     </sql>
     <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionExample"
             resultMap="BaseResultMap">
@@ -124,14 +124,14 @@
         DELETE_TITLE, EDIT_RIGHTS, EDIT_TITLE,
         VIEW_RIGHTS, VIEW_TITLE, IMPORT_RIGHTS,
         IMPORT_TITLE, EXPORT_RIGHTS, EXPORT_TITLE,
-        CREATE_TIME, CREATER, MODIFY_TIME,
+        CREATE_TIME, CREATOR, MODIFY_TIME,
         MODIFIER)
         values (#{permissionId,jdbcType=BIGINT}, #{permissionName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
         #{addRights,jdbcType=BIT}, #{addTitle,jdbcType=VARCHAR}, #{deleteRights,jdbcType=BIT},
         #{deleteTitle,jdbcType=VARCHAR}, #{editRights,jdbcType=BIT}, #{editTitle,jdbcType=VARCHAR},
         #{viewRights,jdbcType=BIT}, #{viewTitle,jdbcType=VARCHAR}, #{importRights,jdbcType=BIT},
         #{importTitle,jdbcType=VARCHAR}, #{exportRights,jdbcType=BIT}, #{exportTitle,jdbcType=VARCHAR},
-        #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP},
+        #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP},
         #{modifier,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="indi.orange1438.managementsystem.dao.entity.Permission">
@@ -185,8 +185,8 @@
             <if test="createTime != null">
                 CREATE_TIME,
             </if>
-            <if test="creater != null">
-                CREATER,
+            <if test="creator != null">
+                CREATOR,
             </if>
             <if test="modifyTime != null">
                 MODIFY_TIME,
@@ -244,8 +244,8 @@
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="creater != null">
-                #{creater,jdbcType=VARCHAR},
+            <if test="creator != null">
+                #{creator,jdbcType=VARCHAR},
             </if>
             <if test="modifyTime != null">
                 #{modifyTime,jdbcType=TIMESTAMP},
@@ -313,8 +313,8 @@
             <if test="record.createTime != null">
                 CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="record.creater != null">
-                CREATER = #{record.creater,jdbcType=VARCHAR},
+            <if test="record.creator != null">
+                CREATOR = #{record.creator,jdbcType=VARCHAR},
             </if>
             <if test="record.modifyTime != null">
                 MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
@@ -345,7 +345,7 @@
         EXPORT_RIGHTS = #{record.exportRights,jdbcType=BIT},
         EXPORT_TITLE = #{record.exportTitle,jdbcType=VARCHAR},
         CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-        CREATER = #{record.creater,jdbcType=VARCHAR},
+        CREATOR = #{record.creator,jdbcType=VARCHAR},
         MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
         MODIFIER = #{record.modifier,jdbcType=VARCHAR}
         <if test="_parameter != null">
@@ -400,8 +400,8 @@
             <if test="createTime != null">
                 CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="creater != null">
-                CREATER = #{creater,jdbcType=VARCHAR},
+            <if test="creator != null">
+                CREATOR = #{creator,jdbcType=VARCHAR},
             </if>
             <if test="modifyTime != null">
                 MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
@@ -429,7 +429,7 @@
         EXPORT_RIGHTS = #{exportRights,jdbcType=BIT},
         EXPORT_TITLE = #{exportTitle,jdbcType=VARCHAR},
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-        CREATER = #{creater,jdbcType=VARCHAR},
+        CREATOR = #{creator,jdbcType=VARCHAR},
         MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
         MODIFIER = #{modifier,jdbcType=VARCHAR}
         where PERMISSION_ID = #{permissionId,jdbcType=BIGINT}

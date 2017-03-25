@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * 本文件由 https://github.com/orange1438/mybatis-generator-core-chinese-annotation1.3.5-chinese-annotation 自动生成
- *
  * @author orange1438 code generator
  */
 public class RoleExample {
@@ -20,62 +19,59 @@ public class RoleExample {
     // 查询条件
     protected List<Criteria> oredCriteria;
 
-    /**
+    /** 
      * 构造查询条件
      */
     public RoleExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
-    /**
+    /** 
      * 设置排序字段
-     *
      * @param orderByClause 排序字段
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
-    /**
+    /** 
      * 获取排序字段
      */
     public String getOrderByClause() {
         return orderByClause;
     }
 
-    /**
+    /** 
      * 设置过滤重复数据
-     *
      * @param distinct 是否过滤重复数据
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
     }
 
-    /**
+    /** 
      * 是否过滤重复数据
      */
     public boolean isDistinct() {
         return distinct;
     }
 
-    /**
+    /** 
      * 获取当前的查询条件实例
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
     }
 
-    /**
+    /** 
      * 增加或者的查询条件,用于构建或者查询
-     *
      * @param criteria 过滤条件实例
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
     }
 
-    /**
+    /** 
      * 创建一个新的或者查询条件
      */
     public Criteria or() {
@@ -84,7 +80,7 @@ public class RoleExample {
         return criteria;
     }
 
-    /**
+    /** 
      * 创建一个查询条件
      */
     public Criteria createCriteria() {
@@ -95,7 +91,7 @@ public class RoleExample {
         return criteria;
     }
 
-    /**
+    /** 
      * 内部构建查询条件对象
      */
     protected Criteria createCriteriaInternal() {
@@ -103,7 +99,7 @@ public class RoleExample {
         return criteria;
     }
 
-    /**
+    /** 
      * 清除查询条件
      */
     public void clear() {
@@ -356,6 +352,496 @@ public class RoleExample {
             return (Criteria) this;
         }
 
+        public Criteria andMenuRightsIsNull() {
+            addCriterion("MENU_RIGHTS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsIsNotNull() {
+            addCriterion("MENU_RIGHTS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsEqualTo(String value) {
+            addCriterion("MENU_RIGHTS =", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsNotEqualTo(String value) {
+            addCriterion("MENU_RIGHTS <>", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsGreaterThan(String value) {
+            addCriterion("MENU_RIGHTS >", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsGreaterThanOrEqualTo(String value) {
+            addCriterion("MENU_RIGHTS >=", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsLessThan(String value) {
+            addCriterion("MENU_RIGHTS <", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsLessThanOrEqualTo(String value) {
+            addCriterion("MENU_RIGHTS <=", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsLike(String value) {
+            addCriterion("MENU_RIGHTS like", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsNotLike(String value) {
+            addCriterion("MENU_RIGHTS not like", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsIn(List<String> values) {
+            addCriterion("MENU_RIGHTS in", values, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsNotIn(List<String> values) {
+            addCriterion("MENU_RIGHTS not in", values, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsBetween(String value1, String value2) {
+            addCriterion("MENU_RIGHTS between", value1, value2, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsNotBetween(String value1, String value2) {
+            addCriterion("MENU_RIGHTS not between", value1, value2, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsIsNull() {
+            addCriterion("ADD_RIGHTS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsIsNotNull() {
+            addCriterion("ADD_RIGHTS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsEqualTo(String value) {
+            addCriterion("ADD_RIGHTS =", value, "addRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsNotEqualTo(String value) {
+            addCriterion("ADD_RIGHTS <>", value, "addRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsGreaterThan(String value) {
+            addCriterion("ADD_RIGHTS >", value, "addRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsGreaterThanOrEqualTo(String value) {
+            addCriterion("ADD_RIGHTS >=", value, "addRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsLessThan(String value) {
+            addCriterion("ADD_RIGHTS <", value, "addRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsLessThanOrEqualTo(String value) {
+            addCriterion("ADD_RIGHTS <=", value, "addRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsLike(String value) {
+            addCriterion("ADD_RIGHTS like", value, "addRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsNotLike(String value) {
+            addCriterion("ADD_RIGHTS not like", value, "addRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsIn(List<String> values) {
+            addCriterion("ADD_RIGHTS in", values, "addRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsNotIn(List<String> values) {
+            addCriterion("ADD_RIGHTS not in", values, "addRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsBetween(String value1, String value2) {
+            addCriterion("ADD_RIGHTS between", value1, value2, "addRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddRightsNotBetween(String value1, String value2) {
+            addCriterion("ADD_RIGHTS not between", value1, value2, "addRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsIsNull() {
+            addCriterion("DELETE_RIGHTS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsIsNotNull() {
+            addCriterion("DELETE_RIGHTS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsEqualTo(String value) {
+            addCriterion("DELETE_RIGHTS =", value, "deleteRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsNotEqualTo(String value) {
+            addCriterion("DELETE_RIGHTS <>", value, "deleteRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsGreaterThan(String value) {
+            addCriterion("DELETE_RIGHTS >", value, "deleteRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsGreaterThanOrEqualTo(String value) {
+            addCriterion("DELETE_RIGHTS >=", value, "deleteRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsLessThan(String value) {
+            addCriterion("DELETE_RIGHTS <", value, "deleteRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsLessThanOrEqualTo(String value) {
+            addCriterion("DELETE_RIGHTS <=", value, "deleteRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsLike(String value) {
+            addCriterion("DELETE_RIGHTS like", value, "deleteRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsNotLike(String value) {
+            addCriterion("DELETE_RIGHTS not like", value, "deleteRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsIn(List<String> values) {
+            addCriterion("DELETE_RIGHTS in", values, "deleteRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsNotIn(List<String> values) {
+            addCriterion("DELETE_RIGHTS not in", values, "deleteRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsBetween(String value1, String value2) {
+            addCriterion("DELETE_RIGHTS between", value1, value2, "deleteRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeleteRightsNotBetween(String value1, String value2) {
+            addCriterion("DELETE_RIGHTS not between", value1, value2, "deleteRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsIsNull() {
+            addCriterion("EDIT_RIGHTS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsIsNotNull() {
+            addCriterion("EDIT_RIGHTS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsEqualTo(String value) {
+            addCriterion("EDIT_RIGHTS =", value, "editRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsNotEqualTo(String value) {
+            addCriterion("EDIT_RIGHTS <>", value, "editRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsGreaterThan(String value) {
+            addCriterion("EDIT_RIGHTS >", value, "editRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsGreaterThanOrEqualTo(String value) {
+            addCriterion("EDIT_RIGHTS >=", value, "editRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsLessThan(String value) {
+            addCriterion("EDIT_RIGHTS <", value, "editRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsLessThanOrEqualTo(String value) {
+            addCriterion("EDIT_RIGHTS <=", value, "editRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsLike(String value) {
+            addCriterion("EDIT_RIGHTS like", value, "editRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsNotLike(String value) {
+            addCriterion("EDIT_RIGHTS not like", value, "editRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsIn(List<String> values) {
+            addCriterion("EDIT_RIGHTS in", values, "editRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsNotIn(List<String> values) {
+            addCriterion("EDIT_RIGHTS not in", values, "editRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsBetween(String value1, String value2) {
+            addCriterion("EDIT_RIGHTS between", value1, value2, "editRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditRightsNotBetween(String value1, String value2) {
+            addCriterion("EDIT_RIGHTS not between", value1, value2, "editRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsIsNull() {
+            addCriterion("VIEW_RIGHTS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsIsNotNull() {
+            addCriterion("VIEW_RIGHTS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsEqualTo(String value) {
+            addCriterion("VIEW_RIGHTS =", value, "viewRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsNotEqualTo(String value) {
+            addCriterion("VIEW_RIGHTS <>", value, "viewRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsGreaterThan(String value) {
+            addCriterion("VIEW_RIGHTS >", value, "viewRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsGreaterThanOrEqualTo(String value) {
+            addCriterion("VIEW_RIGHTS >=", value, "viewRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsLessThan(String value) {
+            addCriterion("VIEW_RIGHTS <", value, "viewRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsLessThanOrEqualTo(String value) {
+            addCriterion("VIEW_RIGHTS <=", value, "viewRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsLike(String value) {
+            addCriterion("VIEW_RIGHTS like", value, "viewRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsNotLike(String value) {
+            addCriterion("VIEW_RIGHTS not like", value, "viewRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsIn(List<String> values) {
+            addCriterion("VIEW_RIGHTS in", values, "viewRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsNotIn(List<String> values) {
+            addCriterion("VIEW_RIGHTS not in", values, "viewRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsBetween(String value1, String value2) {
+            addCriterion("VIEW_RIGHTS between", value1, value2, "viewRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewRightsNotBetween(String value1, String value2) {
+            addCriterion("VIEW_RIGHTS not between", value1, value2, "viewRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsIsNull() {
+            addCriterion("IMPORT_RIGHTS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsIsNotNull() {
+            addCriterion("IMPORT_RIGHTS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsEqualTo(String value) {
+            addCriterion("IMPORT_RIGHTS =", value, "importRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsNotEqualTo(String value) {
+            addCriterion("IMPORT_RIGHTS <>", value, "importRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsGreaterThan(String value) {
+            addCriterion("IMPORT_RIGHTS >", value, "importRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsGreaterThanOrEqualTo(String value) {
+            addCriterion("IMPORT_RIGHTS >=", value, "importRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsLessThan(String value) {
+            addCriterion("IMPORT_RIGHTS <", value, "importRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsLessThanOrEqualTo(String value) {
+            addCriterion("IMPORT_RIGHTS <=", value, "importRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsLike(String value) {
+            addCriterion("IMPORT_RIGHTS like", value, "importRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsNotLike(String value) {
+            addCriterion("IMPORT_RIGHTS not like", value, "importRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsIn(List<String> values) {
+            addCriterion("IMPORT_RIGHTS in", values, "importRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsNotIn(List<String> values) {
+            addCriterion("IMPORT_RIGHTS not in", values, "importRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsBetween(String value1, String value2) {
+            addCriterion("IMPORT_RIGHTS between", value1, value2, "importRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andImportRightsNotBetween(String value1, String value2) {
+            addCriterion("IMPORT_RIGHTS not between", value1, value2, "importRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsIsNull() {
+            addCriterion("EXPORT_RIGHTS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsIsNotNull() {
+            addCriterion("EXPORT_RIGHTS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsEqualTo(String value) {
+            addCriterion("EXPORT_RIGHTS =", value, "exportRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsNotEqualTo(String value) {
+            addCriterion("EXPORT_RIGHTS <>", value, "exportRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsGreaterThan(String value) {
+            addCriterion("EXPORT_RIGHTS >", value, "exportRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsGreaterThanOrEqualTo(String value) {
+            addCriterion("EXPORT_RIGHTS >=", value, "exportRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsLessThan(String value) {
+            addCriterion("EXPORT_RIGHTS <", value, "exportRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsLessThanOrEqualTo(String value) {
+            addCriterion("EXPORT_RIGHTS <=", value, "exportRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsLike(String value) {
+            addCriterion("EXPORT_RIGHTS like", value, "exportRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsNotLike(String value) {
+            addCriterion("EXPORT_RIGHTS not like", value, "exportRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsIn(List<String> values) {
+            addCriterion("EXPORT_RIGHTS in", values, "exportRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsNotIn(List<String> values) {
+            addCriterion("EXPORT_RIGHTS not in", values, "exportRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsBetween(String value1, String value2) {
+            addCriterion("EXPORT_RIGHTS between", value1, value2, "exportRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andExportRightsNotBetween(String value1, String value2) {
+            addCriterion("EXPORT_RIGHTS not between", value1, value2, "exportRights");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("CREATE_TIME is null");
             return (Criteria) this;
@@ -416,73 +902,73 @@ public class RoleExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreaterIsNull() {
-            addCriterion("CREATER is null");
+        public Criteria andCreatorIsNull() {
+            addCriterion("CREATOR is null");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterIsNotNull() {
-            addCriterion("CREATER is not null");
+        public Criteria andCreatorIsNotNull() {
+            addCriterion("CREATOR is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterEqualTo(String value) {
-            addCriterion("CREATER =", value, "creater");
+        public Criteria andCreatorEqualTo(String value) {
+            addCriterion("CREATOR =", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterNotEqualTo(String value) {
-            addCriterion("CREATER <>", value, "creater");
+        public Criteria andCreatorNotEqualTo(String value) {
+            addCriterion("CREATOR <>", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterGreaterThan(String value) {
-            addCriterion("CREATER >", value, "creater");
+        public Criteria andCreatorGreaterThan(String value) {
+            addCriterion("CREATOR >", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterGreaterThanOrEqualTo(String value) {
-            addCriterion("CREATER >=", value, "creater");
+        public Criteria andCreatorGreaterThanOrEqualTo(String value) {
+            addCriterion("CREATOR >=", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterLessThan(String value) {
-            addCriterion("CREATER <", value, "creater");
+        public Criteria andCreatorLessThan(String value) {
+            addCriterion("CREATOR <", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterLessThanOrEqualTo(String value) {
-            addCriterion("CREATER <=", value, "creater");
+        public Criteria andCreatorLessThanOrEqualTo(String value) {
+            addCriterion("CREATOR <=", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterLike(String value) {
-            addCriterion("CREATER like", value, "creater");
+        public Criteria andCreatorLike(String value) {
+            addCriterion("CREATOR like", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterNotLike(String value) {
-            addCriterion("CREATER not like", value, "creater");
+        public Criteria andCreatorNotLike(String value) {
+            addCriterion("CREATOR not like", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterIn(List<String> values) {
-            addCriterion("CREATER in", values, "creater");
+        public Criteria andCreatorIn(List<String> values) {
+            addCriterion("CREATOR in", values, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterNotIn(List<String> values) {
-            addCriterion("CREATER not in", values, "creater");
+        public Criteria andCreatorNotIn(List<String> values) {
+            addCriterion("CREATOR not in", values, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterBetween(String value1, String value2) {
-            addCriterion("CREATER between", value1, value2, "creater");
+        public Criteria andCreatorBetween(String value1, String value2) {
+            addCriterion("CREATOR between", value1, value2, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterNotBetween(String value1, String value2) {
-            addCriterion("CREATER not between", value1, value2, "creater");
+        public Criteria andCreatorNotBetween(String value1, String value2) {
+            addCriterion("CREATOR not between", value1, value2, "creator");
             return (Criteria) this;
         }
 

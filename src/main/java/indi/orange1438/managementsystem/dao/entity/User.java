@@ -4,14 +4,13 @@ package indi.orange1438.managementsystem.dao.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
+/** 
  * 系统用户表 sys_user
- *
  * @author orange1438 code generator
  */
 public class User implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = -6658375769025099185L;
+    private static final long serialVersionUID = 801538627202994903L;
 
     // 用户ID
     private Long userId;
@@ -37,7 +36,7 @@ public class User implements Serializable {
     // 电子邮箱
     private String email;
 
-    // 皮肤  默认：default
+    // 皮肤  默认：DEFAULT
     private String skin;
 
     // 上次登录时间
@@ -53,7 +52,7 @@ public class User implements Serializable {
     private Date createTime;
 
     // 创建人
-    private String creater;
+    private String creator;
 
     // 修改时间  默认：CURRENT_TIMESTAMP
     private Date modifyTime;
@@ -189,18 +188,16 @@ public class User implements Serializable {
         this.email = email == null ? null : email.trim();
     }
 
-    /**
+    /** 
      * 获取 皮肤 sys_user.SKIN
-     *
      * @return 皮肤
      */
     public String getSkin() {
         return skin;
     }
 
-    /**
+    /** 
      * 设置 皮肤 sys_user.SKIN
-     *
      * @param skin 皮肤
      */
     public void setSkin(String skin) {
@@ -271,20 +268,20 @@ public class User implements Serializable {
         this.createTime = createTime;
     }
 
-    /** 
-     * 获取 创建人 sys_user.CREATER
+    /**
+     * 获取 创建人 sys_user.CREATOR
      * @return 创建人
      */
-    public String getCreater() {
-        return creater;
+    public String getCreator() {
+        return creator;
     }
 
-    /** 
-     * 设置 创建人 sys_user.CREATER
-     * @param creater 创建人
+    /**
+     * 设置 创建人 sys_user.CREATOR
+     * @param creator 创建人
      */
-    public void setCreater(String creater) {
-        this.creater = creater == null ? null : creater.trim();
+    public void setCreator(String creator) {
+        this.creator = creator == null ? null : creator.trim();
     }
 
     /** 
@@ -339,7 +336,7 @@ public class User implements Serializable {
         sb.append(", loginIp=").append(loginIp);
         sb.append(", loginCount=").append(loginCount);
         sb.append(", createTime=").append(createTime);
-        sb.append(", creater=").append(creater);
+        sb.append(", creator=").append(creator);
         sb.append(", modifyTime=").append(modifyTime);
         sb.append(", modifier=").append(modifier);
         sb.append("]");

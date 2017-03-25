@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * 本文件由 https://github.com/orange1438/mybatis-generator-core-chinese-annotation1.3.5-chinese-annotation 自动生成
- *
  * @author orange1438 code generator
  */
 public class GroupExample {
@@ -20,62 +19,59 @@ public class GroupExample {
     // 查询条件
     protected List<Criteria> oredCriteria;
 
-    /**
+    /** 
      * 构造查询条件
      */
     public GroupExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
-    /**
+    /** 
      * 设置排序字段
-     *
      * @param orderByClause 排序字段
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
-    /**
+    /** 
      * 获取排序字段
      */
     public String getOrderByClause() {
         return orderByClause;
     }
 
-    /**
+    /** 
      * 设置过滤重复数据
-     *
      * @param distinct 是否过滤重复数据
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
     }
 
-    /**
+    /** 
      * 是否过滤重复数据
      */
     public boolean isDistinct() {
         return distinct;
     }
 
-    /**
+    /** 
      * 获取当前的查询条件实例
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
     }
 
-    /**
+    /** 
      * 增加或者的查询条件,用于构建或者查询
-     *
      * @param criteria 过滤条件实例
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
     }
 
-    /**
+    /** 
      * 创建一个新的或者查询条件
      */
     public Criteria or() {
@@ -84,7 +80,7 @@ public class GroupExample {
         return criteria;
     }
 
-    /**
+    /** 
      * 创建一个查询条件
      */
     public Criteria createCriteria() {
@@ -95,7 +91,7 @@ public class GroupExample {
         return criteria;
     }
 
-    /**
+    /** 
      * 内部构建查询条件对象
      */
     protected Criteria createCriteriaInternal() {
@@ -103,7 +99,7 @@ public class GroupExample {
         return criteria;
     }
 
-    /**
+    /** 
      * 清除查询条件
      */
     public void clear() {
@@ -416,6 +412,76 @@ public class GroupExample {
             return (Criteria) this;
         }
 
+        public Criteria andMenuRightsIsNull() {
+            addCriterion("MENU_RIGHTS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsIsNotNull() {
+            addCriterion("MENU_RIGHTS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsEqualTo(String value) {
+            addCriterion("MENU_RIGHTS =", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsNotEqualTo(String value) {
+            addCriterion("MENU_RIGHTS <>", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsGreaterThan(String value) {
+            addCriterion("MENU_RIGHTS >", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsGreaterThanOrEqualTo(String value) {
+            addCriterion("MENU_RIGHTS >=", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsLessThan(String value) {
+            addCriterion("MENU_RIGHTS <", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsLessThanOrEqualTo(String value) {
+            addCriterion("MENU_RIGHTS <=", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsLike(String value) {
+            addCriterion("MENU_RIGHTS like", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsNotLike(String value) {
+            addCriterion("MENU_RIGHTS not like", value, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsIn(List<String> values) {
+            addCriterion("MENU_RIGHTS in", values, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsNotIn(List<String> values) {
+            addCriterion("MENU_RIGHTS not in", values, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsBetween(String value1, String value2) {
+            addCriterion("MENU_RIGHTS between", value1, value2, "menuRights");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuRightsNotBetween(String value1, String value2) {
+            addCriterion("MENU_RIGHTS not between", value1, value2, "menuRights");
+            return (Criteria) this;
+        }
+
         public Criteria andCreateTimeIsNull() {
             addCriterion("CREATE_TIME is null");
             return (Criteria) this;
@@ -476,73 +542,73 @@ public class GroupExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreaterIsNull() {
-            addCriterion("CREATER is null");
+        public Criteria andCreatorIsNull() {
+            addCriterion("CREATOR is null");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterIsNotNull() {
-            addCriterion("CREATER is not null");
+        public Criteria andCreatorIsNotNull() {
+            addCriterion("CREATOR is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterEqualTo(String value) {
-            addCriterion("CREATER =", value, "creater");
+        public Criteria andCreatorEqualTo(String value) {
+            addCriterion("CREATOR =", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterNotEqualTo(String value) {
-            addCriterion("CREATER <>", value, "creater");
+        public Criteria andCreatorNotEqualTo(String value) {
+            addCriterion("CREATOR <>", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterGreaterThan(String value) {
-            addCriterion("CREATER >", value, "creater");
+        public Criteria andCreatorGreaterThan(String value) {
+            addCriterion("CREATOR >", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterGreaterThanOrEqualTo(String value) {
-            addCriterion("CREATER >=", value, "creater");
+        public Criteria andCreatorGreaterThanOrEqualTo(String value) {
+            addCriterion("CREATOR >=", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterLessThan(String value) {
-            addCriterion("CREATER <", value, "creater");
+        public Criteria andCreatorLessThan(String value) {
+            addCriterion("CREATOR <", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterLessThanOrEqualTo(String value) {
-            addCriterion("CREATER <=", value, "creater");
+        public Criteria andCreatorLessThanOrEqualTo(String value) {
+            addCriterion("CREATOR <=", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterLike(String value) {
-            addCriterion("CREATER like", value, "creater");
+        public Criteria andCreatorLike(String value) {
+            addCriterion("CREATOR like", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterNotLike(String value) {
-            addCriterion("CREATER not like", value, "creater");
+        public Criteria andCreatorNotLike(String value) {
+            addCriterion("CREATOR not like", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterIn(List<String> values) {
-            addCriterion("CREATER in", values, "creater");
+        public Criteria andCreatorIn(List<String> values) {
+            addCriterion("CREATOR in", values, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterNotIn(List<String> values) {
-            addCriterion("CREATER not in", values, "creater");
+        public Criteria andCreatorNotIn(List<String> values) {
+            addCriterion("CREATOR not in", values, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterBetween(String value1, String value2) {
-            addCriterion("CREATER between", value1, value2, "creater");
+        public Criteria andCreatorBetween(String value1, String value2) {
+            addCriterion("CREATOR between", value1, value2, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterNotBetween(String value1, String value2) {
-            addCriterion("CREATER not between", value1, value2, "creater");
+        public Criteria andCreatorNotBetween(String value1, String value2) {
+            addCriterion("CREATOR not between", value1, value2, "creator");
             return (Criteria) this;
         }
 

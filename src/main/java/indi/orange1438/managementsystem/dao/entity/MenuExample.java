@@ -482,6 +482,76 @@ public class MenuExample {
             return (Criteria) this;
         }
 
+        public Criteria andMenuTypeIsNull() {
+            addCriterion("MENU_TYPE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuTypeIsNotNull() {
+            addCriterion("MENU_TYPE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuTypeEqualTo(String value) {
+            addCriterion("MENU_TYPE =", value, "menuType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuTypeNotEqualTo(String value) {
+            addCriterion("MENU_TYPE <>", value, "menuType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuTypeGreaterThan(String value) {
+            addCriterion("MENU_TYPE >", value, "menuType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("MENU_TYPE >=", value, "menuType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuTypeLessThan(String value) {
+            addCriterion("MENU_TYPE <", value, "menuType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuTypeLessThanOrEqualTo(String value) {
+            addCriterion("MENU_TYPE <=", value, "menuType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuTypeLike(String value) {
+            addCriterion("MENU_TYPE like", value, "menuType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuTypeNotLike(String value) {
+            addCriterion("MENU_TYPE not like", value, "menuType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuTypeIn(List<String> values) {
+            addCriterion("MENU_TYPE in", values, "menuType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuTypeNotIn(List<String> values) {
+            addCriterion("MENU_TYPE not in", values, "menuType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuTypeBetween(String value1, String value2) {
+            addCriterion("MENU_TYPE between", value1, value2, "menuType");
+            return (Criteria) this;
+        }
+
+        public Criteria andMenuTypeNotBetween(String value1, String value2) {
+            addCriterion("MENU_TYPE not between", value1, value2, "menuType");
+            return (Criteria) this;
+        }
+
         public Criteria andMenuOrderIsNull() {
             addCriterion("MENU_ORDER is null");
             return (Criteria) this;
@@ -602,73 +672,73 @@ public class MenuExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreaterIsNull() {
-            addCriterion("CREATER is null");
+        public Criteria andCreatorIsNull() {
+            addCriterion("CREATOR is null");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterIsNotNull() {
-            addCriterion("CREATER is not null");
+        public Criteria andCreatorIsNotNull() {
+            addCriterion("CREATOR is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterEqualTo(String value) {
-            addCriterion("CREATER =", value, "creater");
+        public Criteria andCreatorEqualTo(String value) {
+            addCriterion("CREATOR =", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterNotEqualTo(String value) {
-            addCriterion("CREATER <>", value, "creater");
+        public Criteria andCreatorNotEqualTo(String value) {
+            addCriterion("CREATOR <>", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterGreaterThan(String value) {
-            addCriterion("CREATER >", value, "creater");
+        public Criteria andCreatorGreaterThan(String value) {
+            addCriterion("CREATOR >", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterGreaterThanOrEqualTo(String value) {
-            addCriterion("CREATER >=", value, "creater");
+        public Criteria andCreatorGreaterThanOrEqualTo(String value) {
+            addCriterion("CREATOR >=", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterLessThan(String value) {
-            addCriterion("CREATER <", value, "creater");
+        public Criteria andCreatorLessThan(String value) {
+            addCriterion("CREATOR <", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterLessThanOrEqualTo(String value) {
-            addCriterion("CREATER <=", value, "creater");
+        public Criteria andCreatorLessThanOrEqualTo(String value) {
+            addCriterion("CREATOR <=", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterLike(String value) {
-            addCriterion("CREATER like", value, "creater");
+        public Criteria andCreatorLike(String value) {
+            addCriterion("CREATOR like", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterNotLike(String value) {
-            addCriterion("CREATER not like", value, "creater");
+        public Criteria andCreatorNotLike(String value) {
+            addCriterion("CREATOR not like", value, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterIn(List<String> values) {
-            addCriterion("CREATER in", values, "creater");
+        public Criteria andCreatorIn(List<String> values) {
+            addCriterion("CREATOR in", values, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterNotIn(List<String> values) {
-            addCriterion("CREATER not in", values, "creater");
+        public Criteria andCreatorNotIn(List<String> values) {
+            addCriterion("CREATOR not in", values, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterBetween(String value1, String value2) {
-            addCriterion("CREATER between", value1, value2, "creater");
+        public Criteria andCreatorBetween(String value1, String value2) {
+            addCriterion("CREATOR between", value1, value2, "creator");
             return (Criteria) this;
         }
 
-        public Criteria andCreaterNotBetween(String value1, String value2) {
-            addCriterion("CREATER not between", value1, value2, "creater");
+        public Criteria andCreatorNotBetween(String value1, String value2) {
+            addCriterion("CREATOR not between", value1, value2, "creator");
             return (Criteria) this;
         }
 
