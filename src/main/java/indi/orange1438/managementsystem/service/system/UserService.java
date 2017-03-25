@@ -40,8 +40,29 @@ public class UserService {
         return null;
     }
 
-
+    /**
+     * 更新用户信息
+     *
+     * @param userEntity 要更新的实体类，必须包括主键
+     * @return
+     */
     public int updateUserByUserId(User userEntity) {
         return userDAO.updateByPrimaryKeySelective(userEntity);
+    }
+
+    /**
+     * 根据用户名查询用户
+     *
+     * @param userName
+     * @return
+     */
+    public User getUserByUserName(String userName) {
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUserNameEqualTo(userName);
+        List<User> userList = userDAO.selectByExample(userExample);
+        if (null != userList && 0 < userList.size()) {
+            return userList.get(0);
+        }
+        return null;
     }
 }
