@@ -9,14 +9,13 @@
 
                 <li class="light-blue user-profile">
                     <a class="user-menu dropdown-toggle" href="javascript:;" data-toggle="dropdown">
-                        <img alt="FH" src="/static/avatars/user.jpg" class="nav-user-photo"/>
+                        <img alt="FH" src="/resource/page/index/images/avatars/avatar4.png" class="nav-user-photo"/>
                         <span id="user_info">
 							</span>
                         <i class="icon-caret-down"></i>
                     </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li><a onclick="editUserH();" style="cursor:pointer;"><i class="icon-user"></i> 修改资料</a></li>
-                        <li><a onclick="menu();" style="cursor:pointer;"><i class="icon-user"></i> 菜单管理</a></li>
                         <li id="systemset"><a onclick="editSys();" style="cursor:pointer;"><i class="icon-cog"></i> 系统设置</a>
                         </li>
                         <li id="productCode"><a onclick="productCode();" style="cursor:pointer;">
@@ -34,4 +33,4 @@
 
 
 <!--引入属于此页面的js -->
-<script type="text/javascript" src="/resource/index/js/head.js"></script>
+<script type="text/javascript" src="/resource/page/index/js/head.js"></script>

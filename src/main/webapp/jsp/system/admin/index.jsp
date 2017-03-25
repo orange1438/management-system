@@ -45,7 +45,8 @@
 			<div id="jzts" style="display:none; width:100%; position:fixed; z-index:99999999;">
 			<div class="commitopacity" id="bkbgjz"></div>
 				<div style="padding-left: 43%;padding-top: 300px;">
-					<div style="float: left;margin-top: 10px;"><img src="/resource/common/images/loadingi.gif"/></div>
+                    <div style="float: left;margin-top: 10px;"><img src="/resource/page/index/images/loadingi.gif"/>
+                    </div>
 				<div style="margin-top: 5px;"><h4 class="lighter block red">&nbsp;加载中 ...</h4></div>
 			</div>
 			</div>
@@ -94,16 +95,16 @@
 	<!--/.fluid-container#main-container-->
 	<!-- basic scripts -->
 		<!-- 引入 -->
-	<script type="text/javascript">window.jQuery || document.write("<script src='/resource/common/jquery/jquery-1.9.1.min.js'>\x3C/script>");</script>
-	<script src="/resource/common/bootstrap/bootstrap.min.js"></script>
-	<script src="/resource/common/other/js/ace-elements.min.js"></script>
-	<script src="/resource/common/other/js/ace.min.js"></script>
+    <script type="text/javascript">window.jQuery || document.write("<script src='//cdn.bootcss.com/jquery/1.8.3/jquery.min.js'>\x3C/script>");</script>
+    <script src="//cdn.bootcss.com/bootstrap/2.3.0/bootstrap.min.js"></script>
+    <script src="/resource/common/ace/ace-elements.min.js"></script>
+    <script src="/resource/common/ace/ace.min.js"></script>
 		<!-- 引入 -->
 
-	<script type="text/javascript" src="/resource/common/jquery/jquery.cookie.js"></script>
-	<script type="text/javascript" src="/resource/index/js/menusf.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="/resource/page/index/js/menusf.js"></script>
 		
 		<!--引入属于此页面的js -->
-	<script type="text/javascript" src="/resource/index/js/index.js"></script>
+    <script type="text/javascript" src="/resource/page/index/js/index.js"></script>
 </body>
 </html>

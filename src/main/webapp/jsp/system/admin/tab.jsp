@@ -12,7 +12,7 @@
 <html>
 <head>
     <base href="<%=basePath%>">
-    <script type="text/javascript" src="/resource/common/jquery/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="/resource/plugins/tab/js/framework.js"></script>
     <link href="/resource/plugins/tab/css/import_basic.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" id="skin" prePath="/resource/plugins/tab/"/>
