@@ -15,7 +15,6 @@ import java.util.List;
  */
 @Repository
 public interface MenuDAO extends IMapper<Menu, MenuExample, Long> {
-
     /**
      * 通过用户ID得到用户对应权限下的父级菜单
      *

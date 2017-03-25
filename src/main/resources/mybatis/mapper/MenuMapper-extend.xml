@@ -40,4 +40,5 @@
         u.user_id = #{userId}
         AND m.parent_id = #{parentId} order by MENU_ORDER
     </select>
+
 </mapper>

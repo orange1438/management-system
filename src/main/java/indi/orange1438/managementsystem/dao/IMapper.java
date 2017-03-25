@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Param;
  *
  * @author orange1438
  *         github: https://github.com/orange1438
- *         date: 2017-03-25 14:07:12
+ *         date: 2017-03-25 16:56:35
  */
 public interface IMapper<M, E, ID extends Serializable> {
     /** 

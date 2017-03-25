@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Permission implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = 6478882756782087282L;
+    private static final long serialVersionUID = 4799255748725742125L;
 
     // 权限ID
     private Long permissionId;
@@ -213,7 +213,7 @@ public class Permission implements Serializable {
         this.editTitle = editTitle == null ? null : editTitle.trim();
     }
 
-    /**
+    /** 
      * 获取 查看详细权限:1表示能，0表示不能 sys_permission.VIEW_RIGHTS
      * @return 查看详细权限:1表示能，0表示不能
      */
@@ -221,7 +221,7 @@ public class Permission implements Serializable {
         return viewRights;
     }
 
-    /**
+    /** 
      * 设置 查看详细权限:1表示能，0表示不能 sys_permission.VIEW_RIGHTS
      * @param viewRights 查看详细权限:1表示能，0表示不能
      */
@@ -325,7 +325,7 @@ public class Permission implements Serializable {
         this.createTime = createTime;
     }
 
-    /**
+    /** 
      * 获取 创建人 sys_permission.CREATOR
      * @return 创建人
      */
@@ -333,7 +333,7 @@ public class Permission implements Serializable {
         return creator;
     }
 
-    /**
+    /** 
      * 设置 创建人 sys_permission.CREATOR
      * @param creator 创建人
      */

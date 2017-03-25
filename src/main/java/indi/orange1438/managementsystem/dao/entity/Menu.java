@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Menu implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = 5401061643413580552L;
+    private static final long serialVersionUID = 7483741176361340437L;
 
     // 菜单ID
     private Long menuId;
@@ -125,18 +125,16 @@ public class Menu implements Serializable {
         this.menuIcon = menuIcon == null ? null : menuIcon.trim();
     }
 
-    /**
+    /** 
      * 获取 菜单类型{1系统、2业务} sys_menu.MENU_TYPE
-     *
      * @return 菜单类型{1系统、2业务}
      */
     public String getMenuType() {
         return menuType;
     }
 
-    /**
+    /** 
      * 设置 菜单类型{1系统、2业务} sys_menu.MENU_TYPE
-     *
      * @param menuType 菜单类型{1系统、2业务}
      */
     public void setMenuType(String menuType) {
@@ -175,7 +173,7 @@ public class Menu implements Serializable {
         this.createTime = createTime;
     }
 
-    /**
+    /** 
      * 获取 创建人 sys_menu.CREATOR
      * @return 创建人
      */
@@ -183,7 +181,7 @@ public class Menu implements Serializable {
         return creator;
     }
 
-    /**
+    /** 
      * 设置 创建人 sys_menu.CREATOR
      * @param creator 创建人
      */

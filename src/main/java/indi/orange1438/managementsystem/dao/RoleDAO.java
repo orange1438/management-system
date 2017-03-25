@@ -16,6 +16,11 @@ import java.util.List;
 public interface RoleDAO extends IMapper<Role, RoleExample, Long> {
 
     /**
+     * 通过 userId 得到当前角色
+     */
+    Role getRoleByUserId(@Param("userId") Long userId);
+
+    /**
      * 通过groupId 得到当前组下的角色
      */
     List<Role> getRoleByGroupId(@Param("groupId") Long groupId);

@@ -4,19 +4,20 @@ package indi.orange1438.managementsystem.dao.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-/** 
- * 权限菜单关联表 sys_permission_menu
+/**
+ * 菜单与组的关联表 sys_group_menu
+ *
  * @author orange1438 code generator
  */
-public class PermissionMenu implements Serializable {
+public class GroupMenu implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = 4916010903498445298L;
+    private static final long serialVersionUID = -1090857936277583625L;
 
-    // 权限菜单关系ID
-    private Long permissionMenuId;
+    // 菜单组关系ID
+    private Long groupMenuId;
 
-    // 权限ID
-    private Long permissionId;
+    // 组ID
+    private Long groupId;
 
     // 菜单ID
     private Long menuId;
@@ -33,112 +34,126 @@ public class PermissionMenu implements Serializable {
     // 修改人
     private String modifier;
 
-    /** 
-     * 获取 权限菜单关系ID sys_permission_menu.PERMISSION_MENU_ID
-     * @return 权限菜单关系ID
+    /**
+     * 获取 菜单组关系ID sys_group_menu.GROUP_MENU_ID
+     *
+     * @return 菜单组关系ID
      */
-    public Long getPermissionMenuId() {
-        return permissionMenuId;
+    public Long getGroupMenuId() {
+        return groupMenuId;
     }
 
-    /** 
-     * 设置 权限菜单关系ID sys_permission_menu.PERMISSION_MENU_ID
-     * @param permissionMenuId 权限菜单关系ID
+    /**
+     * 设置 菜单组关系ID sys_group_menu.GROUP_MENU_ID
+     *
+     * @param groupMenuId 菜单组关系ID
      */
-    public void setPermissionMenuId(Long permissionMenuId) {
-        this.permissionMenuId = permissionMenuId;
+    public void setGroupMenuId(Long groupMenuId) {
+        this.groupMenuId = groupMenuId;
     }
 
-    /** 
-     * 获取 权限ID sys_permission_menu.PERMISSION_ID
-     * @return 权限ID
+    /**
+     * 获取 组ID sys_group_menu.GROUP_ID
+     *
+     * @return 组ID
      */
-    public Long getPermissionId() {
-        return permissionId;
+    public Long getGroupId() {
+        return groupId;
     }
 
-    /** 
-     * 设置 权限ID sys_permission_menu.PERMISSION_ID
-     * @param permissionId 权限ID
+    /**
+     * 设置 组ID sys_group_menu.GROUP_ID
+     *
+     * @param groupId 组ID
      */
-    public void setPermissionId(Long permissionId) {
-        this.permissionId = permissionId;
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
-    /** 
-     * 获取 菜单ID sys_permission_menu.MENU_ID
+    /**
+     * 获取 菜单ID sys_group_menu.MENU_ID
+     *
      * @return 菜单ID
      */
     public Long getMenuId() {
         return menuId;
     }
 
-    /** 
-     * 设置 菜单ID sys_permission_menu.MENU_ID
+    /**
+     * 设置 菜单ID sys_group_menu.MENU_ID
+     *
      * @param menuId 菜单ID
      */
     public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
 
-    /** 
-     * 获取 创建时间 sys_permission_menu.CREATE_TIME
+    /**
+     * 获取 创建时间 sys_group_menu.CREATE_TIME
+     *
      * @return 创建时间
      */
     public Date getCreateTime() {
         return createTime;
     }
 
-    /** 
-     * 设置 创建时间 sys_permission_menu.CREATE_TIME
+    /**
+     * 设置 创建时间 sys_group_menu.CREATE_TIME
+     *
      * @param createTime 创建时间
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    /** 
-     * 获取 创建人 sys_permission_menu.CREATOR
+    /**
+     * 获取 创建人 sys_group_menu.CREATOR
+     *
      * @return 创建人
      */
     public String getCreator() {
         return creator;
     }
 
-    /** 
-     * 设置 创建人 sys_permission_menu.CREATOR
+    /**
+     * 设置 创建人 sys_group_menu.CREATOR
+     *
      * @param creator 创建人
      */
     public void setCreator(String creator) {
         this.creator = creator == null ? null : creator.trim();
     }
 
-    /** 
-     * 获取 修改时间 sys_permission_menu.MODIFY_TIME
+    /**
+     * 获取 修改时间 sys_group_menu.MODIFY_TIME
+     *
      * @return 修改时间
      */
     public Date getModifyTime() {
         return modifyTime;
     }
 
-    /** 
-     * 设置 修改时间 sys_permission_menu.MODIFY_TIME
+    /**
+     * 设置 修改时间 sys_group_menu.MODIFY_TIME
+     *
      * @param modifyTime 修改时间
      */
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
     }
 
-    /** 
-     * 获取 修改人 sys_permission_menu.MODIFIER
+    /**
+     * 获取 修改人 sys_group_menu.MODIFIER
+     *
      * @return 修改人
      */
     public String getModifier() {
         return modifier;
     }
 
-    /** 
-     * 设置 修改人 sys_permission_menu.MODIFIER
+    /**
+     * 设置 修改人 sys_group_menu.MODIFIER
+     *
      * @param modifier 修改人
      */
     public void setModifier(String modifier) {
@@ -152,8 +167,8 @@ public class PermissionMenu implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append(", permissionMenuId=").append(permissionMenuId);
-        sb.append(", permissionId=").append(permissionId);
+        sb.append(", groupMenuId=").append(groupMenuId);
+        sb.append(", groupId=").append(groupId);
         sb.append(", menuId=").append(menuId);
         sb.append(", createTime=").append(createTime);
         sb.append(", creator=").append(creator);
