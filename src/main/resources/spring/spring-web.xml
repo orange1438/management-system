@@ -13,11 +13,11 @@
             xml,json默认读写支持
        -->
        <mvc:annotation-driven/>
-
-       <!--2:静态资源默认servlet配置
-              1：加入对静态资源的处理：js，gif,png
-              2:允许使用"/"做整体映射
-       -->
+    <!--<mvc:resources location="/image/" mapping="/image/**"/>-->
+    <!--2:静态资源默认servlet配置
+           1：加入对静态资源的处理：js，gif,png
+           2:允许使用"/"做整体映射
+    -->
        <mvc:default-servlet-handler/>
 
        <!-- 3.扫描包下所有使用注解的类型,相关的bean -->
