@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 
+import indi.orange1438.managementsystem.dao.entity.Role;
 import indi.orange1438.managementsystem.dao.entity.User;
 import indi.orange1438.managementsystem.dto.MenuDTO;
 import indi.orange1438.managementsystem.service.system.MenuService;
+import indi.orange1438.managementsystem.service.system.RoleService;
 import indi.orange1438.managementsystem.service.system.UserService;
 import indi.orange1438.managementsystem.util.Const;
 import indi.orange1438.managementsystem.util.TableProperties;
@@ -44,6 +46,9 @@ public class LoginController extends BaseController {
     @Resource(name = "menuService")
     private MenuService menuService;
 
+    @Resource(name = "roleService")
+    private RoleService roleService;
+
     /**
      * 访问登录页
      */
@@ -64,7 +69,7 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "/login_login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public Object loginApi() throws Exception {
-        Map requestMap = this.getParameterMap();
+        Map requestMap = this.getParameterMapByPost();
         String userName = null == requestMap.get("loginName") ? null : requestMap.get("loginName").toString();
         String password = null == requestMap.get("password") ? null : requestMap.get("password").toString();
         String code = null == requestMap.get("code") ? null : requestMap.get("code").toString();
@@ -113,7 +118,7 @@ public class LoginController extends BaseController {
      * 访问系统首页
      */
     @RequestMapping(value = "/main/{changeMenu}")
-    public ModelAndView loginIndexPage(@PathVariable("changeMenu") String changeMenu) {
+    public ModelAndView loginIndexPage(@PathVariable("changeMenu") String changeMenu) throws Exception {
         ModelAndView mv = new ModelAndView();
 
         try {
@@ -127,6 +132,7 @@ public class LoginController extends BaseController {
                 } else {
                     menuList = (List<MenuDTO>) session.getAttribute(Const.SESSION_MENULIST);
                 }
+
                 mv.setViewName("system/admin/index");
                 mv.addObject("user", user);
                 mv.addObject("menuList", menuList);
@@ -172,7 +178,17 @@ public class LoginController extends BaseController {
      */
     @RequestMapping(value = "/logout")
     public ModelAndView logout() {
-        return null;
+        HttpSession session = this.getSession();
+        session.removeAttribute(Const.SESSION_SECURITY_CODE);
+        session.removeAttribute(Const.SESSION_USER);
+        session.removeAttribute(Const.SESSION_MENULIST);
+
+        Map map = new HashMap();
+        map.put("SysName", "Orange"); //填入系统名称
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("system/admin/login");
+        mv.addAllObjects(map);
+        return mv;
     }
 
 

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.plaf.PanelUI;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,7 +52,7 @@ public class BaseController {
     /**
      * 得到json数据请求的变量post参数
      */
-    public Map getParameterMap() {
+    public Map getParameterMapByPost() {
         try {
             HttpServletRequest request = getRequest();
             request.setCharacterEncoding("UTF-8");
@@ -64,6 +65,22 @@ public class BaseController {
             e.printStackTrace();
         }
         return new HashMap();
+    }
+
+    /**
+     * 得到Get请求的数据
+     */
+    public Map getParameterMapByGet() {
+        Map map = new HashMap();
+        Enumeration enums = this.getRequest().getParameterNames();
+        while (enums.hasMoreElements()) {
+            String paramName = (String) enums.nextElement();
+            String paramValue = this.getRequest().getParameter(paramName);
+            //形成键值对应的map
+            map.put(paramName, paramValue);
+        }
+        // getRequest().getParameterMap()
+        return map;
     }
 
     /**
