@@ -13,75 +13,78 @@
     <title></title>
     <meta name="description" content="overview & stats"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="/resource/common/bootstrap/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/resource/common/bootstrap/bootstrap-responsive.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="/resource/common/other/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="/resource/common/other/css/ace.min.css"/>
-    <link rel="stylesheet" href="/resource/common/other/css/ace-responsive.min.css"/>
-    <link rel="stylesheet" href="/resource/common/other/css/ace-skins.min.css"/>
-    <script type="text/javascript" src="/resource/common/jquery/jquery-1.7.2.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/2.3.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/2.3.0/css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="/resource/common/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" href="/resource/common/ace/ace.min.css"/>
+    <link rel="stylesheet" href="/resource/common/ace/ace-responsive.min.css"/>
+    <link rel="stylesheet" href="/resource/common/ace/ace-skins.min.css"/>
+
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
+
+    <!--引入弹窗组件start-->
+    <link rel="stylesheet" href="/resource/plugins/layui/css/layui.css"/>
+    <script type="text/javascript" src="/resource/plugins/layui/layui.js"></script>
 
     <script type="text/javascript">
         $(top.hangge());
 
         //新增
-        function addmenu() {
+        function addMenu() {
             top.jzts();
-            var diag = new top.Dialog();
-            diag.Drag = true;
-            diag.Title = "新增菜单";
-            diag.URL = '<%=basePath%>/menu/toAdd.do';
-            diag.Width = 223;
-            diag.Height = 256;
-            diag.CancelEvent = function () { //关闭事件
-                if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
-                    top.jzts();
-                    setTimeout("location.reload()", 100);
-                }
-                diag.close();
-            };
-            diag.show();
+            layui.use(['layer', 'form'], function () {
+                layer.open({
+                    type: 2,
+                    title: '<i class="layui-icon" style="font-size: 15px;">&#xe654;</i>新增菜单',
+                    skin: 'layui-layer-lan', //加上边框
+                    area: ['245px', '291px'], //宽高
+                    scrollbar: false,
+                    content: '<%=basePath%>/menu/toAdd.do',
+                    cancel: function (index, layero) {
+                        layer.close(index)
+                    }
+                });
+            });
         }
 
         //修改
-        function editmenu(menuId) {
+        function editMenu(menuId) {
             top.jzts();
-            var diag = new top.Dialog();
-            diag.Drag = true;
-            diag.Title = "编辑菜单";
-            diag.URL = '<%=basePath%>/menu/toEdit.do?MENU_ID=' + menuId;
-            diag.Width = 223;
-            diag.Height = 256;
-            diag.CancelEvent = function () { //关闭事件
-                if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
-                    top.jzts();
-                    setTimeout("location.reload()", 100);
-                }
-                diag.close();
-            };
-            diag.show();
+            layui.use(['layer', 'form'], function () {
+                layer.open({
+                    type: 2,
+                    title: '<i class="layui-icon" style="font-size: 15px;">&#xe642;</i>编辑菜单',
+                    skin: 'layui-layer-lan', //加上边框
+                    area: ['245px', '291px'], //宽高
+                    scrollbar: false,
+                    content: '<%=basePath%>/menu/toEdit.do?menuId=' + menuId,
+                    cancel: function (index, layero) {
+                        layer.close(index)
+                    }
+                });
+            });
+
         }
 
         //编辑顶部菜单图标
         function editTb(menuId) {
             top.jzts();
-            var diag = new top.Dialog();
-            diag.Drag = true;
-            diag.Title = "编辑图标";
-            diag.URL = '<%=basePath%>/menu/toEditicon.do?MENU_ID=' + menuId;
-            diag.Width = 530;
-            diag.Height = 150;
-            diag.CancelEvent = function () { //关闭事件
-                if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
-                    top.jzts();
-                    setTimeout("location.reload()", 100);
-                }
-                diag.close();
-            };
-            diag.show();
+            layui.use(['layer', 'form'], function () {
+                layer.open({
+                    type: 2,
+                    title: '<i class="layui-icon" style="font-size: 15px;">&#xe642;</i>编辑图标',
+                    skin: 'layui-layer-lan', //加上边框
+                    area: ['530px', '200x'], //宽高
+                    content: '<%=basePath%>/menu/toEditIcon.do?menuId=' + menuId,
+                    cancel: function (index, layero) {
+                        layer.close(index)
+                    }
+                });
+            });
         }
 
-        function delmenu(menuId, isParent) {
+        function delMenu(menuId, isParent) {
             var flag = false;
             if (isParent) {
                 if (confirm("确定要删除该菜单吗？其下子菜单将一并删除！")) {
@@ -94,7 +97,7 @@
             }
             if (flag) {
                 top.jzts();
-                var url = "<%=basePath%>/menu/del.do?MENU_ID=" + menuId + "&guid=" + new Date().getTime();
+                var url = "<%=basePath%>/menu/del.do?menuId=" + menuId + "&guid=" + new Date().getTime();
                 $.get(url, function (data) {
                     top.jzts();
                     document.location.reload();
@@ -117,16 +120,16 @@
                         $.each(data, function (i) {
                             html = "<tr style='height:24px;line-height:24px;' name='subTr" + menuId + "'>";
                             html += "<td></td>";
-                            html += "<td><span style='width:80px;display:inline-block;'></span>";
+                            html += "<td class='center'><span style='width:80px;display:inline-block;'></span>";
                             if (i == data.length - 1)
-                                html += "<img src='/resource/common/images/joinbottom.gif' style='vertical-align: middle;'/>";
+                                html += "<img src='/resource/page/menu/images/joinbottom.gif' style='vertical-align: middle;'/>";
                             else
-                                html += "<img src='/resource/common/images/join.gif' style='vertical-align: middle;'/>";
+                                html += "<img src='/resource/page/menu/images/join.gif' style='vertical-align: middle;'/>";
                             html += "<span style='width:100px;text-align:left;display:inline-block;'>" + this.menuName + "</span>";
                             html += "</td>";
-                            html += "<td>" + this.menuUrl + "</td>";
+                            html += "<td class='center'>" + this.menuUrl + "</td>";
                             html += "<td class='center'>" + this.menuOrder + "</td>";
-                            html += "<td><a class='btn btn-mini btn-info' title='编辑' onclick='editmenu(\"" + this.menuId + "\")'><i class='icon-edit'></i></a> <a class='btn btn-mini btn-danger' title='删除' onclick='delmenu(\"" + this.menuId + "\",false)'><i class='icon-trash'></i></a></td>";
+                            html += "<td><a class='btn btn-mini btn-info' title='编辑' onclick='editMenu(\"" + this.menuId + "\")'><i class='icon-edit'></i></a> <a class='btn btn-mini btn-danger' title='删除' onclick='delMenu(\"" + this.menuId + "\",false)'><i class='icon-trash'></i></a></td>";
                             html += "</tr>";
                             $("#tempTr" + menuId).before(html);
                         });
@@ -163,10 +166,13 @@
             <c:forEach items="${menuList}" var="menu" varStatus="vs">
                 <tr id="tr${menu.menuId }">
                     <td class="center">${vs.index+1}</td>
-                    <td class='center'><i class="${menu.menuIcon }">&nbsp;</i>${menu.menuName }&nbsp;
-
-                        <span class="label label-success arrowed">系统</span>
-                        <span class="label label-important arrowed-in">业务</span>
+                    <td class='center'><i class="${menu.menuIcon}">&nbsp;</i>${menu.menuName }&nbsp;
+                        <c:if test="${menu.menuType == '1' }">
+                            <span class="label label-success arrowed">系统</span>
+                        </c:if>
+                        <c:if test="${menu.menuType != '1' }">
+                            <span class="label label-important arrowed-in">业务</span>
+                        </c:if>
 
                     </td>
                     <td>${menu.menuUrl == '#'? '': menu.menuUrl}</td>
@@ -176,9 +182,9 @@
                            onclick="openClose('${menu.menuId }',this,${vs.index })">展开</a>
                         <a class='btn btn-mini btn-purple' title="图标" onclick="editTb('${menu.menuId }')"><i
                                 class='icon-picture'></i></a>
-                        <a class='btn btn-mini btn-info' title="编辑" onclick="editmenu('${menu.menuId }')"><i
+                        <a class='btn btn-mini btn-info' title="编辑" onclick="editMenu('${menu.menuId }')"><i
                                 class='icon-edit'></i></a>
-                        <a class='btn btn-mini btn-danger' title="删除" onclick="delmenu('${menu.menuId }',true)"><i
+                        <a class='btn btn-mini btn-danger' title="删除" onclick="delMenu('${menu.menuId }',true)"><i
                                 class='icon-trash'></i></a>
                 </tr>
             </c:forEach>
@@ -193,7 +199,7 @@
 
 <div class="page_and_btn">
     <div>
-        &nbsp;&nbsp;<a class="btn btn-small btn-success" onclick="addmenu();">新增</a>
+        &nbsp;&nbsp;<a class="btn btn-small btn-success" onclick="addMenu();">新增</a>
     </div>
 </div>
 
