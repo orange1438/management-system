@@ -9,6 +9,7 @@ package indi.orange1438.managementsystem.util;
  */
 public class Const {
     public static final String SESSION_SECURITY_CODE = "sessionSecCode";    // 验证码
-    public static final String SESSION_USER = "sessionUser";            // user
-    public static final String SESSION_MENULIST = "sessionMenuList";            //当前菜单
+    public static final String SESSION_USER = "sessionUser";                // user
+    public static final String SESSION_MENULIST = "sessionMenuList";        //当前菜单
+    public static final String SESSION_ROLE = "sessionRole";                //当前角色
 }

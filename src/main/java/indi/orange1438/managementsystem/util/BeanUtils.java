@@ -31,7 +31,7 @@ public class BeanUtils {
      * @param dest 目的地对象
      * @param src  源对象
      */
-    public static void copyProperties(Object dest, Object src) {
+    public static void copyProperties(Object src, Object dest) {
         String[] srcPropertyNames = getPropertyNames(src);
         String[] destNames = getPropertyNames(dest);
         for (String property : srcPropertyNames) {
@@ -43,12 +43,12 @@ public class BeanUtils {
     }
 
     /**
-     * 复制属性
+     * Map转对象，复制属性
      *
      * @param dest 目的地对象
      * @param src  源对象Map
      */
-    public static void copyProperties(Object dest, Map<String, Object> src) {
+    public static void copyProperties(Map<String, Object> src, Object dest) {
         String[] destNames = getPropertyNames(dest);
         for (String property : src.keySet()) {
             Object value = src.get(property);
@@ -65,7 +65,7 @@ public class BeanUtils {
      * @param src    源对象
      * @param ignore 要忽略的属性
      */
-    public static void copyPropertiesIgnore(Object dest, Object src, String[] ignore) {
+    public static void copyPropertiesIgnore(Object src, Object dest, String[] ignore) {
         String[] srcPropertyNames = getPropertyNames(src);
         String[] destNames = getPropertyNames(dest);
         for (String property : srcPropertyNames) {
@@ -85,7 +85,7 @@ public class BeanUtils {
      * @param src     源对象
      * @param include 要复制的属性
      */
-    public static void copyProperties(Object dest, Object src, String[] include) {
+    public static void copyProperties(Object src, Object dest, String[] include) {
         String[] srcPropertyNames = getPropertyNames(src);
         String[] destNames = getPropertyNames(dest);
         for (String property : srcPropertyNames) {
@@ -104,7 +104,7 @@ public class BeanUtils {
      * @param dest 目的地对象
      * @param src  源对象
      */
-    public static void copyNotNullProperties(Object dest, Object src) {
+    public static void copyNotNullProperties(Object src, Object dest) {
         if (dest != null && src != null) {
             String[] properties = getPropertyNames(src);
             String[] destNames = getPropertyNames(dest);
@@ -121,10 +121,10 @@ public class BeanUtils {
     /**
      * copy非空属性，把src中的非空属性复制到dest中,
      *
-     * @param dest 目的地对象
      * @param src  源对象
+     * @param dest 目的地对象
      */
-    public static void copyPropertiesEmptyString(Object dest, Object src) {
+    public static void copyPropertiesEmptyString(Object src, Object dest) {
         if (dest != null && src != null) {
             String[] properties = getPropertyNames(src);
             String[] destNames = getPropertyNames(dest);
@@ -142,10 +142,10 @@ public class BeanUtils {
     /**
      * 复制属性, 如果dest中的属性为空, 则将src中的属性复制过去
      *
-     * @param dest 目的地对象
      * @param src  源对象
+     * @param dest 目的地对象
      */
-    public static void copyPropertiesIfNull(Object dest, Object src) {
+    public static void copyPropertiesIfNull(Object src, Object dest) {
         if (dest != null && src != null) {
             String[] properties = getPropertyNames(src);
             String[] destNames = getPropertyNames(dest);
@@ -162,11 +162,11 @@ public class BeanUtils {
     /**
      * copy非空属性，把src中的非空属性复制到dest中,其中忽略ignore中的属性
      *
-     * @param dest   目的地对象
      * @param src    源对象
+     * @param dest   目的地对象
      * @param ignore 要忽略的属性
      */
-    public static void copyNotNullPropertiesIgnore(Object dest, Object src, String[] ignore) {
+    public static void copyNotNullPropertiesIgnore(Object src, Object dest, String[] ignore) {
         if (dest != null && src != null) {
             String[] properties = getPropertyNames(src);
             String[] destNames = getPropertyNames(dest);
