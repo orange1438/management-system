@@ -5,6 +5,19 @@
          version="3.0"
          metadata-complete="true">
 
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <!--修改servlet版本为3.x，默认2.x不支持jsp EL表达式 可以去tomcat目录下面去搞-->
     <!--配置DispatcherServlet-->
     <servlet>
@@ -16,6 +29,7 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
+
     <!-- 配置spring的默认profile -->
     <context-param>
         <param-name>spring.profiles.active</param-name>
@@ -55,5 +69,8 @@
         <error-code>404</error-code>
         <location>/404.jsp</location>
     </error-page>
-
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500.jsp</location>
+    </error-page>
 </web-app>
