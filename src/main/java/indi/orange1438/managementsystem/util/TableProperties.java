@@ -21,7 +21,7 @@ public class TableProperties {
     public static final void createProperties(Object object, String creater) {
         Class<?> clazz = object.getClass();
         try {
-            Method method = clazz.getDeclaredMethod("setCreater", String.class);
+            Method method = clazz.getDeclaredMethod("setCreator", String.class);
             method.invoke(object, creater);
 
             method = clazz.getDeclaredMethod("setCreateTime", Date.class);
