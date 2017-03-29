@@ -51,6 +51,27 @@ public class BaseController {
 
     /**
      * 得到json数据请求的变量post参数
+     * 必须是标准的json格式
+     */
+    public Map getParameterMapByJsonPost() {
+        try {
+            HttpServletRequest request = getRequest();
+            request.setCharacterEncoding("UTF-8");
+            String paramStr = IOUtils.toString(request.getInputStream(), "UTF-8");
+            if (null == paramStr || paramStr.isEmpty()) {
+                return new HashMap();
+            }
+            return (Map) JSON.parse(paramStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new HashMap();
+    }
+
+    /**
+     * 得到Get请求的格式，请求的变量post参数
+     * 格式：name=1&sex=2
+     * form表单提交post的时候，是这个格式
      */
     public Map getParameterMapByPost() {
         try {
@@ -60,7 +81,17 @@ public class BaseController {
             if (null == paramStr || paramStr.isEmpty()) {
                 return new HashMap();
             }
-            return (Map) JSON.parse(paramStr);
+            Map map = new HashMap();
+            String[] node = paramStr.split("&");
+            for (String param : node) {
+                String[] str = param.split("=");
+                if (str.length > 1) {
+                    map.put(str[0], str[1]);
+                } else {
+                    map.put(str[0], "");
+                }
+            }
+            return map;
         } catch (Exception e) {
             e.printStackTrace();
         }

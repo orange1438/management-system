@@ -69,7 +69,7 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "/login_login", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
     public Object loginApi() throws Exception {
-        Map requestMap = this.getParameterMapByPost();
+        Map requestMap = this.getParameterMapByJsonPost();
         String userName = null == requestMap.get("loginName") ? null : requestMap.get("loginName").toString();
         String password = null == requestMap.get("password") ? null : requestMap.get("password").toString();
         String code = null == requestMap.get("code") ? null : requestMap.get("code").toString();

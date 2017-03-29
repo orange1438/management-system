@@ -5,6 +5,7 @@
          version="3.0"
          metadata-complete="true">
 
+    <!-- 配置请求过滤器，编码格式设为UTF-8，避免中文乱码-->
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -17,6 +18,12 @@
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!-- tomcat等容器 启动之后执行,可用于MQ等其他服务的初始化 -->
+    <listener>
+        <listener-class>indi.orange1438.managementsystem.listener.WebAppContextListener</listener-class>
+    </listener>
+
 
     <!--修改servlet版本为3.x，默认2.x不支持jsp EL表达式 可以去tomcat目录下面去搞-->
     <!--配置DispatcherServlet-->
@@ -41,11 +48,6 @@
         <!--默认匹配所有的请求-->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
-    <!-- tomcat等容器 启动之后执行,可用于MQ等其他服务的初始化 -->
-    <listener>
-        <listener-class>indi.orange1438.managementsystem.listener.WebAppContextListener</listener-class>
-    </listener>
 
     <!-- Shiro filter start -->
     <!--<filter>-->

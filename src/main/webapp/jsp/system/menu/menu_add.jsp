@@ -117,15 +117,12 @@
             timeout: 10000,    //超时时间
             cache: false,
             error: function (data) {
-                alert(data);
+                alert(data.message);
             },
             success: function (data) {
-                layui.use(['layer', 'form'], function () {
-                    // 刷新指定的对话框
-                    parent.$("#layui-layer-iframe" + parent.indexNum)[0].contentWindow.location.reload(true);
-                });
                 // close 当前对话框
                 parent.layer.close(parent.layer.getFrameIndex(window.name));
+                parent.location.reload(true);
             }
         });
         $("#zhongxin").hide();

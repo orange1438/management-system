@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class MenuDTO {
     // 菜单ID
-    private Long menuId;
+    private String menuId;
 
     // 菜单名称
     private String menuName;
@@ -21,7 +21,7 @@ public class MenuDTO {
     private String menuUrl;
 
     // 父菜单ID
-    private Long parentId;
+    private String parentId;
 
     // 菜单图标名
     private String menuIcon;
@@ -34,11 +34,11 @@ public class MenuDTO {
 
     private boolean hasMenu = false;
 
-    public Long getMenuId() {
+    public String getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(Long menuId) {
+    public void setMenuId(String menuId) {
         this.menuId = menuId;
     }
 
@@ -58,11 +58,11 @@ public class MenuDTO {
         this.menuUrl = menuUrl;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

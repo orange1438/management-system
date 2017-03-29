@@ -69,12 +69,13 @@
                                         class="icon-arrow-right  icon-on-right"></i></a>
 
                                 <a class="btn btn-mini btn-purple"
-                                   onclick="editRights('${currentGroup.groupId}');"><i class="icon-pencil"></i>组菜单权限</a>
+                                   onclick="groupRights('${currentGroup.groupId}');"><i
+                                        class="icon-pencil"></i>组菜单权限</a>
 
 
                                 <a class='btn btn-mini btn-danger' title="删除"
-                                   onclick="delRole('${currentGroup.groupId}','z','${currentGroup.groupName}');"><i
-                                        class='icon-trash'></i></a>
+                                   onclick="delGroup('${currentGroup.groupId}','${currentGroup.groupName}');">
+                                    <i class='icon-trash'></i></a>
                             </td>
                         </tr>
                         <tr height="7px;">
@@ -104,34 +105,34 @@
                             <c:forEach items="${roleList}" var="role" varStatus="vs">
                                 <tr>
                                     <td class='center' style="width:30px;">${vs.index+1}</td>
-                                    <td id="ROLE_NAMETd${role.roleId}">${role.roleName }</td>
+                                    <td class='center' id="ROLE_NAMETd${role.roleId}">${role.roleName }</td>
 
-                                    <td style="width:30px;"><a onclick="roleButton('${role.roleId }','add_qx');"
+                                    <td style="width:30px;"><a onclick="roleRights('${role.roleId }','add','新增');"
                                                                class="btn btn-warning btn-mini"
                                                                title="分配新增权限"><i
                                             class="icon-wrench icon-2x icon-only"></i></a></td>
-                                    <td style="width:30px;"><a onclick="roleButton('${role.roleId  }','del_qx');"
+                                    <td style="width:30px;"><a onclick="roleRights('${role.roleId  }','delete','删除');"
                                                                class="btn btn-warning btn-mini"
                                                                title="分配删除权限"><i
                                             class="icon-wrench icon-2x icon-only"></i></a></td>
                                     <td style="width:30px;"><a
-                                            onclick="roleButton('${role.roleId }','edit_qx');"
+                                            onclick="roleRights('${role.roleId }','edit');"
                                             class="btn btn-warning btn-mini" title="分配修改权限"><i
                                             class="icon-wrench icon-2x icon-only"></i></a></td>
-                                    <td style="width:30px;"><a onclick="roleButton('${role.roleId }','cha_qx');"
+                                    <td style="width:30px;"><a onclick="roleRights('${role.roleId }','view','详细');"
                                                                class="btn btn-warning btn-mini"
                                                                title="分配详细权限"><i
                                             class="icon-wrench icon-2x icon-only"></i></a></td>
-                                    <td style="width:30px;"><a onclick="roleButton('${role.roleId }','cha_qx');"
+                                    <td style="width:30px;"><a onclick="roleRights('${role.roleId }','import','导入');"
                                                                class="btn btn-warning btn-mini"
                                                                title="分配导入权限"><i
                                             class="icon-wrench icon-2x icon-only"></i></a></td>
-                                    <td style="width:30px;"><a onclick="roleButton('${role.roleId }','cha_qx');"
+                                    <td style="width:30px;"><a onclick="roleRights('${role.roleId }','export','导出');"
                                                                class="btn btn-warning btn-mini"
                                                                title="分配导出权限"><i
                                             class="icon-wrench icon-2x icon-only"></i></a></td>
 
-                                    <td style="width:30px;"><a onclick="roleButton('${role.roleId }','cha_qx');"
+                                    <td style="width:30px;"><a onclick="roleRights('${role.roleId }','menu','菜单');"
                                                                class="btn btn-warning btn-mini"
                                                                title="分配菜单权限"><i
                                             class="icon-wrench icon-2x icon-only"></i></a></td>
@@ -143,7 +144,7 @@
 
 
                                         <a class='btn btn-mini btn-danger' title="删除"
-                                           onclick="delRole('${role.roleId }','c','${role.roleName }');"><i
+                                           onclick="delRole('${role.roleId }','${role.roleName }');"><i
                                                 class='icon-trash'></i></a>
 
                                 </tr>
@@ -162,7 +163,7 @@
                     <table style="width:100%;">
                         <tr>
                             <td style="vertical-align:top;"><a class="btn btn-small btn-success"
-                                                               onclick="addRole2('${pd.ROLE_ID }');">新增</a></td>
+                                                               onclick="addRole('${currentGroup.groupId}');">新增</a></td>
                         </tr>
                     </table>
 
@@ -188,9 +189,11 @@
 <script src="/resource/common/ace/ace-elements.min.js"></script>
 <script src="/resource/common/ace/ace.min.js"></script>
 
-<script type="text/javascript" src="static/js/bootbox.min.js"></script><!-- 确认窗口 -->
-<!-- 引入 -->
+<!--引入弹窗组件start-->
+<link rel="stylesheet" href="/resource/plugins/layui/css/layui.css"/>
+<script type="text/javascript" src="/resource/plugins/layui/layui.js"></script>
 
+<!-- 引入组 -->
 <script type="text/javascript">
 
     top.hangge();
@@ -198,310 +201,159 @@
     //新增组
     function addGroup() {
         top.jzts();
-        var diag = new top.Dialog();
-        diag.Drag = true;
-        diag.Title = "新增组";
-        diag.URL = '<%=basePath%>/role/toAdd.do?parent_id=0';
-        diag.Width = 222;
-        diag.Height = 90;
-        diag.CancelEvent = function () { //关闭事件
-            if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
-                top.jzts();
-                setTimeout("self.location.reload()", 100);
-            }
-            diag.close();
-        };
-        diag.show();
+
+        layui.use(['layer', 'form'], function () {
+            layer.open({
+                type: 2,
+                title: '<i class="layui-icon" style="font-size: 15px;">&#xe642;</i>新增组',
+                skin: 'layui-layer-lan', //加上边框
+                area: ['222px', '200px'], //宽高
+                content: '<%=basePath%>/group/toAdd.do?parentId=0',
+                cancel: function (index, layero) {
+                    layer.close(index)
+                }
+            });
+        });
     }
     // 编辑组
     function editGroup(groupId) {
         top.jzts();
-        var diag = new top.Dialog();
-        diag.Drag = true;
-        diag.Title = "编辑";
-        diag.URL = '<%=basePath%>role/toEdit.do?groupId=' + groupId;
-        diag.Width = 222;
-        diag.Height = 90;
-        diag.CancelEvent = function () { //关闭事件
-            if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
-                top.jzts();
-                setTimeout("self.location.reload()", 100);
-            }
-            diag.close();
-        };
-        diag.show();
+        layui.use(['layer', 'form'], function () {
+            layer.open({
+                type: 2,
+                title: '<i class="layui-icon" style="font-size: 15px;">&#xe642;</i>编辑组',
+                skin: 'layui-layer-lan', //加上边框
+                area: ['222px', '200px'], //宽高
+                content: '<%=basePath%>/group/toEdit.do?groupId=' + groupId,
+                cancel: function (index, layero) {
+                    layer.close(index)
+                }
+            });
+        });
     }
 
-    //新增角色
-    function addRole2(pid) {
-        top.jzts();
-        var diag = new top.Dialog();
-        diag.Drag = true;
-        diag.Title = "新增角色";
-        diag.URL = '<%=basePath%>role/toAdd.do?parent_id=' + pid;
-        diag.Width = 222;
-        diag.Height = 90;
-        diag.CancelEvent = function () { //关闭事件
-            if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
+    //删除组
+    function delGroup(groupId, groupName) {
+        layui.use(['layer', 'form'], function () {
+            //询问框
+            layer.confirm('确定要删除[' + groupName + ']吗?', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
                 top.jzts();
-                setTimeout("self.location.reload()", 100);
-            }
-            diag.close();
-        };
-        diag.show();
-    }
-
-    //修改
-    function editRole(ROLE_ID) {
-        top.jzts();
-        var diag = new top.Dialog();
-        diag.Drag = true;
-        diag.Title = "编辑";
-        diag.URL = '<%=basePath%>role/toEdit.do?ROLE_ID=' + ROLE_ID;
-        diag.Width = 222;
-        diag.Height = 90;
-        diag.CancelEvent = function () { //关闭事件
-            if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
-                top.jzts();
-                setTimeout("self.location.reload()", 100);
-            }
-            diag.close();
-        };
-        diag.show();
-    }
-
-    //删除
-    function delRole(ROLE_ID, msg, ROLE_NAME) {
-        bootbox.confirm("确定要删除[" + ROLE_NAME + "]吗?", function (result) {
-            if (result) {
-                var url = "<%=basePath%>role/delete.do?ROLE_ID=" + ROLE_ID + "&guid=" + new Date().getTime();
-                top.jzts();
+                var url = "<%=basePath%>/group/delete.do?groupId=" + groupId + "&guid=" + new Date().getTime();
                 $.get(url, function (data) {
-                    if ("success" == data.result) {
-                        if (msg == 'c') {
-                            top.jzts();
-                            document.location.reload();
-                        } else {
-                            top.jzts();
-                            window.location.href = "role.do";
-                        }
-
-                    } else if ("false" == data.result) {
+                    console.log(data);
+                    if ("1" == data) {
+                        window.location.href = "role.do";
+                    } else {
                         top.hangge();
-                        bootbox.dialog("删除失败，请先删除此部门下的职位!",
-                            [
-                                {
-                                    "label": "关闭",
-                                    "class": "btn-small btn-success",
-                                    "callback": function () {
-                                        //Example.show("great success");
-                                    }
-                                }]
-                        );
-                    } else if ("false2" == data.result) {
-                        top.hangge();
-                        bootbox.dialog("删除失败，请先删除此职位下的用户!",
-                            [
-                                {
-                                    "label": "关闭",
-                                    "class": "btn-small btn-success",
-                                    "callback": function () {
-                                        //Example.show("great success");
-                                    }
-                                }]
-                        );
+                        layer.msg('删除失败', {
+                            time: 2000, //2s后自动关闭
+                            icon: 2
+                        });
                     }
                 });
-            }
+            });
+        });
+    }
+
+    //组菜单权限
+    function groupRights(groupId) {
+        top.jzts();
+        layui.use(['layer', 'form'], function () {
+            layer.open({
+                type: 2,
+                title: '<i class="layui-icon" style="font-size: 15px;">&#xe642;</i>组菜单权限',
+                skin: 'layui-layer-lan', //加上边框
+                area: ['300px', '400px'], //宽高
+                content: '<%=basePath%>/group/toAuth.do?groupId=' + groupId,
+                cancel: function (index, layero) {
+                    layer.close(index)
+                }
+            });
         });
     }
 
 </script>
 
+<!-- 引入角色 -->
 <script type="text/javascript">
-
-
-    //扩展权限 ==============================================================
-    var hcid1 = '';
-    var qxhc1 = '';
-    function kf_qx1(id, kefu_id, msg) {
-        if (id != hcid1) {
-            hcid1 = id;
-            qxhc1 = '';
-        }
-        var value = 1;
-        var wqx = $("#" + id).attr("checked");
-        if (qxhc1 == '') {
-            if (wqx == 'checked') {
-                qxhc1 = 'checked';
-            } else {
-                qxhc1 = 'unchecked';
-            }
-        }
-        if (qxhc1 == 'checked') {
-            value = 0;
-            qxhc1 = 'unchecked';
-        } else {
-            value = 1;
-            qxhc1 = 'checked';
-        }
-        var url = "<%=basePath%>role/kfqx.do?kefu_id=" + kefu_id + "&msg=" + msg + "&value=" + value + "&guid=" + new Date().getTime();
-        $.get(url, function (data) {
-            if (data == "success") {
-                //document.location.reload();
-            }
-        });
-    }
-
-    var hcid2 = '';
-    var qxhc2 = '';
-    function kf_qx2(id, kefu_id, msg) {
-        if (id != hcid2) {
-            hcid2 = id;
-            qxhc2 = '';
-        }
-        var value = 1;
-        var wqx = $("#" + id).attr("checked");
-        if (qxhc2 == '') {
-            if (wqx == 'checked') {
-                qxhc2 = 'checked';
-            } else {
-                qxhc2 = 'unchecked';
-            }
-        }
-        if (qxhc2 == 'checked') {
-            value = 0;
-            qxhc2 = 'unchecked';
-        } else {
-            value = 1;
-            qxhc2 = 'checked';
-        }
-        var url = "<%=basePath%>role/kfqx.do?kefu_id=" + kefu_id + "&msg=" + msg + "&value=" + value + "&guid=" + new Date().getTime();
-        $.get(url, function (data) {
-            if (data == "success") {
-                //document.location.reload();
-            }
-        });
-    }
-
-    var hcid3 = '';
-    var qxhc3 = '';
-    function kf_qx3(id, kefu_id, msg) {
-        if (id != hcid3) {
-            hcid3 = id;
-            qxhc3 = '';
-        }
-        var value = 1;
-        var wqx = $("#" + id).attr("checked");
-        if (qxhc3 == '') {
-            if (wqx == 'checked') {
-                qxhc3 = 'checked';
-            } else {
-                qxhc3 = 'unchecked';
-            }
-        }
-        if (qxhc3 == 'checked') {
-            value = 0;
-            qxhc3 = 'unchecked';
-        } else {
-            value = 1;
-            qxhc3 = 'checked';
-        }
-        var url = "<%=basePath%>role/kfqx.do?kefu_id=" + kefu_id + "&msg=" + msg + "&value=" + value + "&guid=" + new Date().getTime();
-        $.get(url, function (data) {
-            if (data == "success") {
-                //document.location.reload();
-            }
-        });
-    }
-
-    var hcid4 = '';
-    var qxhc4 = '';
-    function kf_qx4(id, kefu_id, msg) {
-        if (id != hcid4) {
-            hcid4 = id;
-            qxhc4 = '';
-        }
-        var value = 1;
-        var wqx = $("#" + id).attr("checked");
-        if (qxhc4 == '') {
-            if (wqx == 'checked') {
-                qxhc4 = 'checked';
-            } else {
-                qxhc4 = 'unchecked';
-            }
-        }
-        if (qxhc4 == 'checked') {
-            value = 0;
-            qxhc4 = 'unchecked';
-        } else {
-            value = 1;
-            qxhc4 = 'checked';
-        }
-        var url = "<%=basePath%>role/kfqx.do?kefu_id=" + kefu_id + "&msg=" + msg + "&value=" + value + "&guid=" + new Date().getTime();
-        $.get(url, function (data) {
-            if (data == "success") {
-                //document.location.reload();
-            }
-        });
-    }
-
-    //保存信件数
-    function c1(id, msg, value, kefu_id) {
-        if (isNaN(Number(value))) {
-            alert("请输入数字!");
-            $("#" + id).val(0);
-            return;
-        } else {
-            var url = "<%=basePath%>role/gysqxc.do?kefu_id=" + kefu_id + "&msg=" + msg + "&value=" + value + "&guid=" + new Date().getTime();
-            $.get(url, function (data) {
-                if (data == "success") {
-                    //document.location.reload();
+    //新增角色
+    function addRole(groupId) {
+        top.jzts();
+        layui.use(['layer', 'form'], function () {
+            layer.open({
+                type: 2,
+                title: '<i class="layui-icon" style="font-size: 15px;">&#xe642;</i>新增组',
+                skin: 'layui-layer-lan', //加上边框
+                area: ['222px', '200px'], //宽高
+                content: '<%=basePath%>/role/toAdd.do?parentId=' + groupId,
+                cancel: function (index, layero) {
+                    layer.close(index)
                 }
             });
-        }
+        });
     }
 
-    //组菜单权限
-    function editRights(ROLE_ID) {
+    //修改角色
+    function editRole(roleId) {
         top.jzts();
-        var diag = new top.Dialog();
-        diag.Drag = true;
-        diag.Title = "菜单权限";
-        diag.URL = '<%=basePath%>role/auth.do?ROLE_ID=' + ROLE_ID;
-        diag.Width = 280;
-        diag.Height = 370;
-        diag.CancelEvent = function () { //关闭事件
-            diag.close();
-        };
-        diag.show();
+        layui.use(['layer', 'form'], function () {
+            layer.open({
+                type: 2,
+                title: '<i class="layui-icon" style="font-size: 15px;">&#xe642;</i>编辑角色',
+                skin: 'layui-layer-lan', //加上边框
+                area: ['222px', '200px'], //宽高
+                content: '<%=basePath%>/role/toEdit.do?roleId=' + roleId,
+                cancel: function (index, layero) {
+                    layer.close(index)
+                }
+            });
+        });
     }
 
-    //按钮权限
-    function roleButton(ROLE_ID, msg) {
+    //删除角色
+    function delRole(roleId, roleName) {
+        layui.use(['layer', 'form'], function () {
+            //询问框
+            layer.confirm('确定要删除[' + roleName + ']吗?', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+                top.jzts();
+                var url = "<%=basePath%>/role/delete.do?roleId=" + roleId + "&guid=" + new Date().getTime();
+                $.get(url, function (data) {
+                    console.log(data);
+                    if ("1" == data) {
+                        window.location.href = "role.do";
+                    } else {
+                        top.hangge();
+                        layer.msg('删除失败', {
+                            time: 2000, //2s后自动关闭
+                            icon: 2
+                        });
+                    }
+                });
+            });
+        });
+    }
+
+    //角色菜单权限
+    // type:add,delete,edit,view,import,export,menu
+    function roleRights(roleId, type, msg) {
         top.jzts();
-        if (msg == 'add_qx') {
-            var Title = "授权新增权限";
-        } else if (msg == 'del_qx') {
-            Title = "授权删除权限";
-        } else if (msg == 'edit_qx') {
-            Title = "授权修改权限";
-        } else if (msg == 'cha_qx') {
-            Title = "授权查看权限";
-        }
-
-        var diag = new top.Dialog();
-        diag.Drag = true;
-        diag.Title = Title;
-        diag.URL = '<%=basePath%>role/button.do?ROLE_ID=' + ROLE_ID + '&msg=' + msg;
-        diag.Width = 200;
-        diag.Height = 370;
-        diag.CancelEvent = function () { //关闭事件
-            diag.close();
-        };
-        diag.show();
+        layui.use(['layer', 'form'], function () {
+            layer.open({
+                type: 2,
+                title: '<i class="layui-icon" style="font-size: 15px;">&#xe642;</i>角色' + msg + '权限',
+                skin: 'layui-layer-lan', //加上边框
+                area: ['300px', '400px'], //宽高
+                content: '<%=basePath%>/role/toAuth.do?roleId=' + roleId + '&type=' + type,
+                cancel: function (index, layero) {
+                    layer.close(index)
+                }
+            });
+        });
     }
-
 </script>
 </body>
 </html>

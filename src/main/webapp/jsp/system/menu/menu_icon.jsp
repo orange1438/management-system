@@ -50,12 +50,9 @@
                     alert(data);
                 },
                 success: function (data) {
-                    layui.use(['layer', 'form'], function () {
                         // close 当前对话框
                         parent.layer.close(parent.layer.getFrameIndex(window.name));
                         parent.location.reload(true);
-                    });
-
                 }
             });
 
@@ -144,7 +141,7 @@
             </tr>
         </table>
     </div>
-    <div id="zhongxin2" class="center" style="display:none"><img src="/resource/page/menu/images/jzx.gif"/></div>
+    <div id="zhongxin2" class="center" style="display:none"><img src="/resource/common/images/jzx.gif"/></div>
 </form>
 </body>
 </html>

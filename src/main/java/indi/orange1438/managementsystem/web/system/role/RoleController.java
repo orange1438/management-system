@@ -1,14 +1,20 @@
 package indi.orange1438.managementsystem.web.system.role;
 
-import indi.orange1438.managementsystem.dao.entity.Group;
-import indi.orange1438.managementsystem.dao.entity.Role;
-import indi.orange1438.managementsystem.dto.RolePermissionDTO;
-import indi.orange1438.managementsystem.service.system.GroupService;
-import indi.orange1438.managementsystem.service.system.RoleService;
+import com.alibaba.fastjson.JSON;
+import indi.orange1438.managementsystem.dao.entity.*;
+import indi.orange1438.managementsystem.dto.MenuDTO;
+import indi.orange1438.managementsystem.service.system.*;
 import indi.orange1438.managementsystem.util.BeanUtils;
+import indi.orange1438.managementsystem.util.Const;
+import indi.orange1438.managementsystem.util.IdGeneratorUtils;
+import indi.orange1438.managementsystem.util.SecurityUtils.DecodeUtils;
+import indi.orange1438.managementsystem.util.TableProperties;
 import indi.orange1438.managementsystem.web.system.base.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -17,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 角色、组
+ * 角色
  *
  * @author orange1438
  *         github: github.com/orange1438
@@ -33,6 +39,14 @@ public class RoleController extends BaseController {
     @Resource(name = "groupService")
     private GroupService groupService;
 
+    @Resource(name = "menuService")
+    private MenuService menuService;
+
+    @Resource(name = "permissionService")
+    private PermissionService permissionService;
+
+    @Resource(name = "rolePermissionService")
+    private RolePermissionService rolePermissionService;
 
     /**
      * 列表
@@ -41,13 +55,16 @@ public class RoleController extends BaseController {
     public ModelAndView list() throws Exception {
         ModelAndView mv = this.getModelAndView();
 
-        Map requestMap = this.getParameterMapByGet();
-        String groupId = null == requestMap.get("groupId") ? "1" : requestMap.get("groupId").toString();
-        Group currentGroup = groupService.getGroupByGroupId(Long.valueOf(groupId));    // 当前组
-
-        List<Role> roleList = roleService.getRoleByGroupId(currentGroup.getGroupId());        //列出当前组的所有角色
-
+        Group currentGroup = null;
+        List<Role> roleList = null;
         List<Group> groupList = groupService.getAllGroup();                //列出所有组(有时候可以是部门的概念)
+        if (null != groupList && 0 < groupList.size()) {
+            Map requestMap = this.getParameterMapByGet();
+            Long groupId = null == requestMap.get("groupId") ? groupList.get(0).getGroupId() : Long.valueOf(requestMap.get("groupId").toString());
+            currentGroup = groupService.getGroupByGroupId(groupId);    // 当前组
+
+            roleList = roleService.getRoleByGroupId(currentGroup.getGroupId());        //列出当前组的所有角色
+        }
 
         mv.addObject("currentGroup", currentGroup);
         mv.addObject("groupList", groupList);
@@ -55,5 +72,252 @@ public class RoleController extends BaseController {
         mv.setViewName("system/role/role_list");
 
         return mv;
+    }
+
+    /**
+     * 新增角色页面
+     */
+    @RequestMapping(value = "/toAdd")
+    public ModelAndView toAdd() throws Exception {
+        ModelAndView mv = this.getModelAndView();
+        try {
+            Map requestMap = this.getParameterMapByGet();
+            requestMap.put("action", "/role/add.do");
+            requestMap.put("name", "角色");
+            mv.addObject("page", requestMap);
+            mv.setViewName("system/role/page_add");
+        } catch (Exception e) {
+            logger.error(e.toString(), e);
+        }
+        return mv;
+    }
+
+    /**
+     * 新增接口
+     */
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public Object add() throws Exception {
+        Map requestMap = this.getParameterMapByJsonPost();
+        String groupId = null == requestMap.get("parentId") ? null : DecodeUtils.urlDecode(requestMap.get("parentId").toString());
+        String roleName = null == requestMap.get("Name") ? null : DecodeUtils.urlDecode(requestMap.get("Name").toString());
+        String description = null == requestMap.get("Description") ? null : DecodeUtils.urlDecode(requestMap.get("Description").toString());
+
+        Role role = new Role();
+        role.setDescription(description);
+        role.setRoleId(IdGeneratorUtils.getInstance().nextId());
+        role.setRoleName(roleName);
+
+        RoleGroup roleGroup = new RoleGroup();
+        roleGroup.setGroupId(Long.valueOf(groupId));
+        roleGroup.setRoleGroupId(IdGeneratorUtils.getInstance().nextId());
+        roleGroup.setRoleId(role.getRoleId());
+
+        User user = (User) this.getSession().getAttribute(Const.SESSION_USER);
+        TableProperties.createProperties(role, user.getTrueName());
+        TableProperties.modifyProperties(role, user.getTrueName());
+        TableProperties.createProperties(roleGroup, user.getTrueName());
+        TableProperties.modifyProperties(roleGroup, user.getTrueName());
+
+        return roleService.insertRole(role, roleGroup);
+    }
+
+    /**
+     * 编辑角色页面
+     */
+    @RequestMapping(value = "/toEdit")
+    public ModelAndView toEdit() throws Exception {
+        ModelAndView mv = this.getModelAndView();
+        try {
+            Map requestMap = this.getParameterMapByGet();
+            String roleId = null == requestMap.get("roleId") ? null : DecodeUtils.urlDecode(requestMap.get("roleId").toString());
+            Role role = roleService.getRoleByRoleId(Long.valueOf(roleId));
+            mv.addObject("role", role);
+
+            requestMap.put("action", "/role/edit.do");
+            requestMap.put("name", "角色");
+            mv.addObject("page", requestMap);
+            mv.setViewName("system/role/page_edit");
+        } catch (Exception e) {
+            logger.error(e.toString(), e);
+        }
+        return mv;
+    }
+
+    /**
+     * 编辑角色接口
+     */
+    @RequestMapping(value = "/edit", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public Object edit() throws Exception {
+        Map requestMap = this.getParameterMapByJsonPost();
+        String roleId = null == requestMap.get("roleId") ? null : DecodeUtils.urlDecode(requestMap.get("roleId").toString());
+        String roleName = null == requestMap.get("Name") ? null : DecodeUtils.urlDecode(requestMap.get("Name").toString());
+        String description = null == requestMap.get("Description") ? null : DecodeUtils.urlDecode(requestMap.get("Description").toString());
+
+        Role role = new Role();
+        role.setDescription(description);
+        role.setRoleId(Long.valueOf(roleId));
+        role.setRoleName(roleName);
+
+        User user = (User) this.getSession().getAttribute(Const.SESSION_USER);
+        TableProperties.modifyProperties(role, user.getTrueName());
+
+        return roleService.updateRoleByRoleId(role);
+    }
+
+    /**
+     * 删除角色
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public Object delete(@RequestParam String roleId) throws Exception {
+        return roleService.deleteRole(Long.valueOf(roleId));
+    }
+
+    /**
+     * 请求角色授权页面
+     * type:add,delete,edit,view,import,export,menu
+     */
+    @RequestMapping(value = "/toAuth")
+    public ModelAndView toAuth(@RequestParam String roleId, @RequestParam String type) throws Exception {
+        ModelAndView mv = this.getModelAndView();
+        try {
+            List<Menu> menuList = menuService.getAllParentMenu();
+            List<MenuDTO> menuDTOList = new ArrayList<>();
+            for (Menu menu : menuList) {
+                MenuDTO menuDTO = new MenuDTO();
+                BeanUtils.copyProperties(menu, menuDTO);
+                menuDTO.setMenuId(menu.getMenuId().toString());
+                menuDTO.setParentId(menu.getParentId().toString());
+
+                List<Menu> subMenuList = menuService.getSubMenuByParentId(menu.getMenuId());
+                List<MenuDTO> subMenuDTOList = new ArrayList<>();
+                for (Menu subMenu : subMenuList) {
+                    MenuDTO subMenuDTO = new MenuDTO();
+                    subMenuDTO.setHasMenu(false);
+                    BeanUtils.copyProperties(subMenu, subMenuDTO);
+                    subMenuDTO.setMenuId(subMenu.getMenuId().toString());
+                    subMenuDTO.setParentId(subMenu.getParentId().toString());
+
+                    if ("menu".equals(type)) {
+                        // 如果角色有该菜单（权限），就true
+                        if (roleService.isHaveMenu(Long.valueOf(roleId), subMenu.getMenuId())) {
+                            subMenuDTO.setHasMenu(true);
+                        }
+                    } else if ("add".equals(type)) {
+                        // 如果角色有该菜单的新增权限，就true
+                        RolePermission rolePermission = roleService.getRolePermissionByRoleIdAndMnuId(Long.valueOf(roleId), subMenu.getMenuId());
+                        if (null != rolePermission && rolePermission.getAddRights()) {
+                            subMenuDTO.setHasMenu(true);
+                        }
+                    } else if ("delete".equals(type)) {
+                        // 如果角色有该菜单的删除权限，就true
+                        RolePermission rolePermission = roleService.getRolePermissionByRoleIdAndMnuId(Long.valueOf(roleId), subMenu.getMenuId());
+                        if (null != rolePermission && rolePermission.getDeleteRights()) {
+                            subMenuDTO.setHasMenu(true);
+                        }
+                    } else if ("edit".equals(type)) {
+                        // 如果角色有该菜单的新增权限，就true
+                        RolePermission rolePermission = roleService.getRolePermissionByRoleIdAndMnuId(Long.valueOf(roleId), subMenu.getMenuId());
+                        if (null != rolePermission && rolePermission.getEditRights()) {
+                            subMenuDTO.setHasMenu(true);
+                        }
+                    } else if ("view".equals(type)) {
+                        // 如果角色有该菜单的新增权限，就true
+                        RolePermission rolePermission = roleService.getRolePermissionByRoleIdAndMnuId(Long.valueOf(roleId), subMenu.getMenuId());
+                        if (null != rolePermission && rolePermission.getViewRights()) {
+                            subMenuDTO.setHasMenu(true);
+                        }
+                    } else if ("import".equals(type)) {
+                        // 如果角色有该菜单的新增权限，就true
+                        RolePermission rolePermission = roleService.getRolePermissionByRoleIdAndMnuId(Long.valueOf(roleId), subMenu.getMenuId());
+                        if (null != rolePermission && rolePermission.getImportRights()) {
+                            subMenuDTO.setHasMenu(true);
+                        }
+                    } else if ("export".equals(type)) {
+                        // 如果角色有该菜单的新增权限，就true
+                        RolePermission rolePermission = roleService.getRolePermissionByRoleIdAndMnuId(Long.valueOf(roleId), subMenu.getMenuId());
+                        if (null != rolePermission && rolePermission.getExportRights()) {
+                            subMenuDTO.setHasMenu(true);
+                        }
+                    }
+                    subMenuDTOList.add(subMenuDTO);
+                }
+
+                menuDTO.setSubMenu(subMenuDTOList);
+                menuDTOList.add(menuDTO);
+            }
+            String json = JSON.toJSONString(menuDTOList);
+
+            // 符合zTree的使用
+            json = json.replaceAll("menuId", "id").replaceAll("menuName", "name").replaceAll("subMenu", "nodes").replaceAll("hasMenu", "checked");
+            mv.addObject("zTreeNodes", json);
+            mv.addObject("roleId", roleId);
+            mv.addObject("page", "role");
+            mv.addObject("type", type);
+        } catch (Exception e) {
+            logger.error(e.toString(), e);
+        }
+        mv.setViewName("system/role/authorization");
+        return mv;
+    }
+
+    /**
+     * 角色权限
+     * type:add,delete,edit,view,import,export,menu
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/auth", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public Object auth() throws Exception {
+        Map requestMap = this.getParameterMapByPost();
+        String roleId = null == requestMap.get("roleId") ? null : DecodeUtils.urlDecode(requestMap.get("roleId").toString());
+        String menuIds = null == requestMap.get("menuIds") ? null : DecodeUtils.urlDecode(requestMap.get("menuIds").toString());
+        String type = null == requestMap.get("type") ? null : DecodeUtils.urlDecode(requestMap.get("type").toString());
+
+        User user = (User) this.getSession().getAttribute(Const.SESSION_USER);
+
+        List<RolePermission> rolePermissionList = new ArrayList<>();
+        String[] menuIdList = menuIds.split(",");
+        for (String menuId : menuIdList) {
+            RolePermission rolePermission = new RolePermission();
+            rolePermission.setRolePermissionId(IdGeneratorUtils.getInstance().nextId());
+            Permission permission = permissionService.getPermissionByMenuId(Long.valueOf(menuId));
+            if (null != permission) {
+                rolePermission.setPermissionId(permission.getPermissionId());
+            } else {
+                rolePermission.setPermissionId(null);
+            }
+
+            rolePermission.setAddRights(false);
+            rolePermission.setEditRights(false);
+            rolePermission.setDeleteRights(false);
+            rolePermission.setViewRights(false);
+            rolePermission.setImportRights(false);
+            rolePermission.setExportRights(false);
+            if ("add".equals(type)) {
+                rolePermission.setAddRights(true);
+            } else if ("delete".equals(type)) {
+                rolePermission.setDeleteRights(true);
+            } else if ("edit".equals(type)) {
+                rolePermission.setEditRights(true);
+            } else if ("view".equals(type)) {
+                rolePermission.setViewRights(true);
+            } else if ("import".equals(type)) {
+                rolePermission.setImportRights(true);
+            } else if ("export".equals(type)) {
+                rolePermission.setExportRights(true);
+            }
+            rolePermission.setRoleId(Long.valueOf(roleId));
+            TableProperties.createProperties(rolePermission, user.getTrueName());
+            TableProperties.modifyProperties(rolePermission, user.getTrueName());
+            rolePermissionList.add(rolePermission);
+        }
+
+        return rolePermissionService.saveRolePermission(rolePermissionList);
+
     }
 }

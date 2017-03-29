@@ -115,6 +115,7 @@
                 }
                 var url = "<%=basePath%>/menu/sub.do?menuId=" + menuId + "&guid=" + new Date().getTime();
                 $.get(url, function (data) {
+                    console.log(data);
                     if (data.length > 0) {
                         var html = "";
                         $.each(data, function (i) {

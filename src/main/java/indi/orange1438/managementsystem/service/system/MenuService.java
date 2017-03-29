@@ -1,13 +1,16 @@
 package indi.orange1438.managementsystem.service.system;
 
 import indi.orange1438.managementsystem.dao.MenuDAO;
-import indi.orange1438.managementsystem.dao.entity.Menu;
-import indi.orange1438.managementsystem.dao.entity.MenuExample;
+import indi.orange1438.managementsystem.dao.PermissionDAO;
+import indi.orange1438.managementsystem.dao.PermissionMenuDAO;
+import indi.orange1438.managementsystem.dao.entity.*;
 import indi.orange1438.managementsystem.dto.MenuDTO;
+import indi.orange1438.managementsystem.util.IdGeneratorUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,8 +26,14 @@ public class MenuService {
     @Autowired
     MenuDAO menuDAO;
 
+    @Autowired
+    PermissionDAO permissionDAO;
+
+    @Autowired
+    PermissionMenuDAO permissionMenuDAO;
+
     /**
-     * 通过role MENU_RIGHTS得到用户对应权限下的菜单
+     * 通过用户ID 得到用户对应权限下的菜单
      *
      * @param userId
      * @return
@@ -32,7 +41,7 @@ public class MenuService {
     public List<MenuDTO> getMenuDTOByUserId(Long userId) throws Exception {
         List<MenuDTO> parentMenuDTOList = menuDAO.getParentMenuByUserId(userId);
         for (MenuDTO menuDTO : parentMenuDTOList) {
-            List<MenuDTO> subMenuDTOList = menuDAO.getSubMenuByUserIdAndParentId(userId, menuDTO.getMenuId());
+            List<MenuDTO> subMenuDTOList = menuDAO.getSubMenuByUserIdAndParentId(userId, Long.valueOf(menuDTO.getMenuId()));
             menuDTO.setSubMenu(subMenuDTOList);
             menuDTO.setHasMenu(true);
         }
@@ -99,6 +108,7 @@ public class MenuService {
      * 通过 MenuId 删除菜单,以及对应的子菜单
      */
     public int deleteMenuById(Long menuId) throws Exception {
+        // sys_menu、sys_permission、sys_permission_menu
         MenuExample menuExample = new MenuExample();
         MenuExample.Criteria criterion1 = menuExample.createCriteria();
         criterion1.andMenuIdEqualTo(menuId);
@@ -106,15 +116,48 @@ public class MenuService {
         MenuExample.Criteria criterion2 = menuExample.createCriteria();
         criterion2.andParentIdEqualTo(menuId);
         menuExample.or(criterion2);
+
+        PermissionMenuExample permissionMenuExample = new PermissionMenuExample();
+        permissionMenuExample.createCriteria().andMenuIdEqualTo(menuId);
+        List<PermissionMenu> permissionMenus = permissionMenuDAO.selectByExample(permissionMenuExample);
+        for (PermissionMenu permissionMenu : permissionMenus) {
+            permissionDAO.deleteByPrimaryKey(permissionMenu.getPermissionId());
+        }
+        permissionMenuDAO.deleteByExample(permissionMenuExample);
+
         return menuDAO.deleteByExample(menuExample);
     }
 
     /**
-     * 保存菜单
+     * 添加菜单
      *
-     * @param menu 保存的实体类，必须包括主键
+     * @param menu 添加的实体类，必须包括主键
      */
-    public int saveMenu(Menu menu) throws Exception {
+    public int insertMenu(Menu menu, Permission permission, PermissionMenu permissionMenu) throws Exception {
+        // sys_menu、sys_permission、sys_permission_menu
+        permissionDAO.insertSelective(permission);
+        permissionMenuDAO.insertSelective(permissionMenu);
         return menuDAO.insertSelective(menu);
+    }
+
+    /**
+     * 通过组ID得到组下的菜单
+     *
+     * @param groupId
+     * @return
+     */
+    public List<Menu> getMenuByGroupId(Long groupId) {
+        return menuDAO.getMenuByGroupId(groupId);
+    }
+
+    /**
+     * 组ID 是否拥有 menuId的菜单
+     *
+     * @return
+     */
+    public Boolean isHaveMenu(Long groupId, Long menuId) {
+        List<Menu> menuList = menuDAO.isHaveMenu(groupId, menuId);
+        if (null != menuId && menuList.size() > 0) return true;
+        return false;
     }
 }
