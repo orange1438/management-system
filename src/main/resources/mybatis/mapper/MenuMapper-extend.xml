@@ -41,4 +41,37 @@
         AND m.parent_id = #{parentId} order by MENU_ORDER
     </select>
 
+    <select id="getMenuByGroupId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        sys_menu sm
+        LEFT JOIN sys_group_menu sgm ON sgm.MENU_ID = sm.MENU_ID
+        WHERE
+        sgm.GROUP_ID = #{groupId} order by sm.MENU_ORDER
+    </select>
+
+    <select id="isHaveMenu" resultMap="BaseResultMap">
+        SELECT
+        sm.MENU_ID,
+        MENU_NAME,
+        MENU_URL,
+        PARENT_ID,
+        MENU_ICON,
+        MENU_TYPE,
+        MENU_ORDER,
+        sm.CREATE_TIME,
+        sm.CREATOR,
+        sm.MODIFY_TIME,
+        sm.MODIFIER
+        FROM
+        sys_menu sm
+        LEFT JOIN sys_group_menu sgm ON sgm.MENU_ID = sm.MENU_ID
+        WHERE
+        sgm.GROUP_ID = #{groupId}
+        AND sm.MENU_ID = #{menuId}
+        ORDER BY
+        sm.MENU_ORDER
+    </select>
+
 </mapper>

@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Role implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = -450376199996392640L;
+    private static final long serialVersionUID = 8007860974308564102L;
 
     // 角色ID
     private Long roleId;
@@ -20,27 +20,6 @@ public class Role implements Serializable {
 
     // 角色描述
     private String description;
-
-    // 菜单权限
-    private String menuRights;
-
-    // 添加权限
-    private String addRights;
-
-    // 删除权限
-    private String deleteRights;
-
-    // 编辑权限
-    private String editRights;
-
-    // 查看详细权限
-    private String viewRights;
-
-    // 导入权限
-    private String importRights;
-
-    // 导出权限
-    private String exportRights;
 
     // 创建时间  默认：CURRENT_TIMESTAMP
     private Date createTime;
@@ -102,132 +81,6 @@ public class Role implements Serializable {
         this.description = description == null ? null : description.trim();
     }
 
-    /**
-     * 获取 菜单权限 sys_role.MENU_RIGHTS
-     *
-     * @return 菜单权限
-     */
-    public String getMenuRights() {
-        return menuRights;
-    }
-
-    /**
-     * 设置 菜单权限 sys_role.MENU_RIGHTS
-     *
-     * @param menuRights 菜单权限
-     */
-    public void setMenuRights(String menuRights) {
-        this.menuRights = menuRights == null ? null : menuRights.trim();
-    }
-
-    /**
-     * 获取 添加权限 sys_role.ADD_RIGHTS
-     *
-     * @return 添加权限
-     */
-    public String getAddRights() {
-        return addRights;
-    }
-
-    /**
-     * 设置 添加权限 sys_role.ADD_RIGHTS
-     *
-     * @param addRights 添加权限
-     */
-    public void setAddRights(String addRights) {
-        this.addRights = addRights == null ? null : addRights.trim();
-    }
-
-    /**
-     * 获取 删除权限 sys_role.DELETE_RIGHTS
-     *
-     * @return 删除权限
-     */
-    public String getDeleteRights() {
-        return deleteRights;
-    }
-
-    /**
-     * 设置 删除权限 sys_role.DELETE_RIGHTS
-     *
-     * @param deleteRights 删除权限
-     */
-    public void setDeleteRights(String deleteRights) {
-        this.deleteRights = deleteRights == null ? null : deleteRights.trim();
-    }
-
-    /**
-     * 获取 编辑权限 sys_role.EDIT_RIGHTS
-     *
-     * @return 编辑权限
-     */
-    public String getEditRights() {
-        return editRights;
-    }
-
-    /**
-     * 设置 编辑权限 sys_role.EDIT_RIGHTS
-     *
-     * @param editRights 编辑权限
-     */
-    public void setEditRights(String editRights) {
-        this.editRights = editRights == null ? null : editRights.trim();
-    }
-
-    /**
-     * 获取 查看详细权限 sys_role.VIEW_RIGHTS
-     *
-     * @return 查看详细权限
-     */
-    public String getViewRights() {
-        return viewRights;
-    }
-
-    /**
-     * 设置 查看详细权限 sys_role.VIEW_RIGHTS
-     *
-     * @param viewRights 查看详细权限
-     */
-    public void setViewRights(String viewRights) {
-        this.viewRights = viewRights == null ? null : viewRights.trim();
-    }
-
-    /**
-     * 获取 导入权限 sys_role.IMPORT_RIGHTS
-     *
-     * @return 导入权限
-     */
-    public String getImportRights() {
-        return importRights;
-    }
-
-    /**
-     * 设置 导入权限 sys_role.IMPORT_RIGHTS
-     *
-     * @param importRights 导入权限
-     */
-    public void setImportRights(String importRights) {
-        this.importRights = importRights == null ? null : importRights.trim();
-    }
-
-    /**
-     * 获取 导出权限 sys_role.EXPORT_RIGHTS
-     *
-     * @return 导出权限
-     */
-    public String getExportRights() {
-        return exportRights;
-    }
-
-    /**
-     * 设置 导出权限 sys_role.EXPORT_RIGHTS
-     *
-     * @param exportRights 导出权限
-     */
-    public void setExportRights(String exportRights) {
-        this.exportRights = exportRights == null ? null : exportRights.trim();
-    }
-
     /** 
      * 获取 创建时间 sys_role.CREATE_TIME
      * @return 创建时间
@@ -244,7 +97,7 @@ public class Role implements Serializable {
         this.createTime = createTime;
     }
 
-    /**
+    /** 
      * 获取 创建人 sys_role.CREATOR
      * @return 创建人
      */
@@ -252,9 +105,8 @@ public class Role implements Serializable {
         return creator;
     }
 
-    /**
+    /** 
      * 设置 创建人 sys_role.CREATOR
-     *
      * @param creator 创建人
      */
     public void setCreator(String creator) {
@@ -303,13 +155,6 @@ public class Role implements Serializable {
         sb.append(", roleId=").append(roleId);
         sb.append(", roleName=").append(roleName);
         sb.append(", description=").append(description);
-        sb.append(", menuRights=").append(menuRights);
-        sb.append(", addRights=").append(addRights);
-        sb.append(", deleteRights=").append(deleteRights);
-        sb.append(", editRights=").append(editRights);
-        sb.append(", viewRights=").append(viewRights);
-        sb.append(", importRights=").append(importRights);
-        sb.append(", exportRights=").append(exportRights);
         sb.append(", createTime=").append(createTime);
         sb.append(", creator=").append(creator);
         sb.append(", modifyTime=").append(modifyTime);

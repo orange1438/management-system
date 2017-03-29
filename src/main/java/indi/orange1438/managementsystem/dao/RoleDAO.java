@@ -24,4 +24,5 @@ public interface RoleDAO extends IMapper<Role, RoleExample, Long> {
      * 通过groupId 得到当前组下的角色
      */
     List<Role> getRoleByGroupId(@Param("groupId") Long groupId);
+
 }

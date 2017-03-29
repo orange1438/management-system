@@ -6,7 +6,6 @@
         <result column="GROUP_NAME" jdbcType="VARCHAR" property="groupName"/>
         <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
         <result column="PARENT_ID" jdbcType="BIGINT" property="parentId"/>
-        <result column="MENU_RIGHTS" jdbcType="VARCHAR" property="menuRights"/>
         <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
         <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
@@ -73,8 +72,8 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-        GROUP_ID, GROUP_NAME, DESCRIPTION, PARENT_ID, MENU_RIGHTS, CREATE_TIME, CREATOR,
-        MODIFY_TIME, MODIFIER
+        GROUP_ID, GROUP_NAME, DESCRIPTION, PARENT_ID, CREATE_TIME, CREATOR, MODIFY_TIME,
+        MODIFIER
     </sql>
     <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.GroupExample"
             resultMap="BaseResultMap">
@@ -109,13 +108,11 @@
     </delete>
     <insert id="insert" parameterType="indi.orange1438.managementsystem.dao.entity.Group">
         insert into sys_group (GROUP_ID, GROUP_NAME, DESCRIPTION,
-        PARENT_ID, MENU_RIGHTS, CREATE_TIME,
-        CREATOR, MODIFY_TIME, MODIFIER
-        )
+        PARENT_ID, CREATE_TIME, CREATOR,
+        MODIFY_TIME, MODIFIER)
         values (#{groupId,jdbcType=BIGINT}, #{groupName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
-        #{parentId,jdbcType=BIGINT}, #{menuRights,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
-        #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}
-        )
+        #{parentId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR},
+        #{modifyTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="indi.orange1438.managementsystem.dao.entity.Group">
         insert into sys_group
@@ -131,9 +128,6 @@
             </if>
             <if test="parentId != null">
                 PARENT_ID,
-            </if>
-            <if test="menuRights != null">
-                MENU_RIGHTS,
             </if>
             <if test="createTime != null">
                 CREATE_TIME,
@@ -160,9 +154,6 @@
             </if>
             <if test="parentId != null">
                 #{parentId,jdbcType=BIGINT},
-            </if>
-            <if test="menuRights != null">
-                #{menuRights,jdbcType=VARCHAR},
             </if>
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
@@ -200,9 +191,6 @@
             <if test="record.parentId != null">
                 PARENT_ID = #{record.parentId,jdbcType=BIGINT},
             </if>
-            <if test="record.menuRights != null">
-                MENU_RIGHTS = #{record.menuRights,jdbcType=VARCHAR},
-            </if>
             <if test="record.createTime != null">
                 CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
             </if>
@@ -226,7 +214,6 @@
         GROUP_NAME = #{record.groupName,jdbcType=VARCHAR},
         DESCRIPTION = #{record.description,jdbcType=VARCHAR},
         PARENT_ID = #{record.parentId,jdbcType=BIGINT},
-        MENU_RIGHTS = #{record.menuRights,jdbcType=VARCHAR},
         CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
         CREATOR = #{record.creator,jdbcType=VARCHAR},
         MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
@@ -246,9 +233,6 @@
             </if>
             <if test="parentId != null">
                 PARENT_ID = #{parentId,jdbcType=BIGINT},
-            </if>
-            <if test="menuRights != null">
-                MENU_RIGHTS = #{menuRights,jdbcType=VARCHAR},
             </if>
             <if test="createTime != null">
                 CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
@@ -270,7 +254,6 @@
         set GROUP_NAME = #{groupName,jdbcType=VARCHAR},
         DESCRIPTION = #{description,jdbcType=VARCHAR},
         PARENT_ID = #{parentId,jdbcType=BIGINT},
-        MENU_RIGHTS = #{menuRights,jdbcType=VARCHAR},
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
         CREATOR = #{creator,jdbcType=VARCHAR},
         MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},

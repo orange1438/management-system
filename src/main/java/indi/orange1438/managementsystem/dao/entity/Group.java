@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Group implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = 8784696498949885008L;
+    private static final long serialVersionUID = -5381021582882623263L;
 
     // 组ID
     private Long groupId;
@@ -23,9 +23,6 @@ public class Group implements Serializable {
 
     // 父组ID
     private Long parentId;
-
-    // 菜单权限(拥有哪些菜单)
-    private String menuRights;
 
     // 创建时间  默认：CURRENT_TIMESTAMP
     private Date createTime;
@@ -103,24 +100,6 @@ public class Group implements Serializable {
         this.parentId = parentId;
     }
 
-    /**
-     * 获取 菜单权限(拥有哪些菜单) sys_group.MENU_RIGHTS
-     *
-     * @return 菜单权限(拥有哪些菜单)
-     */
-    public String getMenuRights() {
-        return menuRights;
-    }
-
-    /**
-     * 设置 菜单权限(拥有哪些菜单) sys_group.MENU_RIGHTS
-     *
-     * @param menuRights 菜单权限(拥有哪些菜单)
-     */
-    public void setMenuRights(String menuRights) {
-        this.menuRights = menuRights == null ? null : menuRights.trim();
-    }
-
     /** 
      * 获取 创建时间 sys_group.CREATE_TIME
      * @return 创建时间
@@ -137,7 +116,7 @@ public class Group implements Serializable {
         this.createTime = createTime;
     }
 
-    /**
+    /** 
      * 获取 创建人 sys_group.CREATOR
      * @return 创建人
      */
@@ -145,7 +124,7 @@ public class Group implements Serializable {
         return creator;
     }
 
-    /**
+    /** 
      * 设置 创建人 sys_group.CREATOR
      * @param creator 创建人
      */
@@ -196,7 +175,6 @@ public class Group implements Serializable {
         sb.append(", groupName=").append(groupName);
         sb.append(", description=").append(description);
         sb.append(", parentId=").append(parentId);
-        sb.append(", menuRights=").append(menuRights);
         sb.append(", createTime=").append(createTime);
         sb.append(", creator=").append(creator);
         sb.append(", modifyTime=").append(modifyTime);

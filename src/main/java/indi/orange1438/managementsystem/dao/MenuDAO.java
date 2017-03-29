@@ -32,4 +32,14 @@ public interface MenuDAO extends IMapper<Menu, MenuExample, Long> {
      */
     List<MenuDTO> getSubMenuByUserIdAndParentId(@Param("userId") Long userId,
                                                 @Param("parentId") Long parentId);
+
+    /**
+     * 通过组ID得到组下的菜单
+     *
+     * @param groupId
+     * @return
+     */
+    List<Menu> getMenuByGroupId(@Param("groupId") Long groupId);
+
+    List<Menu> isHaveMenu(@Param("groupId") Long groupId, @Param("menuId") Long menuId);
 }
