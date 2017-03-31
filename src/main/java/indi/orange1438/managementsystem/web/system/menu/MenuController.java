@@ -5,8 +5,10 @@ import indi.orange1438.managementsystem.dao.entity.Menu;
 import indi.orange1438.managementsystem.dao.entity.Permission;
 import indi.orange1438.managementsystem.dao.entity.PermissionMenu;
 import indi.orange1438.managementsystem.dao.entity.User;
+import indi.orange1438.managementsystem.dto.BaseResult;
 import indi.orange1438.managementsystem.dto.MenuDTO;
 import indi.orange1438.managementsystem.service.system.MenuService;
+import indi.orange1438.managementsystem.service.system.PermissionService;
 import indi.orange1438.managementsystem.util.*;
 import indi.orange1438.managementsystem.util.SecurityUtils.DecodeUtils;
 import indi.orange1438.managementsystem.web.system.base.BaseController;
@@ -38,6 +40,9 @@ public class MenuController extends BaseController {
 
     @Resource(name = "menuService")
     private MenuService menuService;
+
+    @Resource(name = "permissionService")
+    private PermissionService permissionService;
 
     /**
      * 显示菜单列表
@@ -110,7 +115,9 @@ public class MenuController extends BaseController {
         Menu menu = new Menu();
         menu.setMenuId(Long.valueOf(menuId));
         menu.setMenuIcon(menuIcon);
-        return menuService.updateMenuByMenuId(menu) > 0 ? 1 : 0;
+        User user = (User) this.getSession().getAttribute(Const.SESSION_USER);
+        TableProperties.modifyProperties(menu, user.getTrueName());
+        return menuService.updateMenuByMenuId(menu) > 0 ? new BaseResult(true, "修改菜单图标成功！") : new BaseResult(false, "修改菜单图标失败");
     }
 
     /**
@@ -168,26 +175,27 @@ public class MenuController extends BaseController {
                 menu.setMenuType(parentMenu.getMenuType());
             }
         }
-        return menuService.updateMenuByMenuId(menu);
+        User user = (User) this.getSession().getAttribute(Const.SESSION_USER);
+        TableProperties.modifyProperties(menu, user.getTrueName());
+        return menuService.updateMenuByMenuId(menu) > 0 ? new BaseResult(true, "修改菜单成功！") : new BaseResult(false, "修改菜单失败");
     }
 
     /**
      * 删除菜单
      *
      * @param menuId
-     * @param out
      */
     @RequestMapping(value = "/del")
-    public void delete(@RequestParam String menuId, PrintWriter out) throws Exception {
-        try {
-            if (menuService.deleteMenuById(Long.valueOf(menuId)) > 0) {
-                out.write("success");
-                out.flush();
-                out.close();
-            }
-        } catch (Exception e) {
-            logger.error(e.toString(), e);
+    @ResponseBody
+    public Object delete(@RequestParam String menuId) throws Exception {
+        // 如果权限被角色使用，则提示
+        if (permissionService.isHaveRoleByMenuId(Long.valueOf(menuId))) {
+            return new BaseResult(false, "菜单被其他角色使用！！！");
         }
+        if (menuService.deleteMenuById(Long.valueOf(menuId)) > 0) {
+            return new BaseResult(true, "删除菜单成功");
+        }
+        return new BaseResult(false, "删除菜单失败");
     }
 
     /**
@@ -227,6 +235,7 @@ public class MenuController extends BaseController {
         menu.setMenuName(menuName);
         menu.setParentId(Long.valueOf(parentId));
         menu.setMenuUrl(menuUrl);
+        menu.setMenuIcon("icon-desktop");
         menu.setMenuType(menuType);
         if (!"0".equals(parentId)) {
             //处理菜单类型====
@@ -245,7 +254,7 @@ public class MenuController extends BaseController {
         permission.setDescription(menu.getMenuName());
         permission.setPermissionName(menu.getMenuName());
         TableProperties.createProperties(permission, user.getTrueName());
-        TableProperties.createProperties(permission, user.getTrueName());
+        TableProperties.modifyProperties(permission, user.getTrueName());
 
         // 权限菜单表
         PermissionMenu permissionMenu = new PermissionMenu();
@@ -253,9 +262,9 @@ public class MenuController extends BaseController {
         permissionMenu.setMenuId(menu.getMenuId());
         permissionMenu.setPermissionId(permission.getPermissionId());
         TableProperties.createProperties(permissionMenu, user.getTrueName());
-        TableProperties.createProperties(permissionMenu, user.getTrueName());
+        TableProperties.modifyProperties(permissionMenu, user.getTrueName());
 
-        return menuService.insertMenu(menu, permission, permissionMenu);
+        return menuService.insertMenu(menu, permission, permissionMenu) > 0 ? new BaseResult(true, "新增菜单成功！") : new BaseResult(false, "新增菜单失败");
     }
 
 }

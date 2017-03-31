@@ -120,9 +120,19 @@
                 alert(data.message);
             },
             success: function (data) {
-                // close 当前对话框
-                parent.layer.close(parent.layer.getFrameIndex(window.name));
-                parent.location.reload(true);
+                if (data.success) {
+                    // close 当前对话框
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                    parent.location.reload(true);
+                } else {
+                    top.hangge();
+                    layui.use(['layer', 'form'], function () {
+                        layer.msg(data.message, {
+                            time: 2000, //2s后自动关闭
+                            icon: 2
+                        });
+                    });
+                }
             }
         });
         $("#zhongxin").hide();

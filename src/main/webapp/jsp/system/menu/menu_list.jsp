@@ -84,25 +84,32 @@
             });
         }
 
+        //删除菜单
         function delMenu(menuId, isParent) {
-            var flag = false;
+            var msg = '确定要删除该菜单吗?';
             if (isParent) {
-                if (confirm("确定要删除该菜单吗？其下子菜单将一并删除！")) {
-                    flag = true;
-                }
-            } else {
-                if (confirm("确定要删除该菜单吗？")) {
-                    flag = true;
-                }
+                msg = msg + '其下子菜单将一并删除！';
             }
-            if (flag) {
-                top.jzts();
-                var url = "<%=basePath%>/menu/del.do?menuId=" + menuId + "&guid=" + new Date().getTime();
-                $.get(url, function (data) {
+            layui.use(['layer', 'form'], function () {
+                //询问框
+                layer.confirm(msg, {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
                     top.jzts();
-                    document.location.reload();
+                    var url = "<%=basePath%>/menu/del.do?menuId=" + menuId + "&guid=" + new Date().getTime();
+                    $.get(url, function (data) {
+                        if (data.success) {
+                            document.location.reload();
+                        } else {
+                            top.hangge();
+                            layer.msg(data.message, {
+                                time: 2000, //2s后自动关闭
+                                icon: 2
+                            });
+                        }
+                    });
                 });
-            }
+            });
         }
 
         function openClose(menuId, curObj, trIndex) {
@@ -115,7 +122,6 @@
                 }
                 var url = "<%=basePath%>/menu/sub.do?menuId=" + menuId + "&guid=" + new Date().getTime();
                 $.get(url, function (data) {
-                    console.log(data);
                     if (data.length > 0) {
                         var html = "";
                         $.each(data, function (i) {
