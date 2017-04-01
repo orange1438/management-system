@@ -192,7 +192,7 @@
         </table>
     </div>
     <div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><img
-            src="/resource/page/menu/images/jiazai.gif"/><br/><h4 class="lighter block green"></h4></div>
+            src="/resource/common/images/jiazai.gif"/><br/><h4 class="lighter block green"></h4></div>
 </form>
 </body>
 </html>

@@ -38,7 +38,8 @@
 <div id="zhongxin">
     <ul id="tree" class="tree" style="overflow:auto;"></ul>
 </div>
-<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><img src="static/images/jiazai.gif"/><br/>
+<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><img
+        src="/resource/common/images/jiazai.gif"/><br/>
     <h4 class="lighter block green"></h4></div>
 
 

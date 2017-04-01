@@ -154,7 +154,7 @@ public class GroupController extends BaseController {
             }
             return groupService.deleteGroup(Long.valueOf(groupId), roleIdList) > 0 ? new BaseResult(true, "删除组成功") : new BaseResult(false, "删除组失败");
         }
-        return new BaseResult(false, "没有角色组信息！！！");
+        return groupService.deleteGroup(Long.valueOf(groupId)) > 0 ? new BaseResult(true, "删除组成功") : new BaseResult(false, "删除组失败");
     }
 
     /**

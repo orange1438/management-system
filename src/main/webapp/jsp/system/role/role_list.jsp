@@ -283,7 +283,7 @@
         layui.use(['layer', 'form'], function () {
             layer.open({
                 type: 2,
-                title: '<i class="layui-icon" style="font-size: 15px;">&#xe642;</i>新增组',
+                title: '<i class="layui-icon" style="font-size: 15px;">&#xe642;</i>新增角色',
                 skin: 'layui-layer-lan', //加上边框
                 area: ['222px', '200px'], //宽高
                 content: '<%=basePath%>/role/toAdd.do?parentId=' + groupId,

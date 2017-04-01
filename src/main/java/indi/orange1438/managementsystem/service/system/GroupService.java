@@ -68,7 +68,7 @@ public class GroupService {
     }
 
     /**
-     * 删除组
+     * 删除组,包含角色组信息
      */
     public int deleteGroup(Long groupId, List roleIdList) throws Exception {
         // sys_group、sys_group_menu、sys_role_group、sys_role、sys_role_permission
@@ -90,4 +90,13 @@ public class GroupService {
         return groupDAO.deleteByPrimaryKey(groupId);
     }
 
+    /**
+     * 只删除组
+     */
+    public int deleteGroup(Long groupId) throws Exception {
+        GroupMenuExample groupMenuExample = new GroupMenuExample();
+        groupMenuExample.createCriteria().andGroupIdEqualTo(groupId);
+        groupMenuDAO.deleteByExample(groupMenuExample);
+        return groupDAO.deleteByPrimaryKey(groupId);
+    }
 }
