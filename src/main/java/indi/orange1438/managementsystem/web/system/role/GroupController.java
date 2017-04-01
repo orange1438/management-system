@@ -1,14 +1,10 @@
 package indi.orange1438.managementsystem.web.system.role;
 
 import com.alibaba.fastjson.JSON;
-import indi.orange1438.managementsystem.dao.entity.Group;
-import indi.orange1438.managementsystem.dao.entity.GroupMenu;
-import indi.orange1438.managementsystem.dao.entity.Menu;
-import indi.orange1438.managementsystem.dao.entity.User;
+import indi.orange1438.managementsystem.dao.entity.*;
+import indi.orange1438.managementsystem.dto.BaseResult;
 import indi.orange1438.managementsystem.dto.MenuDTO;
-import indi.orange1438.managementsystem.service.system.GroupMenuService;
-import indi.orange1438.managementsystem.service.system.GroupService;
-import indi.orange1438.managementsystem.service.system.MenuService;
+import indi.orange1438.managementsystem.service.system.*;
 import indi.orange1438.managementsystem.util.BeanUtils;
 import indi.orange1438.managementsystem.util.Const;
 import indi.orange1438.managementsystem.util.IdGeneratorUtils;
@@ -41,11 +37,17 @@ public class GroupController extends BaseController {
     @Resource(name = "menuService")
     private MenuService menuService;
 
+    @Resource(name = "roleService")
+    private RoleService roleService;
+
     @Resource(name = "groupService")
     private GroupService groupService;
 
     @Resource(name = "groupMenuService")
     private GroupMenuService groupMenuService;
+
+    @Resource(name = "roleGroupService")
+    private RoleGroupService roleGroupService;
 
     /**
      * 新增组页面
@@ -87,7 +89,7 @@ public class GroupController extends BaseController {
         TableProperties.createProperties(group, user.getTrueName());
         TableProperties.modifyProperties(group, user.getTrueName());
 
-        return groupService.insertGroup(group);
+        return groupService.insertGroup(group) > 0 ? new BaseResult(true, "新增组成功！！！") : new BaseResult(false, "新增组失败！！！");
     }
 
     /**
@@ -131,7 +133,7 @@ public class GroupController extends BaseController {
         User user = (User) this.getSession().getAttribute(Const.SESSION_USER);
         TableProperties.modifyProperties(group, user.getTrueName());
 
-        return groupService.updateGroup(group);
+        return groupService.updateGroup(group) > 0 ? new BaseResult(true, "编辑组成功！！！") : new BaseResult(false, "编辑组失败！！！");
     }
 
     /**
@@ -140,7 +142,19 @@ public class GroupController extends BaseController {
     @RequestMapping(value = "/delete", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public Object delete(@RequestParam String groupId) throws Exception {
-        return groupService.deleteGroup(Long.valueOf(groupId));
+        List<RoleGroup> roleGroupList = roleGroupService.getRoleGroupByGroupId(Long.valueOf(groupId));
+        if (null != roleGroupList && roleGroupList.size() > 0) {
+            List<Long> roleIdList = new ArrayList<>();
+            for (RoleGroup roleGroup : roleGroupList) {
+                roleIdList.add(roleGroup.getRoleId());
+            }
+            // 如果角色被用户引用sys_user_role，则提示
+            if (roleService.isHaveRoleByroleId(roleIdList)) {
+                new BaseResult(false, "该组下的角色被其他账户引用！！！");
+            }
+            return groupService.deleteGroup(Long.valueOf(groupId), roleIdList) > 0 ? new BaseResult(true, "删除组成功") : new BaseResult(false, "删除组失败");
+        }
+        return new BaseResult(false, "没有角色组信息！！！");
     }
 
     /**
@@ -217,6 +231,6 @@ public class GroupController extends BaseController {
             TableProperties.modifyProperties(groupMenu, user.getTrueName());
             groupMenuList.add(groupMenu);
         }
-        return groupMenuService.insertGroupMenu(Long.valueOf(groupId), groupMenuList);
+        return groupMenuService.insertGroupMenu(Long.valueOf(groupId), groupMenuList) > 0 ? new BaseResult(true, "组菜单权限设置成功") : new BaseResult(false, "组菜单权限设置失败");
     }
 }

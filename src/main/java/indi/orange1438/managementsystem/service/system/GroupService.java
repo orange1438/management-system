@@ -1,14 +1,11 @@
 package indi.orange1438.managementsystem.service.system;
 
-import indi.orange1438.managementsystem.dao.GroupDAO;
-import indi.orange1438.managementsystem.dao.GroupMenuDAO;
-import indi.orange1438.managementsystem.dao.entity.Group;
-import indi.orange1438.managementsystem.dao.entity.GroupExample;
-import indi.orange1438.managementsystem.dao.entity.GroupMenuExample;
-import indi.orange1438.managementsystem.dao.entity.Menu;
+import indi.orange1438.managementsystem.dao.*;
+import indi.orange1438.managementsystem.dao.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +23,16 @@ public class GroupService {
 
     @Autowired
     GroupMenuDAO groupMenuDAO;
+
+    @Autowired
+    RoleGroupDAO roleGroupDAO;
+
+    @Autowired
+    RoleDAO roleDAO;
+
+    @Autowired
+    RolePermissionDAO rolePermissionDAO;
+
 
     /**
      * 得到所有组
@@ -63,10 +70,24 @@ public class GroupService {
     /**
      * 删除组
      */
-    public int deleteGroup(Long groupId) throws Exception {
+    public int deleteGroup(Long groupId, List roleIdList) throws Exception {
+        // sys_group、sys_group_menu、sys_role_group、sys_role、sys_role_permission
+        RolePermissionExample rolePermissionExample = new RolePermissionExample();
+        rolePermissionExample.createCriteria().andRoleIdIn(roleIdList);
+        rolePermissionDAO.deleteByExample(rolePermissionExample);
+
+        RoleExample roleExample = new RoleExample();
+        roleExample.createCriteria().andRoleIdIn(roleIdList);
+        roleDAO.deleteByExample(roleExample);
+
+        RoleGroupExample roleGroupExample = new RoleGroupExample();
+        roleGroupExample.createCriteria().andGroupIdEqualTo(groupId);
+        roleGroupDAO.deleteByExample(roleGroupExample);
+
         GroupMenuExample groupMenuExample = new GroupMenuExample();
         groupMenuExample.createCriteria().andGroupIdEqualTo(groupId);
         groupMenuDAO.deleteByExample(groupMenuExample);
         return groupDAO.deleteByPrimaryKey(groupId);
     }
+
 }

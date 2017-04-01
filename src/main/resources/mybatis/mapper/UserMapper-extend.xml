@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="indi.orange1438.managementsystem.dao.UserDAO">
+
+    <resultMap id="UserRoleMap" type="indi.orange1438.managementsystem.dto.UserRoleDTO" extends="BaseResultMap">
+        <id column="ROLE_ID" jdbcType="BIGINT" property="roleId"/>
+        <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName"/>
+        <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+
+    <!-- 用户列表(用户组) -->
+    <select id="getUserByMap" parameterType="java.util.Map" resultMap="UserRoleMap">
+        SELECT
+        r.ROLE_ID AS ROLE_ID,
+        r.ROLE_NAME AS ROLE_NAME,
+        r.DESCRIPTION AS DESCRIPTION,
+        u.USER_ID AS USER_ID,
+        USER_NAME,
+        PASSWORD,
+        IS_DISABLED,
+        PARENT_ID,
+        TRUE_NAME,
+        MOBILE,
+        EMAIL,
+        SKIN,
+        LAST_LOGIN_TIME,
+        LOGIN_IP,
+        LOGIN_COUNT,
+        u.CREATE_TIME AS CREATE_TIME,
+        u.CREATOR AS CREATOR,
+        u.MODIFY_TIME AS MODIFY_TIME,
+        u.MODIFIER AS MODIFIER
+        FROM
+        sys_user u
+        LEFT JOIN sys_user_role ur ON ur.user_id = u.user_id
+        LEFT JOIN sys_role r ON r.role_id = ur.role_id
+        where 1
+
+        <!-- 关键词检索 -->
+        <if test="userName != null and userName != ''">
+            and
+            (
+            u.USER_NAME LIKE concat(concat('%',#{userName}),'%')
+            OR u.EMAIL LIKE concat(concat('%',#{userName}),'%')
+            OR u.USER_ID LIKE concat(concat('%',#{userName}),'%')
+            OR u.TRUE_NAME LIKE concat(concat('%',#{userName}),'%')
+            OR u.MOBILE LIKE concat(concat('%',#{userName}),'%')
+            )
+        </if>
+        <!-- 角色检索 -->
+        <if test="roleId != null and roleId != ''">
+            and r.ROLE_ID=#{roleId}
+        </if>
+        <!-- 登录时间检索 -->
+        <if test="lastLoginStart!=null and lastLoginStart!=''">
+            and u.LAST_LOGIN_TIME &gt;= #{lastLoginStart}
+        </if>
+        <!-- 登录时间检索 -->
+        <if test="lastLoginEnd!=null and lastLoginEnd!=''">
+            and u.LAST_LOGIN_TIME &lt;= #{lastLoginEnd}
+        </if>
+        order by u.LAST_LOGIN_TIME desc
+    </select>
+
+</mapper>

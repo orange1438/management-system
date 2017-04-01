@@ -242,12 +242,11 @@
                 top.jzts();
                 var url = "<%=basePath%>/group/delete.do?groupId=" + groupId + "&guid=" + new Date().getTime();
                 $.get(url, function (data) {
-                    console.log(data);
-                    if ("1" == data) {
+                    if (data.success) {
                         window.location.href = "role.do";
                     } else {
                         top.hangge();
-                        layer.msg('删除失败', {
+                        layer.msg(data.message, {
                             time: 2000, //2s后自动关闭
                             icon: 2
                         });
@@ -322,12 +321,11 @@
                 top.jzts();
                 var url = "<%=basePath%>/role/delete.do?roleId=" + roleId + "&guid=" + new Date().getTime();
                 $.get(url, function (data) {
-                    console.log(data);
-                    if ("1" == data) {
+                    if (data.success) {
                         window.location.href = "role.do";
                     } else {
                         top.hangge();
-                        layer.msg('删除失败', {
+                        layer.msg(data.message, {
                             time: 2000, //2s后自动关闭
                             icon: 2
                         });

@@ -10,15 +10,15 @@
     <!--<typeAlias type="com.cmcc.base12582.service.common.helper.db.entity.PageData" alias="pd"/>-->
     <!--<typeAlias type="com.cmcc.base12582.service.common.helper.db.entity.Page" alias="Page"/>-->
     <!--</typeAliases>-->
-    <!--<plugins>-->
-    <!--<plugin interceptor="com.cmcc.base12582.service.common.helper.db.plugin.PagePlugin">-->
-    <!--<property name="dialect" value="oracle"/>-->
-    <!--<property name="pageSqlId" value=".*listPage.*"/>-->
-    <!--</plugin>-->
-    <!--<plugin interceptor="com.cmcc.base12582.service.common.helper.db.plugin.paginator.pagehelper.PageHelper">-->
-    <!--<property name="dialect" value="oracle"/>-->
-    <!--<property name="reasonable" value="false"/>-->
-    <!--<property name="rowBoundsWithCount" value="true"/>-->
-    <!--</plugin>-->
-    <!--</plugins>-->
+    <!-- 分页 -->
+    <plugins>
+        <!-- com.github.pagehelper为PageHelper类所在包名 -->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="helperDialect" value="mysql"/>
+            <!--<property name="reasonable" value="true"/>-->
+            <!--<property name="supportMethodsArguments" value="true"/>-->
+            <!--<property name="params" value="pageNum=start;pageSize=limit;"/>-->
+            <!--<property name="autoRuntimeDialect" value="true"/>-->
+        </plugin>
+    </plugins>
 </configuration>

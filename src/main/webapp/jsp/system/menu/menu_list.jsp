@@ -116,7 +116,7 @@
             var txt = $(curObj).text();
             if (txt == "展开") {
                 $(curObj).text("折叠");
-                $("#tr" + menuId).after("<tr id='tempTr" + menuId + "'><td colspan='5'>数据载入中</td></tr>");
+                $("#tr" + menuId).after("<tr id='tempTr" + menuId + "'><td colspan='5' class='center'>数据载入中</td></tr>");
                 if (trIndex % 2 == 0) {
                     $("#tempTr" + menuId).addClass("main_table_even");
                 }

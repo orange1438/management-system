@@ -40,10 +40,11 @@ public class GroupMenuService {
     public int insertGroupMenu(Long groupId, List<GroupMenu> groupMenuList) throws Exception {
         // 先删除，再添加
         deleteGroupMenuByGroupId(groupId);
-
+        int flag = 0;
         for (GroupMenu groupMenu : groupMenuList) {
+            flag++;
             groupMenuDAO.insertSelective(groupMenu);
         }
-        return 1;
+        return flag == groupMenuList.size() ? 1 : 0;
     }
 }

@@ -3,10 +3,8 @@ package indi.orange1438.managementsystem.service.system;
 import indi.orange1438.managementsystem.dao.RoleDAO;
 import indi.orange1438.managementsystem.dao.RoleGroupDAO;
 import indi.orange1438.managementsystem.dao.RolePermissionDAO;
-import indi.orange1438.managementsystem.dao.entity.Role;
-import indi.orange1438.managementsystem.dao.entity.RoleExample;
-import indi.orange1438.managementsystem.dao.entity.RoleGroup;
-import indi.orange1438.managementsystem.dao.entity.RolePermission;
+import indi.orange1438.managementsystem.dao.UserRoleDAO;
+import indi.orange1438.managementsystem.dao.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +25,9 @@ public class RoleService {
 
     @Autowired
     RoleGroupDAO roleGroupDAO;
+
+    @Autowired
+    UserRoleDAO userRoleDAO;
 
     @Autowired
     RolePermissionDAO rolePermissionDAO;
@@ -50,7 +51,10 @@ public class RoleService {
      *
      * @return
      */
-    public int insertRole(Role role, RoleGroup roleGroup) {
+    public int insertRole(Role role, RoleGroup roleGroup, List<RolePermission> rolePermissionList) {
+        for (RolePermission rolePermission : rolePermissionList) {
+            rolePermissionDAO.insertSelective(rolePermission);
+        }
         roleDAO.insertSelective(role);
         return roleGroupDAO.insertSelective(roleGroup);
     }
@@ -77,6 +81,14 @@ public class RoleService {
      * @param roleId 必须主键
      */
     public int deleteRole(Long roleId) throws Exception {
+        // sys_role、sys_role_group、sys_role_permission;
+        RolePermissionExample rolePermissionExample = new RolePermissionExample();
+        rolePermissionExample.createCriteria().andRoleIdEqualTo(roleId);
+        rolePermissionDAO.deleteByExample(rolePermissionExample);
+
+        RoleGroupExample roleGroupExample = new RoleGroupExample();
+        roleGroupExample.createCriteria().andRoleIdEqualTo(roleId);
+        roleGroupDAO.deleteByExample(roleGroupExample);
         return roleDAO.deleteByPrimaryKey(roleId);
     }
 
@@ -100,5 +112,25 @@ public class RoleService {
         List<RolePermission> rolePermissionList = rolePermissionDAO.isHaveMenu(roleId, menuId);
         if (null != rolePermissionList && rolePermissionList.size() > 0) return rolePermissionList.get(0);
         return null;
+    }
+
+    /**
+     * 得到所有角色
+     */
+    public List<Role> getAllRole() throws Exception {
+        return roleDAO.selectByExample(null);
+    }
+
+    /**
+     * 通过roleId判断该角色是否被用户引用
+     */
+    public boolean isHaveRoleByroleId(List roleIdList) throws Exception {
+        UserRoleExample userRoleExample = new UserRoleExample();
+        userRoleExample.createCriteria().andRoleIdIn(roleIdList);
+        List<UserRole> userRoleList = userRoleDAO.selectByExample(userRoleExample);
+        if (null != userRoleList && userRoleList.size() > 0) {
+            return true;
+        }
+        return false;
     }
 }

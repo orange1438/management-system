@@ -22,4 +22,12 @@ public interface PermissionDAO extends IMapper<Permission, PermissionExample, Lo
      * @return
      */
     List<Permission> getPermissionByMenuId(@Param("menuId") Long menuId);
+
+    /**
+     * 通过groupId得到对应的权限
+     *
+     * @param groupId
+     * @return
+     */
+    List<Permission> getPermissionByGroupId(@Param("groupId") Long groupId);
 }

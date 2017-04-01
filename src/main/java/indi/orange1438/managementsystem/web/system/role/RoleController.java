@@ -2,6 +2,7 @@ package indi.orange1438.managementsystem.web.system.role;
 
 import com.alibaba.fastjson.JSON;
 import indi.orange1438.managementsystem.dao.entity.*;
+import indi.orange1438.managementsystem.dto.BaseResult;
 import indi.orange1438.managementsystem.dto.MenuDTO;
 import indi.orange1438.managementsystem.service.system.*;
 import indi.orange1438.managementsystem.util.BeanUtils;
@@ -103,6 +104,8 @@ public class RoleController extends BaseController {
         String roleName = null == requestMap.get("Name") ? null : DecodeUtils.urlDecode(requestMap.get("Name").toString());
         String description = null == requestMap.get("Description") ? null : DecodeUtils.urlDecode(requestMap.get("Description").toString());
 
+        User user = (User) this.getSession().getAttribute(Const.SESSION_USER);
+
         Role role = new Role();
         role.setDescription(description);
         role.setRoleId(IdGeneratorUtils.getInstance().nextId());
@@ -113,13 +116,32 @@ public class RoleController extends BaseController {
         roleGroup.setRoleGroupId(IdGeneratorUtils.getInstance().nextId());
         roleGroup.setRoleId(role.getRoleId());
 
-        User user = (User) this.getSession().getAttribute(Const.SESSION_USER);
+
+        List<RolePermission> rolePermissionList = new ArrayList<>();
+        List<Permission> permissionList = permissionService.getPermissionByGroupId(Long.valueOf(groupId));
+        for (Permission permission : permissionList) {
+            //sys_role_permission(继承组菜单)
+            RolePermission rolePermission = new RolePermission();
+            rolePermission.setRoleId(role.getRoleId());
+            rolePermission.setPermissionId(permission.getPermissionId());
+            rolePermission.setAddRights(false);
+            rolePermission.setEditRights(false);
+            rolePermission.setDeleteRights(false);
+            rolePermission.setViewRights(false);
+            rolePermission.setExportRights(false);
+            rolePermission.setImportRights(false);
+            TableProperties.createProperties(rolePermission, user.getTrueName());
+            TableProperties.modifyProperties(rolePermission, user.getTrueName());
+            rolePermissionList.add(rolePermission);
+        }
+
         TableProperties.createProperties(role, user.getTrueName());
         TableProperties.modifyProperties(role, user.getTrueName());
         TableProperties.createProperties(roleGroup, user.getTrueName());
         TableProperties.modifyProperties(roleGroup, user.getTrueName());
 
-        return roleService.insertRole(role, roleGroup);
+
+        return roleService.insertRole(role, roleGroup, rolePermissionList) > 0 ? new BaseResult(true, "新增角色成功！！！") : new BaseResult(false, "新增角色失败！！！");
     }
 
     /**
@@ -163,7 +185,7 @@ public class RoleController extends BaseController {
         User user = (User) this.getSession().getAttribute(Const.SESSION_USER);
         TableProperties.modifyProperties(role, user.getTrueName());
 
-        return roleService.updateRoleByRoleId(role);
+        return roleService.updateRoleByRoleId(role) > 0 ? new BaseResult(true, "编辑角色成功！！！") : new BaseResult(false, "编辑角色失败！！！");
     }
 
     /**
@@ -172,7 +194,13 @@ public class RoleController extends BaseController {
     @RequestMapping(value = "/delete", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public Object delete(@RequestParam String roleId) throws Exception {
-        return roleService.deleteRole(Long.valueOf(roleId));
+        List<Long> roleIdList = new ArrayList<>();
+        roleIdList.add(Long.valueOf(roleId));
+        // 如果角色被用户引用sys_user_role，则提示
+        if (roleService.isHaveRoleByroleId(roleIdList)) {
+            new BaseResult(false, "该角色被其他账户引用！！！");
+        }
+        return roleService.deleteRole(Long.valueOf(roleId)) > 0 ? new BaseResult(true, "删除角色成功！！！") : new BaseResult(false, "删除角色失败！！！");
     }
 
     /**
@@ -317,7 +345,7 @@ public class RoleController extends BaseController {
             rolePermissionList.add(rolePermission);
         }
 
-        return rolePermissionService.saveRolePermission(rolePermissionList);
+        return rolePermissionService.saveRolePermission(rolePermissionList) > 0 ? new BaseResult(true, "角色权限设置成功！！！") : new BaseResult(false, "角色权限设置失败！！！");
 
     }
 }

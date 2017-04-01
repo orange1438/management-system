@@ -1,13 +1,21 @@
 package indi.orange1438.managementsystem.service.system;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import indi.orange1438.managementsystem.dao.UserDAO;
+import indi.orange1438.managementsystem.dao.UserRoleDAO;
 import indi.orange1438.managementsystem.dao.entity.User;
 import indi.orange1438.managementsystem.dao.entity.UserExample;
+import indi.orange1438.managementsystem.dao.entity.UserRole;
+import indi.orange1438.managementsystem.dao.entity.UserRoleExample;
+import indi.orange1438.managementsystem.dto.UserRoleDTO;
+import indi.orange1438.managementsystem.util.SecurityUtils.DecodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户服务类
@@ -21,6 +29,9 @@ public class UserService {
 
     @Autowired
     UserDAO userDAO;
+
+    @Autowired
+    UserRoleDAO userRoleDAO;
 
     /**
      * 登录判断:通过用户名和密码得到用户
@@ -50,19 +61,96 @@ public class UserService {
         return userDAO.updateByPrimaryKeySelective(userEntity);
     }
 
+
     /**
      * 根据用户名查询用户
-     *
      * @param userName
      * @return
      */
-    public User getUserByUserName(String userName) {
-        UserExample userExample = new UserExample();
-        userExample.createCriteria().andUserNameEqualTo(userName);
-        List<User> userList = userDAO.selectByExample(userExample);
-        if (null != userList && 0 < userList.size()) {
-            return userList.get(0);
+    public User getUserEntityByUserName(String userName) {
+        UserExample userEntityExample = new UserExample();
+        userEntityExample.createCriteria().andUserNameEqualTo(userName);
+        List<User> userEntityList = userDAO.selectByExample(userEntityExample);
+        if (null != userEntityList && 0 < userEntityList.size()) {
+            return userEntityList.get(0);
         }
         return null;
+    }
+
+    /**
+     * 根据用户ID 查询用户
+     *
+     * @param userId
+     * @return
+     */
+    public User getUserEntityByUserId(Long userId) {
+        return userDAO.selectByPrimaryKey(userId);
+    }
+
+    /**
+     * 根据用户邮箱查询用户
+     *
+     * @param email
+     * @return
+     */
+    public User getUserEntityByEmail(String email, String userName) {
+        UserExample userEntityExample = new UserExample();
+        UserExample.Criteria criteria = userEntityExample.createCriteria();
+        criteria.andEmailEqualTo(email);
+        if (null != userName && !userName.isEmpty()) {
+            criteria.andUserNameNotEqualTo(userName);
+        }
+        List<User> userEntityList = userDAO.selectByExample(userEntityExample);
+        if (null != userEntityList && 0 < userEntityList.size()) {
+            return userEntityList.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * 保存用户、用户角色信息
+     *
+     * @param userEntity 要保存的实体类，必须包括主键
+     * @return
+     */
+    public int insertUserByUserAndUserRole(User userEntity, UserRole userRole) {
+        userRoleDAO.insertSelective(userRole);
+        return userDAO.insertSelective(userEntity);
+    }
+
+    /**
+     * 更新用户、用户角色信息
+     *
+     * @param userEntity 要更新的实体类，必须包括主键
+     * @return
+     */
+    public int updateUserByUserAndUserRole(User userEntity, UserRole userRole) {
+        userRoleDAO.updateByPrimaryKeySelective(userRole);
+        return userDAO.updateByPrimaryKeySelective(userEntity);
+    }
+
+    /**
+     * 删除用户
+     *
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    public int deleteUser(Long userId) throws Exception {
+        UserRoleExample userRoleExample = new UserRoleExample();
+        userRoleExample.createCriteria().andUserIdEqualTo(userId);
+        userRoleDAO.deleteByExample(userRoleExample);
+        return userDAO.deleteByPrimaryKey(userId);
+    }
+
+    /**
+     * 根据Map条件查询用户
+     *
+     * @param requestMap
+     * @return
+     */
+    public List<UserRoleDTO> getUserByMap(Map<String, String> requestMap) {
+        PageHelper.startPage(1, 10);
+        return userDAO.getUserByMap(requestMap);
     }
 }

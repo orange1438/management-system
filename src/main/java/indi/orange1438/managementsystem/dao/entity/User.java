@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class User implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = 801538627202994903L;
+    private static final long serialVersionUID = -8040916967954928821L;
 
     // 用户ID
     private Long userId;
@@ -268,7 +268,7 @@ public class User implements Serializable {
         this.createTime = createTime;
     }
 
-    /**
+    /** 
      * 获取 创建人 sys_user.CREATOR
      * @return 创建人
      */
@@ -276,7 +276,7 @@ public class User implements Serializable {
         return creator;
     }
 
-    /**
+    /** 
      * 设置 创建人 sys_user.CREATOR
      * @param creator 创建人
      */

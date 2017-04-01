@@ -9,7 +9,15 @@
         sys_permission sp
         LEFT JOIN sys_permission_menu spm ON sp.permission_id = spm.permission_id
         WHERE
-        spm.menu_id = #{menuId};
+        spm.menu_id = #{menuId}
     </select>
+
+    <select id="getPermissionByGroupId" resultMap="BaseResultMap">
+        select p.* from sys_group_menu gm
+        left join sys_permission_menu pm on gm.menu_id = pm.menu_id
+        left join sys_permission p on pm.permission_id = p.permission_id
+        where gm.group_id = #{groupId}
+    </select>
+
 
 </mapper>

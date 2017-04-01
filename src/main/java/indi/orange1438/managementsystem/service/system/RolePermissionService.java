@@ -26,19 +26,25 @@ public class RolePermissionService {
      * 如果在role_permission存在权限点，就更新，否则新建
      */
     public int saveRolePermission(List<RolePermission> rolePermissions) throws Exception {
+        int flag = 0;
         for (RolePermission rolePermission : rolePermissions) {
-            RolePermissionExample rolePermissionExample = new RolePermissionExample();
-            rolePermissionExample.createCriteria().andPermissionIdEqualTo(rolePermission.getPermissionId());
-            List<RolePermission> rolePermissionList = rolePermissionDAO.selectByExample(rolePermissionExample);
-            if (null != rolePermissionList && rolePermissionList.size() > 0) {
-                // 存在
-                rolePermission.setRolePermissionId(rolePermissionList.get(0).getRolePermissionId());
-                rolePermissionDAO.updateByPrimaryKeySelective(rolePermission);
+            flag++;
+            if (null != rolePermission.getPermissionId()) {
+                RolePermissionExample rolePermissionExample = new RolePermissionExample();
+                rolePermissionExample.createCriteria().andPermissionIdEqualTo(rolePermission.getPermissionId());
+                List<RolePermission> rolePermissionList = rolePermissionDAO.selectByExample(rolePermissionExample);
+                if (null != rolePermissionList && rolePermissionList.size() > 0) {
+                    // 存在
+                    rolePermission.setCreateTime(null);
+                    rolePermission.setCreator(null);
+                    rolePermission.setRolePermissionId(rolePermissionList.get(0).getRolePermissionId());
+                    rolePermissionDAO.updateByPrimaryKeySelective(rolePermission);
+                }
             } else {
                 // 不存在
                 rolePermissionDAO.insertSelective(rolePermission);
             }
         }
-        return 1;
+        return flag == rolePermissions.size() ? 1 : 0;
     }
 }
