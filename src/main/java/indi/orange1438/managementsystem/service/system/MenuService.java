@@ -117,8 +117,15 @@ public class MenuService {
         criterion2.andParentIdEqualTo(menuId);
         menuExample.or(criterion2);
 
+        List<Long> menuIdList = new ArrayList<>();
+        List<Menu> menuList = menuDAO.selectByExample(menuExample);
+        for (Menu menu : menuList) {
+            menuIdList.add(menu.getMenuId());
+        }
+
         PermissionMenuExample permissionMenuExample = new PermissionMenuExample();
-        permissionMenuExample.createCriteria().andMenuIdEqualTo(menuId);
+        permissionMenuExample.createCriteria().andMenuIdIn(menuIdList);
+
         List<PermissionMenu> permissionMenus = permissionMenuDAO.selectByExample(permissionMenuExample);
         for (PermissionMenu permissionMenu : permissionMenus) {
             permissionDAO.deleteByPrimaryKey(permissionMenu.getPermissionId());
