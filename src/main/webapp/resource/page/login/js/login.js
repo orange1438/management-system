@@ -72,6 +72,14 @@ function severCheck() {
                 if ("success" == data.result) {
                     saveCookie();
                     window.location.href = "main/index";
+                } else if ("userdisabled" == data.result) {
+                    $("#loginName").tips({
+                        side: 1,
+                        msg: "用户被禁用",
+                        bg: '#FF5080',
+                        time: 15
+                    });
+                    $("#loginName").focus();
                 } else if ("usererror" == data.result) {
                     $("#loginName").tips({
                         side: 1,

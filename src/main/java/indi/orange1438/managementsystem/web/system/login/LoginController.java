@@ -46,9 +46,6 @@ public class LoginController extends BaseController {
     @Resource(name = "menuService")
     private MenuService menuService;
 
-    @Resource(name = "roleService")
-    private RoleService roleService;
-
     /**
      * 访问登录页
      */
@@ -87,14 +84,19 @@ public class LoginController extends BaseController {
                 if (StringUtils.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(code)) {
                     User user = userService.getUserEntityByNameAndPwd(userName, password);
                     if (null != user) {
-                        user.setLastLoginTime(DateUtils.getDateTimeNow());
-                        user.setLoginIp(IpUtils.getIpAddr(request));
-                        user.setLoginCount(user.getLoginCount() + 1L);
-                        TableProperties.modifyProperties(user, user.getTrueName());
-                        userService.updateUserByUserId(user);
+                        if (!user.getIsDisabled()) {
+                            user.setLastLoginTime(DateUtils.getDateTimeNow());
+                            user.setLoginIp(IpUtils.getIpAddr(request));
+                            user.setLoginCount(user.getLoginCount() + 1L);
+                            TableProperties.modifyProperties(user, user.getTrueName());
+                            userService.updateUserByUserId(user);
 
-                        session.setAttribute(Const.SESSION_USER, user);
-                        session.removeAttribute(Const.SESSION_SECURITY_CODE);
+                            session.setAttribute(Const.SESSION_USER, user);
+                            session.removeAttribute(Const.SESSION_SECURITY_CODE);
+                        } else {
+                            resultInfo = "userdisabled";
+                        }
+
                     } else {
                         resultInfo = "usererror";       //用户名或密码有误
                     }
