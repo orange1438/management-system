@@ -89,6 +89,24 @@ public class MenuService {
     }
 
     /**
+     * 得到 roleId 拥有菜单的父级菜单
+     *
+     * @return
+     */
+    public List<Menu> getParentMenuByRoleId(Long roleId) throws Exception {
+        return menuDAO.getParentMenuByRoleId(roleId);
+    }
+
+    /**
+     * 得到 roleId 的父级菜单的子菜单
+     *
+     * @return
+     */
+    public List<Menu> getSubMenuByRoleIdAndParentId(Long roleId, Long parentId) throws Exception {
+        return menuDAO.getSubMenuByRoleIdAndParentId(roleId, parentId);
+    }
+
+    /**
      * 更新菜单信息
      *
      * @param menu 要更新的实体类，必须包括主键
@@ -167,6 +185,5 @@ public class MenuService {
         if (null != menuId && menuList.size() > 0) return true;
         return false;
     }
-
 
 }

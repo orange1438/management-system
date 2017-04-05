@@ -122,6 +122,7 @@ public class RoleController extends BaseController {
         for (Permission permission : permissionList) {
             //sys_role_permission(继承组菜单)
             RolePermission rolePermission = new RolePermission();
+            rolePermission.setRolePermissionId(IdGeneratorUtils.getInstance().nextId());
             rolePermission.setRoleId(role.getRoleId());
             rolePermission.setPermissionId(permission.getPermissionId());
             rolePermission.setAddRights(false);
@@ -211,16 +212,27 @@ public class RoleController extends BaseController {
     public ModelAndView toAuth(@RequestParam String roleId, @RequestParam String type) throws Exception {
         ModelAndView mv = this.getModelAndView();
         try {
-            List<Menu> menuList = menuService.getAllParentMenu();
             List<MenuDTO> menuDTOList = new ArrayList<>();
+            List<Menu> menuList = null;
+            if ("menu".equals(type)) {
+                menuList = menuService.getAllParentMenu();
+            } else {
+                menuList = menuService.getParentMenuByRoleId(Long.valueOf(roleId));
+            }
             for (Menu menu : menuList) {
                 MenuDTO menuDTO = new MenuDTO();
                 BeanUtils.copyProperties(menu, menuDTO);
                 menuDTO.setMenuId(menu.getMenuId().toString());
                 menuDTO.setParentId(menu.getParentId().toString());
 
-                List<Menu> subMenuList = menuService.getSubMenuByParentId(menu.getMenuId());
+                List<Menu> subMenuList = null;
+                if ("menu".equals(type)) {
+                    subMenuList = menuService.getSubMenuByParentId(menu.getMenuId());
+                } else {
+                    subMenuList = menuService.getSubMenuByRoleIdAndParentId(Long.valueOf(roleId), menu.getMenuId());
+                }
                 List<MenuDTO> subMenuDTOList = new ArrayList<>();
+                boolean checkFlag = false;
                 for (Menu subMenu : subMenuList) {
                     MenuDTO subMenuDTO = new MenuDTO();
                     subMenuDTO.setHasMenu(false);
@@ -232,54 +244,62 @@ public class RoleController extends BaseController {
                         // 如果角色有该菜单（权限），就true
                         if (roleService.isHaveMenu(Long.valueOf(roleId), subMenu.getMenuId())) {
                             subMenuDTO.setHasMenu(true);
+                            checkFlag = true;
                         }
-                    } else if ("add".equals(type)) {
-                        // 如果角色有该菜单的新增权限，就true
+                    } else {
                         RolePermission rolePermission = roleService.getRolePermissionByRoleIdAndMnuId(Long.valueOf(roleId), subMenu.getMenuId());
-                        if (null != rolePermission && rolePermission.getAddRights()) {
-                            subMenuDTO.setHasMenu(true);
-                        }
-                    } else if ("delete".equals(type)) {
-                        // 如果角色有该菜单的删除权限，就true
-                        RolePermission rolePermission = roleService.getRolePermissionByRoleIdAndMnuId(Long.valueOf(roleId), subMenu.getMenuId());
-                        if (null != rolePermission && rolePermission.getDeleteRights()) {
-                            subMenuDTO.setHasMenu(true);
-                        }
-                    } else if ("edit".equals(type)) {
-                        // 如果角色有该菜单的新增权限，就true
-                        RolePermission rolePermission = roleService.getRolePermissionByRoleIdAndMnuId(Long.valueOf(roleId), subMenu.getMenuId());
-                        if (null != rolePermission && rolePermission.getEditRights()) {
-                            subMenuDTO.setHasMenu(true);
-                        }
-                    } else if ("view".equals(type)) {
-                        // 如果角色有该菜单的新增权限，就true
-                        RolePermission rolePermission = roleService.getRolePermissionByRoleIdAndMnuId(Long.valueOf(roleId), subMenu.getMenuId());
-                        if (null != rolePermission && rolePermission.getViewRights()) {
-                            subMenuDTO.setHasMenu(true);
-                        }
-                    } else if ("import".equals(type)) {
-                        // 如果角色有该菜单的新增权限，就true
-                        RolePermission rolePermission = roleService.getRolePermissionByRoleIdAndMnuId(Long.valueOf(roleId), subMenu.getMenuId());
-                        if (null != rolePermission && rolePermission.getImportRights()) {
-                            subMenuDTO.setHasMenu(true);
-                        }
-                    } else if ("export".equals(type)) {
-                        // 如果角色有该菜单的新增权限，就true
-                        RolePermission rolePermission = roleService.getRolePermissionByRoleIdAndMnuId(Long.valueOf(roleId), subMenu.getMenuId());
-                        if (null != rolePermission && rolePermission.getExportRights()) {
-                            subMenuDTO.setHasMenu(true);
+                        if ("add".equals(type)) {
+                            // 如果角色有该菜单的新增权限，就true
+                            if (null != rolePermission && rolePermission.getAddRights()) {
+                                subMenuDTO.setHasMenu(true);
+                                checkFlag = true;
+                            }
+                        } else if ("delete".equals(type)) {
+                            // 如果角色有该菜单的删除权限，就true
+                            if (null != rolePermission && rolePermission.getDeleteRights()) {
+                                subMenuDTO.setHasMenu(true);
+                                checkFlag = true;
+                            }
+                        } else if ("edit".equals(type)) {
+                            // 如果角色有该菜单的新增权限，就true
+                            if (null != rolePermission && rolePermission.getEditRights()) {
+                                subMenuDTO.setHasMenu(true);
+                                checkFlag = true;
+                            }
+                        } else if ("view".equals(type)) {
+                            // 如果角色有该菜单的新增权限，就true
+                            if (null != rolePermission && rolePermission.getViewRights()) {
+                                subMenuDTO.setHasMenu(true);
+                                checkFlag = true;
+                            }
+                        } else if ("import".equals(type)) {
+                            // 如果角色有该菜单的新增权限，就true
+                            if (null != rolePermission && rolePermission.getImportRights()) {
+                                subMenuDTO.setHasMenu(true);
+                                checkFlag = true;
+                            }
+                        } else if ("export".equals(type)) {
+                            // 如果角色有该菜单的新增权限，就true
+                            if (null != rolePermission && rolePermission.getExportRights()) {
+                                checkFlag = true;
+                                subMenuDTO.setHasMenu(true);
+                            }
                         }
                     }
                     subMenuDTOList.add(subMenuDTO);
+                }
+                if (checkFlag) {
+                    menuDTO.setHasMenu(true);
                 }
 
                 menuDTO.setSubMenu(subMenuDTOList);
                 menuDTOList.add(menuDTO);
             }
+
             String json = JSON.toJSONString(menuDTOList);
 
             // 符合zTree的使用
-            json = json.replaceAll("menuId", "id").replaceAll("menuName", "name").replaceAll("subMenu", "nodes").replaceAll("hasMenu", "checked");
+            json = json.replaceAll("menuId", "id").replaceAll("menuName", "name").replaceAll("subMenu", "children").replaceAll("hasMenu", "checked").replace("parentId", "pId");
             mv.addObject("zTreeNodes", json);
             mv.addObject("roleId", roleId);
             mv.addObject("page", "role");
@@ -302,50 +322,63 @@ public class RoleController extends BaseController {
     @ResponseBody
     public Object auth() throws Exception {
         Map requestMap = this.getParameterMapByPost();
-        String roleId = null == requestMap.get("roleId") ? null : DecodeUtils.urlDecode(requestMap.get("roleId").toString());
+        Long roleId = null == requestMap.get("roleId") ? null : Long.valueOf(DecodeUtils.urlDecode(requestMap.get("roleId").toString()));
         String menuIds = null == requestMap.get("menuIds") ? null : DecodeUtils.urlDecode(requestMap.get("menuIds").toString());
         String type = null == requestMap.get("type") ? null : DecodeUtils.urlDecode(requestMap.get("type").toString());
 
         User user = (User) this.getSession().getAttribute(Const.SESSION_USER);
 
         List<RolePermission> rolePermissionList = new ArrayList<>();
+
         String[] menuIdList = menuIds.split(",");
-        for (String menuId : menuIdList) {
-            RolePermission rolePermission = new RolePermission();
-            rolePermission.setRolePermissionId(IdGeneratorUtils.getInstance().nextId());
-            Permission permission = permissionService.getPermissionByMenuId(Long.valueOf(menuId));
-            if (null != permission) {
-                rolePermission.setPermissionId(permission.getPermissionId());
-            } else {
-                rolePermission.setPermissionId(null);
+        if ("menu".equals(type)) {
+            for (String menuId : menuIdList) {
+                RolePermission rolePermission = new RolePermission();
+                Permission permission = permissionService.getPermissionByMenuId(Long.valueOf(menuId));
+                RolePermission rolePermissionTemp = rolePermissionService.getRolePermissionByPermissionIdAndRoleId(permission.getPermissionId(), roleId);
+                if (null != rolePermissionTemp) {
+                    BeanUtils.copyProperties(rolePermissionTemp, rolePermission);
+                } else {
+                    rolePermission.setRolePermissionId(IdGeneratorUtils.getInstance().nextId());
+                    rolePermission.setPermissionId(permission.getPermissionId());
+                    rolePermission.setRoleId(roleId);
+                    rolePermission.setAddRights(false);
+                    rolePermission.setEditRights(false);
+                    rolePermission.setDeleteRights(false);
+                    rolePermission.setViewRights(false);
+                    rolePermission.setImportRights(false);
+                    rolePermission.setExportRights(false);
+                    TableProperties.createProperties(rolePermission, user.getTrueName());
+                }
+                TableProperties.modifyProperties(rolePermission, user.getTrueName());
+                rolePermissionList.add(rolePermission);
             }
-
-            rolePermission.setAddRights(false);
-            rolePermission.setEditRights(false);
-            rolePermission.setDeleteRights(false);
-            rolePermission.setViewRights(false);
-            rolePermission.setImportRights(false);
-            rolePermission.setExportRights(false);
-            if ("add".equals(type)) {
-                rolePermission.setAddRights(true);
-            } else if ("delete".equals(type)) {
-                rolePermission.setDeleteRights(true);
-            } else if ("edit".equals(type)) {
-                rolePermission.setEditRights(true);
-            } else if ("view".equals(type)) {
-                rolePermission.setViewRights(true);
-            } else if ("import".equals(type)) {
-                rolePermission.setImportRights(true);
-            } else if ("export".equals(type)) {
-                rolePermission.setExportRights(true);
+        } else {
+            rolePermissionList = rolePermissionService.getRolePermissionByRoleId(roleId);
+            for (String menuId : menuIdList) {
+                Permission permission = permissionService.getPermissionByMenuId(Long.valueOf(menuId));
+                for (RolePermission rolePermission : rolePermissionList) {
+                    if (permission.getPermissionId().equals(rolePermission.getPermissionId())) {
+                        if ("add".equals(type)) {
+                            rolePermission.setAddRights(true);
+                        } else if ("delete".equals(type)) {
+                            rolePermission.setDeleteRights(true);
+                        } else if ("edit".equals(type)) {
+                            rolePermission.setEditRights(true);
+                        } else if ("view".equals(type)) {
+                            rolePermission.setViewRights(true);
+                        } else if ("import".equals(type)) {
+                            rolePermission.setImportRights(true);
+                        } else if ("export".equals(type)) {
+                            rolePermission.setExportRights(true);
+                        }
+                        TableProperties.modifyProperties(rolePermission, user.getTrueName());
+                        break;
+                    }
+                }
             }
-            rolePermission.setRoleId(Long.valueOf(roleId));
-            TableProperties.createProperties(rolePermission, user.getTrueName());
-            TableProperties.modifyProperties(rolePermission, user.getTrueName());
-            rolePermissionList.add(rolePermission);
         }
-
-        return rolePermissionService.saveRolePermission(rolePermissionList) > 0 ? new BaseResult(true, "角色权限设置成功！！！") : new BaseResult(false, "角色权限设置失败！！！");
+        return rolePermissionService.saveRolePermission(roleId, rolePermissionList) > 0 ? new BaseResult(true, "角色权限设置成功！！！") : new BaseResult(false, "角色权限设置失败！！！");
 
     }
 }

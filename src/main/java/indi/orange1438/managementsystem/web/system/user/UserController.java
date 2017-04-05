@@ -121,8 +121,8 @@ public class UserController extends BaseController {
         user.setPassword(password);
         user.setEmail(email);
         user.setMobile(mobile);
-        user.setMobile(mobile);
         user.setTrueName(trueName);
+        user.setParentId(currentUser.getUserId());
         TableProperties.createProperties(user, currentUser.getTrueName());
         TableProperties.modifyProperties(user, currentUser.getTrueName());
 
@@ -150,9 +150,9 @@ public class UserController extends BaseController {
             User user = userService.getUserEntityByUserId(Long.valueOf(userId));
             List<Role> roleList = roleService.getAllRole();                                //列出所有二级角色
             mv.setViewName("system/user/user_edit");
-            mv.addObject("action", "/user/edit.do");
-            mv.addObject("roleList", roleList);
             mv.addObject("user", user);
+            mv.addObject("roleList", roleList);
+            mv.addObject("action", "/user/edit.do");
         } catch (Exception e) {
             logger.error(e.toString(), e);
         }

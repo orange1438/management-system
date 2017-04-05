@@ -265,12 +265,11 @@
                 top.jzts();
                 var url = "<%=basePath%>/user/delete.do?userId=" + userId + "&tm=" + new Date().getTime();
                 $.get(url, function (data) {
-                    console.log(data);
-                    if ("1" == data) {
+                    if (data.success) {
                         window.location.href = "user.do";
                     } else {
                         top.hangge();
-                        layer.msg('删除失败', {
+                        layer.msg(data.message, {
                             time: 2000, //2s后自动关闭
                             icon: 2
                         });

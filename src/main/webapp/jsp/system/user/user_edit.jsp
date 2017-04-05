@@ -268,7 +268,6 @@
     <div id="zhongxin">
         <table>
 
-            <c:if test="${user.roleId != '1'}">
                 <tr class="info">
                     <td>
                         <select class="chzn-select" name="roleId" id="roleId" data-placeholder="请选择职位"
@@ -282,10 +281,6 @@
                         </select>
                     </td>
                 </tr>
-            </c:if>
-            <c:if test="${user.roleId == '1'}">
-                <input name="roleId" id="roleId" value="1" type="hidden"/>
-            </c:if>
 
             <tr>
                 <td><input type="text" name="userName" id="userName" value="${user.userName }" maxlength="32"

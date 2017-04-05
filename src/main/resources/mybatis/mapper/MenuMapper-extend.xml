@@ -5,8 +5,8 @@
     <select id="getParentMenuByUserId" parameterType="java.lang.Long"
             resultType="indi.orange1438.managementsystem.dto.MenuDTO">
         SELECT
-            m.menu_id AS menuId,
-            m.menu_name AS menuName,
+        m.menu_id AS menuId,
+        m.menu_name AS menuName,
             m.menu_url AS menuUrl,
             m.parent_id AS parentId,
             m.menu_icon AS menuIcon,
@@ -72,6 +72,36 @@
         AND sm.MENU_ID = #{menuId}
         ORDER BY
         sm.MENU_ORDER
+    </select>
+
+    <select id="getParentMenuByRoleId" resultMap="BaseResultMap">
+        SELECT DISTINCT
+            m.*
+        FROM
+            sys_role_permission rm
+        LEFT JOIN sys_permission_menu pm ON pm.permission_id = rm.permission_id
+        LEFT JOIN sys_menu tm ON tm.menu_id = pm.menu_id
+        LEFT JOIN sys_menu m ON m.menu_id = tm.parent_id
+        WHERE
+            rm.role_id = #{roleId}
+        AND m.menu_id IS NOT NULL
+        ORDER BY
+            m.MENU_ORDER
+    </select>
+
+    <select id="getSubMenuByRoleIdAndParentId" resultMap="BaseResultMap">
+        SELECT
+            tm.*
+        FROM
+            sys_role_permission rm
+        LEFT JOIN sys_permission_menu pm ON pm.permission_id = rm.permission_id
+        LEFT JOIN sys_menu tm ON tm.menu_id = pm.menu_id
+        LEFT JOIN sys_menu m ON m.menu_id = tm.parent_id
+        WHERE
+            rm.role_id = #{roleId}
+        AND tm.parent_id = #{parentId}
+        ORDER BY
+            tm.MENU_ORDER
     </select>
 
 </mapper>

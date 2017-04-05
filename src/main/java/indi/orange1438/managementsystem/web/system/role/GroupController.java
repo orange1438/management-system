@@ -174,6 +174,9 @@ public class GroupController extends BaseController {
 
                 List<Menu> subMenuList = menuService.getSubMenuByParentId(menu.getMenuId());
                 List<MenuDTO> subMenuDTOList = new ArrayList<>();
+
+                boolean checkFlag = false;
+
                 for (Menu subMenu : subMenuList) {
                     MenuDTO subMenuDTO = new MenuDTO();
                     BeanUtils.copyProperties(subMenu, subMenuDTO);
@@ -184,8 +187,12 @@ public class GroupController extends BaseController {
                     subMenuDTO.setHasMenu(false);
                     if (menuService.isHaveMenu(Long.valueOf(groupId), subMenu.getMenuId())) {
                         subMenuDTO.setHasMenu(true);
+                        checkFlag = true;
                     }
                     subMenuDTOList.add(subMenuDTO);
+                }
+                if (checkFlag) {
+                    menuDTO.setHasMenu(true);
                 }
 
                 menuDTO.setSubMenu(subMenuDTOList);
@@ -194,7 +201,7 @@ public class GroupController extends BaseController {
             String json = JSON.toJSONString(menuDTOList);
 
             // 符合zTree的使用
-            json = json.replaceAll("menuId", "id").replaceAll("menuName", "name").replaceAll("subMenu", "nodes").replaceAll("hasMenu", "checked");
+            json = json.replaceAll("menuId", "id").replaceAll("menuName", "name").replaceAll("subMenu", "children").replaceAll("hasMenu", "checked");
             mv.addObject("zTreeNodes", json);
             mv.addObject("groupId", groupId);
             mv.addObject("page", "group");

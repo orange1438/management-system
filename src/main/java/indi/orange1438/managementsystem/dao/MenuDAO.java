@@ -41,5 +41,22 @@ public interface MenuDAO extends IMapper<Menu, MenuExample, Long> {
      */
     List<Menu> getMenuByGroupId(@Param("groupId") Long groupId);
 
+    /**
+     * 组ID 是否拥有 menuId的菜单
+     *
+     * @param groupId
+     * @param menuId
+     * @return
+     */
     List<Menu> isHaveMenu(@Param("groupId") Long groupId, @Param("menuId") Long menuId);
+
+    /**
+     * 得到角色ID拥有的菜单权限的的父级菜单
+     */
+    List<Menu> getParentMenuByRoleId(@Param("roleId") Long roleId);
+
+    /**
+     * 得到角色ID拥有的菜单权限的的子级菜单
+     */
+    List<Menu> getSubMenuByRoleIdAndParentId(@Param("roleId") Long roleId, @Param("parentId") Long parentId);
 }

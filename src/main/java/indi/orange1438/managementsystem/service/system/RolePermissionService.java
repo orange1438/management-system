@@ -23,28 +23,44 @@ public class RolePermissionService {
 
 
     /**
-     * 如果在role_permission存在权限点，就更新，否则新建
+     * 如果在role_permission存在权限点，先删，再新建
      */
-    public int saveRolePermission(List<RolePermission> rolePermissions) throws Exception {
+    public int saveRolePermission(Long roleId, List<RolePermission> rolePermissions) throws Exception {
+
+        RolePermissionExample rolePermissionExample = new RolePermissionExample();
+        rolePermissionExample.createCriteria().andRoleIdEqualTo(roleId);
+        rolePermissionDAO.deleteByExample(rolePermissionExample);
         int flag = 0;
         for (RolePermission rolePermission : rolePermissions) {
             flag++;
-            if (null != rolePermission.getPermissionId()) {
-                RolePermissionExample rolePermissionExample = new RolePermissionExample();
-                rolePermissionExample.createCriteria().andPermissionIdEqualTo(rolePermission.getPermissionId());
-                List<RolePermission> rolePermissionList = rolePermissionDAO.selectByExample(rolePermissionExample);
-                if (null != rolePermissionList && rolePermissionList.size() > 0) {
-                    // 存在
-                    rolePermission.setCreateTime(null);
-                    rolePermission.setCreator(null);
-                    rolePermission.setRolePermissionId(rolePermissionList.get(0).getRolePermissionId());
-                    rolePermissionDAO.updateByPrimaryKeySelective(rolePermission);
-                }
-            } else {
-                // 不存在
-                rolePermissionDAO.insertSelective(rolePermission);
-            }
+            rolePermissionDAO.insertSelective(rolePermission);
         }
         return flag == rolePermissions.size() ? 1 : 0;
+    }
+
+    /**
+     * 通过权限ID\角色id 得到角色权限
+     */
+    public RolePermission getRolePermissionByPermissionIdAndRoleId(Long permissionId, Long roleId) throws Exception {
+        RolePermissionExample rolePermissionExample = new RolePermissionExample();
+        rolePermissionExample.createCriteria().andPermissionIdEqualTo(permissionId).andRoleIdEqualTo(roleId);
+        List<RolePermission> rolePermissionList = rolePermissionDAO.selectByExample(rolePermissionExample);
+        if (null != rolePermissionList && rolePermissionList.size() > 0) {
+            return rolePermissionList.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * 通过角色id 得到角色权限
+     */
+    public List<RolePermission> getRolePermissionByRoleId(Long roleId) throws Exception {
+        RolePermissionExample rolePermissionExample = new RolePermissionExample();
+        rolePermissionExample.createCriteria().andRoleIdEqualTo(roleId);
+        List<RolePermission> rolePermissionList = rolePermissionDAO.selectByExample(rolePermissionExample);
+        if (null != rolePermissionList && rolePermissionList.size() > 0) {
+            return rolePermissionList;
+        }
+        return null;
     }
 }

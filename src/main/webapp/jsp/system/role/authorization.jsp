@@ -16,27 +16,15 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/2.3.0/css/bootstrap-responsive.min.css"/>
     <link rel="stylesheet" href="/resource/common/css/font-awesome.min.css"/>
 
-    <link type="text/css" rel="stylesheet" href="/resource/plugins/zTree/2.6/zTreeStyle.css"/>
+    <link type="text/css" rel="stylesheet" href="/resource/plugins/zTree/css/zTreeStyle.css"/>
     <link rel="stylesheet" href="/resource/common/ace/ace.min.css"/>
     <link rel="stylesheet" href="/resource/common/ace/ace-responsive.min.css"/>
     <link rel="stylesheet" href="/resource/common/ace/ace-skins.min.css"/>
 
-
-    <style type="text/css">
-        footer {
-            height: 50px;
-            position: fixed;
-            bottom: 0px;
-            left: 0px;
-            width: 100%;
-            text-align: center;
-        }
-    </style>
-
 </head>
 <body>
 <div id="zhongxin">
-    <ul id="tree" class="tree" style="overflow:auto;"></ul>
+    <ul id="tree" class="ztree" style="overflow:auto;"></ul>
 </div>
 <div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><img
         src="/resource/common/images/jiazai.gif"/><br/>
@@ -44,7 +32,7 @@
 
 
 <script type="text/javascript" src="//cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript" src="/resource/plugins/zTree/2.6/jquery.ztree-2.6.min.js"></script>
+<script type="text/javascript" src="/resource/plugins/zTree/js/jquery.ztree.all.min.js"></script>
 
 <script type="text/javascript">
     $(top.hangge());
@@ -52,12 +40,15 @@
     $(document).ready(function () {
 
         var setting = {
-            showLine: true,
-            checkable: true
+            check: {
+                chkboxType: {"Y": "ps", "N": "ps"},
+                enable: true
+            }
         };
         var zn = '${zTreeNodes}';
         var zTreeNodes = eval(zn);
-        zTree = $("#tree").zTree(setting, zTreeNodes);
+        zTree = $.fn.zTree.init($("#tree"), setting, zTreeNodes);
+        $.fn.zTree.getZTreeObj("tree");
     });
 </script>
 <script type="text/javascript">
