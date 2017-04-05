@@ -199,7 +199,7 @@ public class RoleController extends BaseController {
         roleIdList.add(Long.valueOf(roleId));
         // 如果角色被用户引用sys_user_role，则提示
         if (roleService.isHaveRoleByroleId(roleIdList)) {
-            new BaseResult(false, "该角色被其他账户引用！！！");
+            return new BaseResult(false, "该角色被其他账户引用！！！");
         }
         return roleService.deleteRole(Long.valueOf(roleId)) > 0 ? new BaseResult(true, "删除角色成功！！！") : new BaseResult(false, "删除角色失败！！！");
     }

@@ -147,6 +147,9 @@
                 return false;
             }
 
+            if (existEmail()) {
+                return false;
+            }
 
             if ($("#userId").val() == "") {
                 existUserName();
@@ -237,15 +240,16 @@
         }
 
         //判断邮箱是否存在
-        function existEmail(userName) {
+        function existEmail() {
+            var flag = false;
             var email = $.trim($("#email").val());
-
             $.ajax({
                 type: "POST",
                 url: '<%=basePath%>/user/existEmail.do',
-                data: getToJsonString($.param({email: email, userName: userName, tm: new Date().getTime()})),
+                data: getToJsonString($.param({email: email, tm: new Date().getTime()})),
                 dataType: 'json',
                 cache: false,
+                async: false,
                 success: function (data) {
                     if (!data.success) {
                         $("#email").tips({
@@ -255,9 +259,11 @@
                             time: 3
                         });
                         setTimeout("$('#email').val('')", 2000);
+                        flag = true;
                     }
                 }
             });
+            return flag;
         }
 
     </script>
@@ -304,7 +310,7 @@
             </tr>
             <tr>
                 <td><input type="email" name="email" id="email" value="${user.email }" maxlength="32"
-                           placeholder="这里输入邮箱" title="邮箱" onblur="existEmail('${user.userName }')"/></td>
+                           placeholder="这里输入邮箱" title="邮箱"/></td>
             </tr>
             <tr>
                 <td style="text-align: center;">

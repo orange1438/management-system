@@ -93,13 +93,9 @@ public class UserService {
      * @param email
      * @return
      */
-    public User getUserEntityByEmail(String email, String userName) {
+    public User getUserEntityByEmail(String email) {
         UserExample userEntityExample = new UserExample();
-        UserExample.Criteria criteria = userEntityExample.createCriteria();
-        criteria.andEmailEqualTo(email);
-        if (null != userName && !userName.isEmpty()) {
-            criteria.andUserNameNotEqualTo(userName);
-        }
+        userEntityExample.createCriteria().andEmailEqualTo(email);
         List<User> userEntityList = userDAO.selectByExample(userEntityExample);
         if (null != userEntityList && 0 < userEntityList.size()) {
             return userEntityList.get(0);

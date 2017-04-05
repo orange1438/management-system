@@ -150,7 +150,7 @@ public class GroupController extends BaseController {
             }
             // 如果角色被用户引用sys_user_role，则提示
             if (roleService.isHaveRoleByroleId(roleIdList)) {
-                new BaseResult(false, "该组下的角色被其他账户引用！！！");
+                return new BaseResult(false, "该组下的角色被其他账户引用！！！");
             }
             return groupService.deleteGroup(Long.valueOf(groupId), roleIdList) > 0 ? new BaseResult(true, "删除组成功") : new BaseResult(false, "删除组失败");
         }

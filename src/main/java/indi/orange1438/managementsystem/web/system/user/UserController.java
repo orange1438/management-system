@@ -228,7 +228,7 @@ public class UserController extends BaseController {
     public Object existUserName() throws Exception {
         Map requestMap = this.getParameterMapByJsonPost();
         try {
-            String userName = null == requestMap.get("userName") ? "" : requestMap.get("userName").toString();
+            String userName = null == requestMap.get("userName") ? "" : DecodeUtils.urlDecode(requestMap.get("userName").toString());
             if (userService.getUserEntityByUserName(userName) != null) {
                 return new BaseResult(false, "用户存在");
             }
@@ -246,10 +246,9 @@ public class UserController extends BaseController {
     public Object existEmail() throws Exception {
         Map requestMap = this.getParameterMapByJsonPost();
         try {
-            String userName = null == requestMap.get("userName") ? "" : requestMap.get("userName").toString();
-            String email = null == requestMap.get("email") ? "" : requestMap.get("email").toString();
-            if (userService.getUserEntityByEmail(email, userName) != null) {
-                return new BaseResult(false, "邮箱存在");
+            String email = null == requestMap.get("email") ? "" : DecodeUtils.urlDecode(requestMap.get("email").toString());
+            if (userService.getUserEntityByEmail(email) != null) {
+                return new BaseResult(false, "邮箱已存在");
             }
         } catch (Exception e) {
             logger.error(e.toString(), e);
