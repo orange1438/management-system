@@ -5,7 +5,7 @@
         <id column="USER_ID" jdbcType="BIGINT" property="userId"/>
         <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
         <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
-        <result column="IS_DISABLED" jdbcType="VARCHAR" property="isDisabled"/>
+        <result column="IS_DISABLED" jdbcType="BIT" property="isDisabled"/>
         <result column="PARENT_ID" jdbcType="BIGINT" property="parentId"/>
         <result column="TRUE_NAME" jdbcType="VARCHAR" property="trueName"/>
         <result column="MOBILE" jdbcType="VARCHAR" property="mobile"/>
@@ -115,19 +115,19 @@
         </if>
     </delete>
     <insert id="insert" parameterType="indi.orange1438.managementsystem.dao.entity.User">
-        insert into sys_user (USER_ID, USER_NAME, PASSWORD,
-        IS_DISABLED, PARENT_ID, TRUE_NAME,
-        MOBILE, EMAIL, SKIN,
-        LAST_LOGIN_TIME, LOGIN_IP, LOGIN_COUNT,
-        CREATE_TIME, CREATOR, MODIFY_TIME,
-        MODIFIER)
-        values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-        #{isDisabled,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, #{trueName,jdbcType=VARCHAR},
-        #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{skin,jdbcType=VARCHAR},
-        #{lastLoginTime,jdbcType=TIMESTAMP}, #{loginIp,jdbcType=VARCHAR}, #{loginCount,jdbcType=BIGINT},
-        #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP},
-        #{modifier,jdbcType=VARCHAR})
-    </insert>
+    insert into sys_user (USER_ID, USER_NAME, PASSWORD, 
+      IS_DISABLED, PARENT_ID, TRUE_NAME, 
+      MOBILE, EMAIL, SKIN, 
+      LAST_LOGIN_TIME, LOGIN_IP, LOGIN_COUNT, 
+      CREATE_TIME, CREATOR, MODIFY_TIME, 
+      MODIFIER)
+    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{isDisabled,jdbcType=BIT}, #{parentId,jdbcType=BIGINT}, #{trueName,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{skin,jdbcType=VARCHAR}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{loginIp,jdbcType=VARCHAR}, #{loginCount,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=VARCHAR})
+  </insert>
     <insert id="insertSelective" parameterType="indi.orange1438.managementsystem.dao.entity.User">
         insert into sys_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -191,7 +191,7 @@
                 #{password,jdbcType=VARCHAR},
             </if>
             <if test="isDisabled != null">
-                #{isDisabled,jdbcType=VARCHAR},
+                #{isDisabled,jdbcType=BIT},
             </if>
             <if test="parentId != null">
                 #{parentId,jdbcType=BIGINT},
@@ -251,7 +251,7 @@
                 PASSWORD = #{record.password,jdbcType=VARCHAR},
             </if>
             <if test="record.isDisabled != null">
-                IS_DISABLED = #{record.isDisabled,jdbcType=VARCHAR},
+                IS_DISABLED = #{record.isDisabled,jdbcType=BIT},
             </if>
             <if test="record.parentId != null">
                 PARENT_ID = #{record.parentId,jdbcType=BIGINT},
@@ -299,7 +299,7 @@
         set USER_ID = #{record.userId,jdbcType=BIGINT},
         USER_NAME = #{record.userName,jdbcType=VARCHAR},
         PASSWORD = #{record.password,jdbcType=VARCHAR},
-        IS_DISABLED = #{record.isDisabled,jdbcType=VARCHAR},
+        IS_DISABLED = #{record.isDisabled,jdbcType=BIT},
         PARENT_ID = #{record.parentId,jdbcType=BIGINT},
         TRUE_NAME = #{record.trueName,jdbcType=VARCHAR},
         MOBILE = #{record.mobile,jdbcType=VARCHAR},
@@ -326,7 +326,7 @@
                 PASSWORD = #{password,jdbcType=VARCHAR},
             </if>
             <if test="isDisabled != null">
-                IS_DISABLED = #{isDisabled,jdbcType=VARCHAR},
+                IS_DISABLED = #{isDisabled,jdbcType=BIT},
             </if>
             <if test="parentId != null">
                 PARENT_ID = #{parentId,jdbcType=BIGINT},
@@ -368,22 +368,22 @@
         where USER_ID = #{userId,jdbcType=BIGINT}
     </update>
     <update id="updateByPrimaryKey" parameterType="indi.orange1438.managementsystem.dao.entity.User">
-        update sys_user
-        set USER_NAME = #{userName,jdbcType=VARCHAR},
-        PASSWORD = #{password,jdbcType=VARCHAR},
-        IS_DISABLED = #{isDisabled,jdbcType=VARCHAR},
-        PARENT_ID = #{parentId,jdbcType=BIGINT},
-        TRUE_NAME = #{trueName,jdbcType=VARCHAR},
-        MOBILE = #{mobile,jdbcType=VARCHAR},
-        EMAIL = #{email,jdbcType=VARCHAR},
-        SKIN = #{skin,jdbcType=VARCHAR},
-        LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
-        LOGIN_IP = #{loginIp,jdbcType=VARCHAR},
-        LOGIN_COUNT = #{loginCount,jdbcType=BIGINT},
-        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-        CREATOR = #{creator,jdbcType=VARCHAR},
-        MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
-        MODIFIER = #{modifier,jdbcType=VARCHAR}
-        where USER_ID = #{userId,jdbcType=BIGINT}
-    </update>
+    update sys_user
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      IS_DISABLED = #{isDisabled,jdbcType=BIT},
+      PARENT_ID = #{parentId,jdbcType=BIGINT},
+      TRUE_NAME = #{trueName,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      SKIN = #{skin,jdbcType=VARCHAR},
+      LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+      LOGIN_IP = #{loginIp,jdbcType=VARCHAR},
+      LOGIN_COUNT = #{loginCount,jdbcType=BIGINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      MODIFIER = #{modifier,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=BIGINT}
+  </update>
 </mapper>

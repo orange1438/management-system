@@ -147,7 +147,7 @@ public class UserController extends BaseController {
         String userId = null == requestMap.get("userId") ? "" : requestMap.get("userId").toString();
 
         try {
-            User user = userService.getUserEntityByUserId(Long.valueOf(userId));
+            UserRoleDTO user = userService.getUserRoleByUserId(Long.valueOf(userId));
             List<Role> roleList = roleService.getAllRole();                                //列出所有二级角色
             mv.setViewName("system/user/user_edit");
             mv.addObject("user", user);
@@ -183,7 +183,6 @@ public class UserController extends BaseController {
         user.setPassword(password);
         user.setEmail(email);
         user.setMobile(mobile);
-        user.setMobile(mobile);
         user.setTrueName(trueName);
         TableProperties.modifyProperties(user, currentUser.getTrueName());
 
@@ -202,6 +201,23 @@ public class UserController extends BaseController {
     @ResponseBody
     public Object delete(@RequestParam String userId) throws Exception {
         return userService.deleteUser(Long.valueOf(userId)) > 0 ? new BaseResult(true, "删除用户成功！！！") : new BaseResult(false, "删除用户失败！！！");
+    }
+
+    /**
+     * 是否禁用用户
+     *
+     * @param userId
+     * @param value
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/disabled", method = RequestMethod.GET, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public Object disabled(@RequestParam String userId, @RequestParam String value) throws Exception {
+        User user = new User();
+        user.setUserId(Long.valueOf(userId));
+        user.setIsDisabled(Boolean.valueOf(value));
+        return userService.updateUserByUserId(user) > 0 ? new BaseResult(true, "设置成功！！！") : new BaseResult(false, "设置失败！！！");
     }
 
     /**

@@ -153,4 +153,18 @@ public class UserService {
         PageHelper.startPage(1, 10);
         return userDAO.getUserByMap(requestMap);
     }
+
+    /**
+     * 根据UserID得到UserRole
+     *
+     * @param userId
+     * @return
+     */
+    public UserRoleDTO getUserRoleByUserId(long userId) {
+        List<UserRoleDTO> userRoleDTOList = userDAO.getUserRoleByUserId(userId);
+        if (null != userRoleDTOList && userRoleDTOList.size() > 0) {
+            return userRoleDTOList.get(0);
+        }
+        return null;
+    }
 }

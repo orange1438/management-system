@@ -62,4 +62,33 @@
         order by u.LAST_LOGIN_TIME desc
     </select>
 
+
+    <select id="getUserRoleByUserId" resultMap="UserRoleMap">
+        SELECT
+        r.ROLE_ID AS ROLE_ID,
+        r.ROLE_NAME AS ROLE_NAME,
+        r.DESCRIPTION AS DESCRIPTION,
+        u.USER_ID AS USER_ID,
+        USER_NAME,
+        PASSWORD,
+        IS_DISABLED,
+        PARENT_ID,
+        TRUE_NAME,
+        MOBILE,
+        EMAIL,
+        SKIN,
+        LAST_LOGIN_TIME,
+        LOGIN_IP,
+        LOGIN_COUNT,
+        u.CREATE_TIME AS CREATE_TIME,
+        u.CREATOR AS CREATOR,
+        u.MODIFY_TIME AS MODIFY_TIME,
+        u.MODIFIER AS MODIFIER
+        FROM
+        sys_user u
+        LEFT JOIN sys_user_role ur ON ur.user_id = u.user_id
+        LEFT JOIN sys_role r ON r.role_id = ur.role_id
+        where u.user_id=#{userId}
+    </select>
+
 </mapper>

@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class User implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = -8040916967954928821L;
+    private static final long serialVersionUID = -1969890822251944945L;
 
     // 用户ID
     private Long userId;
@@ -22,7 +22,7 @@ public class User implements Serializable {
     private String password;
 
     // 是否禁用  默认：0
-    private String isDisabled;
+    private Boolean isDisabled;
 
     // 父级账号ID
     private Long parentId;
@@ -112,7 +112,7 @@ public class User implements Serializable {
      * 获取 是否禁用 sys_user.IS_DISABLED
      * @return 是否禁用
      */
-    public String getIsDisabled() {
+    public Boolean getIsDisabled() {
         return isDisabled;
     }
 
@@ -120,8 +120,8 @@ public class User implements Serializable {
      * 设置 是否禁用 sys_user.IS_DISABLED
      * @param isDisabled 是否禁用
      */
-    public void setIsDisabled(String isDisabled) {
-        this.isDisabled = isDisabled == null ? null : isDisabled.trim();
+    public void setIsDisabled(Boolean isDisabled) {
+        this.isDisabled = isDisabled;
     }
 
     /** 

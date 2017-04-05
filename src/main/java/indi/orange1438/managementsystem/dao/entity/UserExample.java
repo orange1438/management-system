@@ -362,62 +362,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsDisabledEqualTo(String value) {
+        public Criteria andIsDisabledEqualTo(Boolean value) {
             addCriterion("IS_DISABLED =", value, "isDisabled");
             return (Criteria) this;
         }
 
-        public Criteria andIsDisabledNotEqualTo(String value) {
+        public Criteria andIsDisabledNotEqualTo(Boolean value) {
             addCriterion("IS_DISABLED <>", value, "isDisabled");
             return (Criteria) this;
         }
 
-        public Criteria andIsDisabledGreaterThan(String value) {
+        public Criteria andIsDisabledGreaterThan(Boolean value) {
             addCriterion("IS_DISABLED >", value, "isDisabled");
             return (Criteria) this;
         }
 
-        public Criteria andIsDisabledGreaterThanOrEqualTo(String value) {
+        public Criteria andIsDisabledGreaterThanOrEqualTo(Boolean value) {
             addCriterion("IS_DISABLED >=", value, "isDisabled");
             return (Criteria) this;
         }
 
-        public Criteria andIsDisabledLessThan(String value) {
+        public Criteria andIsDisabledLessThan(Boolean value) {
             addCriterion("IS_DISABLED <", value, "isDisabled");
             return (Criteria) this;
         }
 
-        public Criteria andIsDisabledLessThanOrEqualTo(String value) {
+        public Criteria andIsDisabledLessThanOrEqualTo(Boolean value) {
             addCriterion("IS_DISABLED <=", value, "isDisabled");
             return (Criteria) this;
         }
 
-        public Criteria andIsDisabledLike(String value) {
-            addCriterion("IS_DISABLED like", value, "isDisabled");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDisabledNotLike(String value) {
-            addCriterion("IS_DISABLED not like", value, "isDisabled");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDisabledIn(List<String> values) {
+        public Criteria andIsDisabledIn(List<Boolean> values) {
             addCriterion("IS_DISABLED in", values, "isDisabled");
             return (Criteria) this;
         }
 
-        public Criteria andIsDisabledNotIn(List<String> values) {
+        public Criteria andIsDisabledNotIn(List<Boolean> values) {
             addCriterion("IS_DISABLED not in", values, "isDisabled");
             return (Criteria) this;
         }
 
-        public Criteria andIsDisabledBetween(String value1, String value2) {
+        public Criteria andIsDisabledBetween(Boolean value1, Boolean value2) {
             addCriterion("IS_DISABLED between", value1, value2, "isDisabled");
             return (Criteria) this;
         }
 
-        public Criteria andIsDisabledNotBetween(String value1, String value2) {
+        public Criteria andIsDisabledNotBetween(Boolean value1, Boolean value2) {
             addCriterion("IS_DISABLED not between", value1, value2, "isDisabled");
             return (Criteria) this;
         }

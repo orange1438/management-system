@@ -122,11 +122,14 @@
                                         <td><fmt:formatDate value="${user.lastLoginTime}" type="both"/></td>
                                         <td>${user.loginIp}</td>
                                         <td>${user.loginCount}</td>
-                                        <td style="width:60px;" class="center"><label><input type="checkbox"
-                                                                                             class="ace-switch ace-switch-3"
-                                                                                             id="qx1${vs.index+1}"
-                                                                                             checked="checked"/><span
-                                                class="lbl"></span></label></td>
+
+                                        <td style="width:60px;" class="center">
+                                            <label>
+                                                <input type="checkbox" class="ace-switch ace-switch-3"
+                                                       id="disabled${vs.index+1}"
+                                                       <c:if test="${user.isDisabled}">checked="checked"</c:if>
+                                                       onclick="isDisabled(this.id,${user.userId})"/><span
+                                                    class="lbl"></span></label></td>
 
                                         <td style="width: 60px;">
                                             <div class='hidden-phone visible-desktop btn-group'>
@@ -214,6 +217,37 @@
 <script type="text/javascript">
 
     $(top.hangge());
+
+    /**
+     * 是否禁用
+     */
+    function isDisabled(id, userId) {
+        console.log(id + " " + userId);
+        var value = 0;
+        var checkedStatus = $("#" + id).attr("checked");
+        var status = "checked";
+        if (checkedStatus == 'checked') {
+            value = 1;
+            status = 'checked';
+        } else {
+            value = 0;
+            status = 'unchecked';
+        }
+
+        var url = "<%=basePath%>/user/disabled.do?userId=" + userId + "&value=" + value + "&tm=" + new Date().getTime();
+        $.get(url, function (data) {
+            if (data.success) {
+//                window.location.href = "user.do";
+            } else {
+                top.hangge();
+                layer.msg(data.message, {
+                    time: 2000, //2s后自动关闭
+                    icon: 2
+                });
+                window.location.href = "user.do";
+            }
+        });
+    }
 
     //检索
     function search() {

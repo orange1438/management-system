@@ -4,6 +4,7 @@ package indi.orange1438.managementsystem.dao;
 import indi.orange1438.managementsystem.dao.entity.User;
 import indi.orange1438.managementsystem.dao.entity.UserExample;
 import indi.orange1438.managementsystem.dto.UserRoleDTO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,4 +21,9 @@ public interface UserDAO extends IMapper<User, UserExample, Long> {
      * 根据Map条件查询用户,包含用户的角色
      */
     public List<UserRoleDTO> getUserByMap(Map requestMap);
+
+    /**
+     * 根据UserID得到UserRole
+     */
+    public List<UserRoleDTO> getUserRoleByUserId(@Param("userId") Long userId);
 }
