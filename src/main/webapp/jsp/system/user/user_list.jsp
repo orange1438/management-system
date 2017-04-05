@@ -222,19 +222,17 @@
      * 是否禁用
      */
     function isDisabled(id, userId) {
-        console.log(id + " " + userId);
-        var value = 0;
-        var checkedStatus = $("#" + id).attr("checked");
-        var status = "checked";
-        if (checkedStatus == 'checked') {
-            value = 1;
-            status = 'checked';
-        } else {
-            value = 0;
-            status = 'unchecked';
-        }
 
-        var url = "<%=basePath%>/user/disabled.do?userId=" + userId + "&value=" + value + "&tm=" + new Date().getTime();
+        var checkedStatus = $("#" + id).attr("checked");
+        var status = "true";
+        if (checkedStatus == 'checked') {
+            status = 'true';
+        } else {
+            status = 'false';
+        }
+        console.log(status);
+
+        var url = "<%=basePath%>/user/disabled.do?userId=" + userId + "&value=" + status + "&tm=" + new Date().getTime();
         $.get(url, function (data) {
             if (data.success) {
 //                window.location.href = "user.do";

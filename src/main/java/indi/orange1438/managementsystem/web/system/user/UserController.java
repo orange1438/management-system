@@ -216,7 +216,7 @@ public class UserController extends BaseController {
     public Object disabled(@RequestParam String userId, @RequestParam String value) throws Exception {
         User user = new User();
         user.setUserId(Long.valueOf(userId));
-        user.setIsDisabled(Boolean.valueOf(value));
+        user.setIsDisabled("false".equals(value) ? false : true);
         return userService.updateUserByUserId(user) > 0 ? new BaseResult(true, "设置成功！！！") : new BaseResult(false, "设置失败！！！");
     }
 
