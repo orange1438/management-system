@@ -27,8 +27,10 @@
                         <table class="center" style="width:100%;">
                             <tr height="35">
 
+                                <c:if test="${permission.addRights}">
                                 <td style="width:69px;"><a href="javascript:addGroup();"
                                                            class="btn btn-small btn-success">新增</a></td>
+                                </c:if>
 
                                 <c:choose>
                                 <c:when test="${not empty groupList}">
@@ -68,14 +70,17 @@
                                 <a class="btn btn-mini btn-info" onclick="editGroup('${currentGroup.groupId}');">修改组名称<i
                                         class="icon-arrow-right  icon-on-right"></i></a>
 
-                                <a class="btn btn-mini btn-purple"
-                                   onclick="groupRights('${currentGroup.groupId}');"><i
-                                        class="icon-pencil"></i>组菜单权限</a>
+                                <c:if test="${permission.editRights}">
+                                    <a class="btn btn-mini btn-purple"
+                                       onclick="groupRights('${currentGroup.groupId}');"><i
+                                            class="icon-pencil"></i>组菜单权限</a>
+                                </c:if>
 
-
-                                <a class='btn btn-mini btn-danger' title="删除"
-                                   onclick="delGroup('${currentGroup.groupId}','${currentGroup.groupName}');">
-                                    <i class='icon-trash'></i></a>
+                                <c:if test="${permission.deleteRights}">
+                                    <a class='btn btn-mini btn-danger' title="删除"
+                                       onclick="delGroup('${currentGroup.groupId}','${currentGroup.groupName}');">
+                                        <i class='icon-trash'></i></a>
+                                </c:if>
                             </td>
                         </tr>
                         <tr height="7px;">
@@ -90,13 +95,15 @@
                     <tr>
                         <th class="center">序号</th>
                         <th>角色</th>
-                        <th class="center" bgcolor="#FFBF00">增加</th>
-                        <th class="center">删除</th>
-                        <th class="center" bgcolor="#BFEFFF">修改</th>
-                        <th class="center">详细</th>
-                        <th class="center" bgcolor="#EFFFBF">导入</th>
-                        <th class="center">导出</th>
-                        <th class="center" bgcolor="#EFBFFF">菜单</th>
+                        <c:if test="${permission.editRights}">
+                            <th class="center" bgcolor="#FFBF00">增加</th>
+                            <th class="center">删除</th>
+                            <th class="center" bgcolor="#BFEFFF">修改</th>
+                            <th class="center">详细</th>
+                            <th class="center" bgcolor="#EFFFBF">导入</th>
+                            <th class="center">导出</th>
+                            <th class="center" bgcolor="#EFBFFF">菜单</th>
+                        </c:if>
                         <th style="width:155px;" class="center">操作</th>
                     </tr>
                     </thead>
@@ -107,45 +114,52 @@
                                     <td class='center' style="width:30px;">${vs.index+1}</td>
                                     <td class='center' id="ROLE_NAMETd${role.roleId}">${role.roleName }</td>
 
-                                    <td style="width:30px;"><a onclick="roleRights('${role.roleId }','add','新增');"
-                                                               class="btn btn-warning btn-mini"
-                                                               title="分配新增权限"><i
-                                            class="icon-wrench icon-2x icon-only"></i></a></td>
-                                    <td style="width:30px;"><a onclick="roleRights('${role.roleId  }','delete','删除');"
-                                                               class="btn btn-warning btn-mini"
-                                                               title="分配删除权限"><i
-                                            class="icon-wrench icon-2x icon-only"></i></a></td>
-                                    <td style="width:30px;"><a
-                                            onclick="roleRights('${role.roleId }','edit');"
-                                            class="btn btn-warning btn-mini" title="分配修改权限"><i
-                                            class="icon-wrench icon-2x icon-only"></i></a></td>
-                                    <td style="width:30px;"><a onclick="roleRights('${role.roleId }','view','详细');"
-                                                               class="btn btn-warning btn-mini"
-                                                               title="分配详细权限"><i
-                                            class="icon-wrench icon-2x icon-only"></i></a></td>
-                                    <td style="width:30px;"><a onclick="roleRights('${role.roleId }','import','导入');"
-                                                               class="btn btn-warning btn-mini"
-                                                               title="分配导入权限"><i
-                                            class="icon-wrench icon-2x icon-only"></i></a></td>
-                                    <td style="width:30px;"><a onclick="roleRights('${role.roleId }','export','导出');"
-                                                               class="btn btn-warning btn-mini"
-                                                               title="分配导出权限"><i
-                                            class="icon-wrench icon-2x icon-only"></i></a></td>
+                                    <c:if test="${permission.editRights}">
+                                        <td style="width:30px;"><a onclick="roleRights('${role.roleId }','add','新增');"
+                                                                   class="btn btn-warning btn-mini"
+                                                                   title="分配新增权限"><i
+                                                class="icon-wrench icon-2x icon-only"></i></a></td>
+                                        <td style="width:30px;"><a
+                                                onclick="roleRights('${role.roleId  }','delete','删除');"
+                                                class="btn btn-warning btn-mini"
+                                                title="分配删除权限"><i
+                                                class="icon-wrench icon-2x icon-only"></i></a></td>
+                                        <td style="width:30px;"><a
+                                                onclick="roleRights('${role.roleId }','edit');"
+                                                class="btn btn-warning btn-mini" title="分配修改权限"><i
+                                                class="icon-wrench icon-2x icon-only"></i></a></td>
+                                        <td style="width:30px;"><a onclick="roleRights('${role.roleId }','view','详细');"
+                                                                   class="btn btn-warning btn-mini"
+                                                                   title="分配详细权限"><i
+                                                class="icon-wrench icon-2x icon-only"></i></a></td>
+                                        <td style="width:30px;"><a
+                                                onclick="roleRights('${role.roleId }','import','导入');"
+                                                class="btn btn-warning btn-mini"
+                                                title="分配导入权限"><i
+                                                class="icon-wrench icon-2x icon-only"></i></a></td>
+                                        <td style="width:30px;"><a
+                                                onclick="roleRights('${role.roleId }','export','导出');"
+                                                class="btn btn-warning btn-mini"
+                                                title="分配导出权限"><i
+                                                class="icon-wrench icon-2x icon-only"></i></a></td>
 
-                                    <td style="width:30px;"><a onclick="roleRights('${role.roleId }','menu','菜单');"
-                                                               class="btn btn-warning btn-mini"
-                                                               title="分配菜单权限"><i
-                                            class="icon-wrench icon-2x icon-only"></i></a></td>
-
+                                        <td style="width:30px;"><a onclick="roleRights('${role.roleId }','menu','菜单');"
+                                                                   class="btn btn-warning btn-mini"
+                                                                   title="分配菜单权限"><i
+                                                class="icon-wrench icon-2x icon-only"></i></a></td>
+                                    </c:if>
                                     <td style="width:155px;">
 
+                                        <c:if test="${permission.editRights}">
                                         <a class='btn btn-mini btn-info' title="编辑"
                                            onclick="editRole('${role.roleId }');"><i class='icon-edit'></i></a>
+                                        </c:if>
 
-
+                                        <c:if test="${permission.deleteRights}">
                                         <a class='btn btn-mini btn-danger' title="删除"
                                            onclick="delRole('${role.roleId }','${role.roleName }');"><i
                                                 class='icon-trash'></i></a>
+                                        </c:if>
 
                                 </tr>
                             </c:forEach>
@@ -162,8 +176,11 @@
 
                     <table style="width:100%;">
                         <tr>
-                            <td style="vertical-align:top;"><a class="btn btn-small btn-success"
-                                                               onclick="addRole('${currentGroup.groupId}');">新增</a></td>
+                            <c:if test="${permission.addRights}">
+                                <td style="vertical-align:top;"><a class="btn btn-small btn-success"
+                                                                   onclick="addRole('${currentGroup.groupId}');">新增</a>
+                                </td>
+                            </c:if>
                         </tr>
                     </table>
 

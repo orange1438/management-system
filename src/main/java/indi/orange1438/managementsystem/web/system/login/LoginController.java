@@ -9,7 +9,9 @@ import java.util.Map;
 import indi.orange1438.managementsystem.dao.entity.Role;
 import indi.orange1438.managementsystem.dao.entity.User;
 import indi.orange1438.managementsystem.dto.MenuDTO;
+import indi.orange1438.managementsystem.dto.RolePermissionMenuDTO;
 import indi.orange1438.managementsystem.service.system.MenuService;
+import indi.orange1438.managementsystem.service.system.RolePermissionService;
 import indi.orange1438.managementsystem.service.system.RoleService;
 import indi.orange1438.managementsystem.service.system.UserService;
 import indi.orange1438.managementsystem.util.Const;
@@ -45,6 +47,9 @@ public class LoginController extends BaseController {
 
     @Resource(name = "menuService")
     private MenuService menuService;
+
+    @Resource(name = "rolePermissionService")
+    private RolePermissionService rolePermissionService;
 
     /**
      * 访问登录页
@@ -135,6 +140,12 @@ public class LoginController extends BaseController {
                     menuList = (List<MenuDTO>) session.getAttribute(Const.SESSION_MENULIST);
                 }
 
+                // 按钮级别权限
+                if (null == session.getAttribute(Const.SESSION_ROLE_PERMISSION)) {
+                    Map rolePermissionMenuDTOList = rolePermissionService.getRolePermissionMenuDTOByUserId(user.getUserId());
+                    session.setAttribute(Const.SESSION_ROLE_PERMISSION, rolePermissionMenuDTOList);            //按钮级别权限放入session中
+                }
+
                 mv.setViewName("system/admin/index");
                 mv.addObject("user", user);
                 mv.addObject("menuList", menuList);
@@ -184,6 +195,7 @@ public class LoginController extends BaseController {
         session.removeAttribute(Const.SESSION_SECURITY_CODE);
         session.removeAttribute(Const.SESSION_USER);
         session.removeAttribute(Const.SESSION_MENULIST);
+        session.removeAttribute(Const.SESSION_ROLE_PERMISSION);
 
         Map map = new HashMap();
         map.put("SysName", "Orange"); //填入系统名称

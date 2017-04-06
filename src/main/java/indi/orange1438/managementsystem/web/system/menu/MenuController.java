@@ -7,6 +7,7 @@ import indi.orange1438.managementsystem.dao.entity.PermissionMenu;
 import indi.orange1438.managementsystem.dao.entity.User;
 import indi.orange1438.managementsystem.dto.BaseResult;
 import indi.orange1438.managementsystem.dto.MenuDTO;
+import indi.orange1438.managementsystem.dto.RolePermissionMenuDTO;
 import indi.orange1438.managementsystem.service.system.MenuService;
 import indi.orange1438.managementsystem.service.system.PermissionService;
 import indi.orange1438.managementsystem.util.*;
@@ -53,6 +54,10 @@ public class MenuController extends BaseController {
         try {
             List<Menu> menuList = menuService.getAllParentMenu();
             mv.addObject("menuList", menuList);
+
+            Map rolePermissionMenuMap = (Map) this.getSession().getAttribute(Const.SESSION_ROLE_PERMISSION);
+            mv.addObject("permission", rolePermissionMenuMap.get(Const.PERMISSION_MENU));
+
             mv.setViewName("system/menu/menu_list");
         } catch (Exception e) {
             logger.error(e.toString(), e);

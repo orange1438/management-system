@@ -67,6 +67,9 @@ public class RoleController extends BaseController {
             roleList = roleService.getRoleByGroupId(currentGroup.getGroupId());        //列出当前组的所有角色
         }
 
+        Map rolePermissionMenuMap = (Map) this.getSession().getAttribute(Const.SESSION_ROLE_PERMISSION);
+        mv.addObject("permission", rolePermissionMenuMap.get(Const.PERMISSION_ROLEGROUP));
+
         mv.addObject("currentGroup", currentGroup);
         mv.addObject("groupList", groupList);
         mv.addObject("roleList", roleList);

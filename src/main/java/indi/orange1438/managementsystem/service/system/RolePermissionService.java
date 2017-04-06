@@ -3,10 +3,13 @@ package indi.orange1438.managementsystem.service.system;
 import indi.orange1438.managementsystem.dao.RolePermissionDAO;
 import indi.orange1438.managementsystem.dao.entity.RolePermission;
 import indi.orange1438.managementsystem.dao.entity.RolePermissionExample;
+import indi.orange1438.managementsystem.dto.RolePermissionMenuDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 角色权限服务类
@@ -62,5 +65,17 @@ public class RolePermissionService {
             return rolePermissionList;
         }
         return null;
+    }
+
+    /**
+     * 通过用户id 得到角色权限菜单
+     */
+    public Map getRolePermissionMenuDTOByUserId(Long userId) throws Exception {
+        List<RolePermissionMenuDTO> rolePermissionMenuDTOList = rolePermissionDAO.getRolePermissionMenuDTOByUserId(userId);
+        Map<String, Object> map = new HashMap<String, Object>();
+        for (RolePermissionMenuDTO rolePermissionMenuDTO : rolePermissionMenuDTOList) {
+            map.put(rolePermissionMenuDTO.getMenuId(), rolePermissionMenuDTO);
+        }
+        return map;
     }
 }

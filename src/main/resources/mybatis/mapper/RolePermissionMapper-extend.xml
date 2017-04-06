@@ -21,6 +21,32 @@
         LEFT JOIN sys_permission_menu spm ON srp.permission_id = spm.permission_id
         WHERE
         spm.menu_id = #{menuId}
-        AND srp.role_id = #{roleId};
+        AND srp.role_id = #{roleId}
+    </select>
+
+    <select id="getRolePermissionMenuDTOByUserId"
+            resultType="indi.orange1438.managementsystem.dto.RolePermissionMenuDTO">
+        SELECT DISTINCT
+        m.menu_id AS menuId,
+        r.role_name AS roleName,
+        p.permission_name AS permissionName,
+        m.menu_name AS menuName,
+        rp.role_id AS roleId,
+        rp.permission_id AS permissionId,
+        rp.add_rights AS addRights,
+        rp.delete_rights AS deleteRights,
+        rp.edit_rights AS editRights,
+        rp.view_rights AS viewRights,
+        rp.import_rights AS importRights,
+        rp.export_rights AS exportRights
+        FROM
+        sys_user_role ur
+        LEFT JOIN sys_role r ON r.role_id = ur.role_id
+        LEFT JOIN sys_role_permission rp ON rp.role_id = r.role_id
+        LEFT JOIN sys_permission p ON p.permission_id = rp.permission_id
+        LEFT JOIN sys_permission_menu pm ON pm.permission_id = p.permission_id
+        LEFT JOIN sys_menu m ON pm.menu_id = m.menu_id
+        WHERE
+        ur.user_id = #{userId}
     </select>
 </mapper>

@@ -58,15 +58,18 @@
                                         id="nav-search-icon" class="icon-search"></i></button>
                             </td>
 
-                            <td style="vertical-align:top;"><a class="btn btn-mini btn-light" onclick="toExcel();"
-                                                               title="导出到EXCEL"><i id="nav-search-icon"
-                                                                                   class="icon-download-alt"></i></a>
-                            </td>
-
-                            <td style="vertical-align:top;"><a class="btn btn-mini btn-light" onclick="fromExcel();"
-                                                               title="从EXCEL导入"><i id="nav-search-icon"
-                                                                                   class="icon-cloud-upload"></i></a>
-                            </td>
+                            <c:if test="${permission.exportRights}">
+                                <td style="vertical-align:top;"><a class="btn btn-mini btn-light" onclick="toExcel();"
+                                                                   title="导出到EXCEL"><i id="nav-search-icon"
+                                                                                       class="icon-download-alt"></i></a>
+                                </td>
+                            </c:if>
+                            <c:if test="${permission.importRights}">
+                                <td style="vertical-align:top;"><a class="btn btn-mini btn-light" onclick="fromExcel();"
+                                                                   title="从EXCEL导入"><i id="nav-search-icon"
+                                                                                       class="icon-cloud-upload"></i></a>
+                                </td>
+                            </c:if>
 
                         </tr>
                     </table>
@@ -135,9 +138,13 @@
                                             <div class='hidden-phone visible-desktop btn-group'>
 
 
-                                                <c:if test="${user.userName != 'admin'}"><a
-                                                        class='btn btn-mini btn-info' title="编辑"
-                                                        onclick="editUser('${user.userId }');"><i class='icon-edit'></i></a></c:if>
+                                                <c:if test="${user.userName != 'admin'}">
+                                                    <c:if test="${permission.editRights}">
+                                                        <a class='btn btn-mini btn-info' title="编辑"
+                                                           onclick="editUser('${user.userId }');"><i
+                                                                class='icon-edit'></i></a>
+                                                    </c:if>
+                                                </c:if>
                                                     <%--<c:if test="${user.userName == 'admin'}"><a class='btn btn-mini btn-info' title="您不能编辑"><i class='icon-edit'></i></a></c:if>--%>
 
                                                 <c:choose>
@@ -146,11 +153,11 @@
                                                                 class='icon-trash'></i></a>
                                                     </c:when>
                                                     <c:otherwise>
-
-                                                        <a class='btn btn-mini btn-danger' title="删除"
-                                                           onclick="delUser('${user.userId }','${user.userName }');"><i
-                                                                class='icon-trash'></i></a>
-
+                                                        <c:if test="${permission.deleteRights}">
+                                                            <a class='btn btn-mini btn-danger' title="删除"
+                                                               onclick="delUser('${user.userId }','${user.userName }');"><i
+                                                                    class='icon-trash'></i></a>
+                                                        </c:if>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </div>
@@ -173,12 +180,13 @@
                         <table style="width:100%;">
                             <tr>
                                 <td style="vertical-align:top;">
-
-                                    <a class="btn btn-small btn-success" onclick="add();">新增</a>
-
-                                    <a title="批量删除" class="btn btn-small btn-danger"
-                                       onclick="makeAll('确定要删除选中的数据吗?');"><i class='icon-trash'></i></a>
-
+                                    <c:if test="${permission.addRights}">
+                                        <a class="btn btn-small btn-success" onclick="add();">新增</a>
+                                    </c:if>
+                                    <c:if test="${permission.deleteRights}">
+                                        <a title="批量删除" class="btn btn-small btn-danger"
+                                           onclick="makeAll('确定要删除选中的数据吗?');"><i class='icon-trash'></i></a>
+                                    </c:if>
                                 </td>
                                 <td style="vertical-align:top;">
                                     <div class="pagination"

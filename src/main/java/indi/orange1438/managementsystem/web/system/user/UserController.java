@@ -71,13 +71,16 @@ public class UserController extends BaseController {
         }
 
         List<UserRoleDTO> userList = userService.getUserByMap(requestMap);            //列出用户列表
+        mv.addObject("userList", userList);
 
         List<Role> roleList = roleService.getAllRole();                                //列出所有二级角色
-
-        mv.setViewName("system/user/user_list");
-        mv.addObject("userList", userList);
         mv.addObject("roleList", roleList);
+
+        Map rolePermissionMenuMap = (Map) this.getSession().getAttribute(Const.SESSION_ROLE_PERMISSION);
+        mv.addObject("permission", rolePermissionMenuMap.get(Const.PERMISSION_USER));
+
         mv.addObject("requestMap", requestMap);
+        mv.setViewName("system/user/user_list");
         return mv;
     }
 

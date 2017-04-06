@@ -3,6 +3,7 @@ package indi.orange1438.managementsystem.dao;
 
 import indi.orange1438.managementsystem.dao.entity.RolePermission;
 import indi.orange1438.managementsystem.dao.entity.RolePermissionExample;
+import indi.orange1438.managementsystem.dto.RolePermissionMenuDTO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -24,4 +25,12 @@ public interface RolePermissionDAO extends IMapper<RolePermission, RolePermissio
      * @return
      */
     List<RolePermission> isHaveMenu(@Param("roleId") Long roleId, @Param("menuId") Long menuId);
+
+    /**
+     * 通过用户id 得到角色权限菜单
+     *
+     * @param userId
+     * @return
+     */
+    List<RolePermissionMenuDTO> getRolePermissionMenuDTOByUserId(@Param("userId") Long userId);
 }

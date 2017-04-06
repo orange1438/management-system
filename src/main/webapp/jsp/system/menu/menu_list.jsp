@@ -189,10 +189,15 @@
                            onclick="openClose('${menu.menuId }',this,${vs.index })">展开</a>
                         <a class='btn btn-mini btn-purple' title="图标" onclick="editTb('${menu.menuId }')"><i
                                 class='icon-picture'></i></a>
+
+                        <c:if test="${permission.editRights}">
                         <a class='btn btn-mini btn-info' title="编辑" onclick="editMenu('${menu.menuId }')"><i
                                 class='icon-edit'></i></a>
+                        </c:if>
+                        <c:if test="${permission.deleteRights}">
                         <a class='btn btn-mini btn-danger' title="删除" onclick="delMenu('${menu.menuId }',true)"><i
                                 class='icon-trash'></i></a>
+                        </c:if>
                 </tr>
             </c:forEach>
         </c:when>
@@ -206,7 +211,10 @@
 
 <div class="page_and_btn">
     <div>
-        &nbsp;&nbsp;<a class="btn btn-small btn-success" onclick="addMenu();">新增</a>
+        &nbsp;&nbsp;
+        <c:if test="${permission.addRights}">
+            <a class="btn btn-small btn-success" onclick="addMenu();">新增</a>
+        </c:if>
     </div>
 </div>
 
