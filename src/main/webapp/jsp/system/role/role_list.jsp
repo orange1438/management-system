@@ -67,10 +67,11 @@
                         <tr>
                             <td><font color="#808080">本组：</font></td>
                             <td>
-                                <a class="btn btn-mini btn-info" onclick="editGroup('${currentGroup.groupId}');">修改组名称<i
-                                        class="icon-arrow-right  icon-on-right"></i></a>
-
                                 <c:if test="${permission.editRights}">
+                                    <a class="btn btn-mini btn-info" onclick="editGroup('${currentGroup.groupId}');">修改组名称<i
+                                            class="icon-arrow-right  icon-on-right"></i></a>
+
+
                                     <a class="btn btn-mini btn-purple"
                                        onclick="groupRights('${currentGroup.groupId}');"><i
                                             class="icon-pencil"></i>组菜单权限</a>

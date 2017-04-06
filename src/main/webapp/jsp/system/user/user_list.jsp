@@ -145,21 +145,13 @@
                                                                 class='icon-edit'></i></a>
                                                     </c:if>
                                                 </c:if>
-                                                    <%--<c:if test="${user.userName == 'admin'}"><a class='btn btn-mini btn-info' title="您不能编辑"><i class='icon-edit'></i></a></c:if>--%>
 
-                                                <c:choose>
-                                                    <c:when test="${user.userName=='admin'}">
-                                                        <a class='btn btn-mini btn-danger' title="不能删除"><i
-                                                                class='icon-trash'></i></a>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <c:if test="${permission.deleteRights}">
-                                                            <a class='btn btn-mini btn-danger' title="删除"
-                                                               onclick="delUser('${user.userId }','${user.userName }');"><i
-                                                                    class='icon-trash'></i></a>
-                                                        </c:if>
-                                                    </c:otherwise>
-                                                </c:choose>
+                                                <c:if test="${permission.deleteRights}">
+                                                    <a class='btn btn-mini btn-danger' title="删除"
+                                                       onclick="delUser('${user.userId }','${user.userName }');"><i
+                                                            class='icon-trash'></i></a>
+                                                </c:if>
+
                                             </div>
                                         </td>
                                     </tr>
