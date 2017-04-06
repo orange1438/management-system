@@ -30,6 +30,7 @@
     <script type="text/javascript">
         $(top.hangge());
         $(document).ready(function () {
+            // 不为空，说明是新增
             if ($("#userId").val() != "") {
                 $("#userName").attr("readonly", "readonly");
                 $("#userName").css("color", "gray");
