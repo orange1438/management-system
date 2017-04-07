@@ -115,7 +115,7 @@ public class MenuController extends BaseController {
         String menuId = null == requestMap.get("menuId") ? null : requestMap.get("menuId").toString();
         String menuIcon = null == requestMap.get("menuIcon") ? null : requestMap.get("menuIcon").toString();
         if (null == menuId) {
-            return -1;
+            return new BaseResult(false, "菜单ID不能为空！");
         }
         Menu menu = new Menu();
         menu.setMenuId(Long.valueOf(menuId));

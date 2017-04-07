@@ -95,7 +95,7 @@
                     <thead>
                     <tr>
                         <th class="center">序号</th>
-                        <th>角色</th>
+                        <th class="center">角色</th>
                         <c:if test="${permission.editRights}">
                             <th class="center" bgcolor="#FFBF00">增加</th>
                             <th class="center">删除</th>

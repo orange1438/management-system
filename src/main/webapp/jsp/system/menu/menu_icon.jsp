@@ -34,7 +34,12 @@
         //保存
         function save() {
             if ($("#menuIcon").val() == "") {
-                alert('请选择图标');
+                layui.use(['layer', 'form'], function () {
+                    layer.msg("请选择图标", {
+                        time: 2000, //2s后自动关闭
+                        icon: 2
+                    });
+                });
                 return false;
             }
 
