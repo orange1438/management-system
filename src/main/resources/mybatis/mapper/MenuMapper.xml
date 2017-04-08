@@ -2,17 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indi.orange1438.managementsystem.dao.MenuDAO">
   <resultMap id="BaseResultMap" type="indi.orange1438.managementsystem.dao.entity.Menu">
-    <id column="MENU_ID" jdbcType="BIGINT" property="menuId"/>
-    <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName"/>
-    <result column="MENU_URL" jdbcType="VARCHAR" property="menuUrl"/>
-    <result column="PARENT_ID" jdbcType="BIGINT" property="parentId"/>
-    <result column="MENU_ICON" jdbcType="VARCHAR" property="menuIcon"/>
-    <result column="MENU_TYPE" jdbcType="VARCHAR" property="menuType"/>
-    <result column="MENU_ORDER" jdbcType="INTEGER" property="menuOrder"/>
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
-    <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
-    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
-    <result column="MODIFIER" jdbcType="VARCHAR" property="modifier"/>
+      <id column="MENU_ID" jdbcType="BIGINT" property="menuId"/>
+      <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName"/>
+      <result column="MENU_URL" jdbcType="VARCHAR" property="menuUrl"/>
+      <result column="PARENT_ID" jdbcType="BIGINT" property="parentId"/>
+      <result column="MENU_ICON" jdbcType="VARCHAR" property="menuIcon"/>
+      <result column="MENU_TYPE" jdbcType="VARCHAR" property="menuType"/>
+      <result column="MENU_ORDER" jdbcType="INTEGER" property="menuOrder"/>
+      <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+      <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+      <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
+      <result column="MODIFIER" jdbcType="VARCHAR" property="modifier"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,24 +76,24 @@
     MENU_ID, MENU_NAME, MENU_URL, PARENT_ID, MENU_ICON, MENU_TYPE, MENU_ORDER, CREATE_TIME, 
     CREATOR, MODIFY_TIME, MODIFIER
   </sql>
-  <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.MenuExample"
-          resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.MenuExample"
+            resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>
     from sys_menu
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
+        <include refid="Example_Where_Clause"/>
     </if>
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
+      select
+      <include refid="Base_Column_List"/>
     from sys_menu
     where MENU_ID = #{menuId,jdbcType=BIGINT}
   </select>
@@ -104,18 +104,18 @@
   <delete id="deleteByExample" parameterType="indi.orange1438.managementsystem.dao.entity.MenuExample">
     delete from sys_menu
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
+        <include refid="Example_Where_Clause"/>
     </if>
   </delete>
   <insert id="insert" parameterType="indi.orange1438.managementsystem.dao.entity.Menu">
-    insert into sys_menu (MENU_ID, MENU_NAME, MENU_URL,
-    PARENT_ID, MENU_ICON, MENU_TYPE,
-    MENU_ORDER, CREATE_TIME, CREATOR,
-    MODIFY_TIME, MODIFIER)
-    values (#{menuId,jdbcType=BIGINT}, #{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR},
-    #{parentId,jdbcType=BIGINT}, #{menuIcon,jdbcType=VARCHAR}, #{menuType,jdbcType=VARCHAR},
-    #{menuOrder,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR},
-    #{modifyTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR})
+      insert into sys_menu (MENU_ID, MENU_NAME, MENU_URL,
+      PARENT_ID, MENU_ICON, MENU_TYPE,
+      MENU_ORDER, CREATE_TIME, CREATOR,
+      MODIFY_TIME, MODIFIER)
+      values (#{menuId,jdbcType=BIGINT}, #{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR},
+      #{parentId,jdbcType=BIGINT}, #{menuIcon,jdbcType=VARCHAR}, #{menuType,jdbcType=VARCHAR},
+      #{menuOrder,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR},
+      #{modifyTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="indi.orange1438.managementsystem.dao.entity.Menu">
     insert into sys_menu
@@ -190,69 +190,158 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="indi.orange1438.managementsystem.dao.entity.MenuExample"
-          resultType="java.lang.Long">
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into sys_menu (MENU_ID, MENU_NAME, MENU_URL,
+        PARENT_ID, MENU_ICON, MENU_TYPE,
+        MENU_ORDER, CREATE_TIME, CREATOR,
+        MODIFY_TIME, MODIFIER)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.menuId,jdbcType=BIGINT}, #{item.menuName,jdbcType=VARCHAR}, #{item.menuUrl,jdbcType=VARCHAR},
+            #{item.parentId,jdbcType=BIGINT}, #{item.menuIcon,jdbcType=VARCHAR}, #{item.menuType,jdbcType=VARCHAR},
+            #{item.menuOrder,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.creator,jdbcType=VARCHAR},
+            #{item.modifyTime,jdbcType=TIMESTAMP}, #{item.modifier,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+    <insert id="insertBatchSelective" parameterType="java.util.List">
+        insert into sys_menu
+        (MENU_ID, MENU_NAME, MENU_URL, PARENT_ID, MENU_ICON, MENU_TYPE, MENU_ORDER, CREATE_TIME,
+        CREATOR, MODIFY_TIME, MODIFIER)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.menuId != null">
+                    #{item.menuId,jdbcType=BIGINT},
+                </if>
+                <if test="item.menuId == null">
+                    NULL,
+                </if>
+                <if test="item.menuName != null">
+                    #{item.menuName,jdbcType=VARCHAR},
+                </if>
+                <if test="item.menuName == null">
+                    NULL,
+                </if>
+                <if test="item.menuUrl != null">
+                    #{item.menuUrl,jdbcType=VARCHAR},
+                </if>
+                <if test="item.menuUrl == null">
+                    NULL,
+                </if>
+                <if test="item.parentId != null">
+                    #{item.parentId,jdbcType=BIGINT},
+                </if>
+                <if test="item.parentId == null">
+                    NULL,
+                </if>
+                <if test="item.menuIcon != null">
+                    #{item.menuIcon,jdbcType=VARCHAR},
+                </if>
+                <if test="item.menuIcon == null">
+                    NULL,
+                </if>
+                <if test="item.menuType != null">
+                    #{item.menuType,jdbcType=VARCHAR},
+                </if>
+                <if test="item.menuType == null">
+                    NULL,
+                </if>
+                <if test="item.menuOrder != null">
+                    #{item.menuOrder,jdbcType=INTEGER},
+                </if>
+                <if test="item.menuOrder == null">
+                    NULL,
+                </if>
+                <if test="item.createTime != null">
+                    #{item.createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.createTime == null">
+                    NULL,
+                </if>
+                <if test="item.creator != null">
+                    #{item.creator,jdbcType=VARCHAR},
+                </if>
+                <if test="item.creator == null">
+                    NULL,
+                </if>
+                <if test="item.modifyTime != null">
+                    #{item.modifyTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.modifyTime == null">
+                    NULL,
+                </if>
+                <if test="item.modifier != null">
+                    #{item.modifier,jdbcType=VARCHAR},
+                </if>
+                <if test="item.modifier == null">
+                    NULL,
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+    <select id="countByExample" parameterType="indi.orange1438.managementsystem.dao.entity.MenuExample"
+            resultType="java.lang.Long">
     select count(*) from sys_menu
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
+        <include refid="Example_Where_Clause"/>
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update sys_menu
     <set>
       <if test="record.menuId != null">
-        MENU_ID = #{record.menuId,jdbcType=BIGINT},
+          MENU_ID = #{record..menuId,jdbcType=BIGINT},
       </if>
       <if test="record.menuName != null">
-        MENU_NAME = #{record.menuName,jdbcType=VARCHAR},
+          MENU_NAME = #{record..menuName,jdbcType=VARCHAR},
       </if>
       <if test="record.menuUrl != null">
-        MENU_URL = #{record.menuUrl,jdbcType=VARCHAR},
+          MENU_URL = #{record..menuUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.parentId != null">
-        PARENT_ID = #{record.parentId,jdbcType=BIGINT},
+          PARENT_ID = #{record..parentId,jdbcType=BIGINT},
       </if>
       <if test="record.menuIcon != null">
-        MENU_ICON = #{record.menuIcon,jdbcType=VARCHAR},
+          MENU_ICON = #{record..menuIcon,jdbcType=VARCHAR},
       </if>
       <if test="record.menuType != null">
-        MENU_TYPE = #{record.menuType,jdbcType=VARCHAR},
+          MENU_TYPE = #{record..menuType,jdbcType=VARCHAR},
       </if>
       <if test="record.menuOrder != null">
-        MENU_ORDER = #{record.menuOrder,jdbcType=INTEGER},
+          MENU_ORDER = #{record..menuOrder,jdbcType=INTEGER},
       </if>
       <if test="record.createTime != null">
-        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+          CREATE_TIME = #{record..createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.creator != null">
-        CREATOR = #{record.creator,jdbcType=VARCHAR},
+          CREATOR = #{record..creator,jdbcType=VARCHAR},
       </if>
       <if test="record.modifyTime != null">
-        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+          MODIFY_TIME = #{record..modifyTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.modifier != null">
-        MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+          MODIFIER = #{record..modifier,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause"/>
+        <include refid="Update_By_Example_Where_Clause"/>
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update sys_menu
-    set MENU_ID = #{record.menuId,jdbcType=BIGINT},
-    MENU_NAME = #{record.menuName,jdbcType=VARCHAR},
-    MENU_URL = #{record.menuUrl,jdbcType=VARCHAR},
-    PARENT_ID = #{record.parentId,jdbcType=BIGINT},
-    MENU_ICON = #{record.menuIcon,jdbcType=VARCHAR},
-    MENU_TYPE = #{record.menuType,jdbcType=VARCHAR},
-    MENU_ORDER = #{record.menuOrder,jdbcType=INTEGER},
-    CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-    CREATOR = #{record.creator,jdbcType=VARCHAR},
-    MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
-    MODIFIER = #{record.modifier,jdbcType=VARCHAR}
+      set MENU_ID = #{record..menuId,jdbcType=BIGINT},
+      MENU_NAME = #{record..menuName,jdbcType=VARCHAR},
+      MENU_URL = #{record..menuUrl,jdbcType=VARCHAR},
+      PARENT_ID = #{record..parentId,jdbcType=BIGINT},
+      MENU_ICON = #{record..menuIcon,jdbcType=VARCHAR},
+      MENU_TYPE = #{record..menuType,jdbcType=VARCHAR},
+      MENU_ORDER = #{record..menuOrder,jdbcType=INTEGER},
+      CREATE_TIME = #{record..createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{record..creator,jdbcType=VARCHAR},
+      MODIFY_TIME = #{record..modifyTime,jdbcType=TIMESTAMP},
+      MODIFIER = #{record..modifier,jdbcType=VARCHAR}
     <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause"/>
+        <include refid="Update_By_Example_Where_Clause"/>
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="indi.orange1438.managementsystem.dao.entity.Menu">
@@ -297,10 +386,10 @@
       MENU_URL = #{menuUrl,jdbcType=VARCHAR},
       PARENT_ID = #{parentId,jdbcType=BIGINT},
       MENU_ICON = #{menuIcon,jdbcType=VARCHAR},
-    MENU_TYPE = #{menuType,jdbcType=VARCHAR},
+      MENU_TYPE = #{menuType,jdbcType=VARCHAR},
       MENU_ORDER = #{menuOrder,jdbcType=INTEGER},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-    CREATOR = #{creator,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=VARCHAR},
       MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
       MODIFIER = #{modifier,jdbcType=VARCHAR}
     where MENU_ID = #{menuId,jdbcType=BIGINT}

@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class RoleGroup implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = -1450073958903206158L;
+    private static final long serialVersionUID = -8240138169477218997L;
 
     // 角色组关系ID
     private Long roleGroupId;
@@ -97,7 +97,7 @@ public class RoleGroup implements Serializable {
         this.createTime = createTime;
     }
 
-    /**
+    /** 
      * 获取 创建人 sys_role_group.CREATOR
      * @return 创建人
      */
@@ -105,7 +105,7 @@ public class RoleGroup implements Serializable {
         return creator;
     }
 
-    /**
+    /** 
      * 设置 创建人 sys_role_group.CREATOR
      * @param creator 创建人
      */

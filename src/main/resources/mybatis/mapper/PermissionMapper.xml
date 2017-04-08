@@ -2,25 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indi.orange1438.managementsystem.dao.PermissionDAO">
   <resultMap id="BaseResultMap" type="indi.orange1438.managementsystem.dao.entity.Permission">
-    <id column="PERMISSION_ID" jdbcType="BIGINT" property="permissionId"/>
-    <result column="PERMISSION_NAME" jdbcType="VARCHAR" property="permissionName"/>
-    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
-    <result column="ADD_RIGHTS" jdbcType="BIT" property="addRights"/>
-    <result column="ADD_TITLE" jdbcType="VARCHAR" property="addTitle"/>
-    <result column="DELETE_RIGHTS" jdbcType="BIT" property="deleteRights"/>
-    <result column="DELETE_TITLE" jdbcType="VARCHAR" property="deleteTitle"/>
-    <result column="EDIT_RIGHTS" jdbcType="BIT" property="editRights"/>
-    <result column="EDIT_TITLE" jdbcType="VARCHAR" property="editTitle"/>
-    <result column="VIEW_RIGHTS" jdbcType="BIT" property="viewRights"/>
-    <result column="VIEW_TITLE" jdbcType="VARCHAR" property="viewTitle"/>
-    <result column="IMPORT_RIGHTS" jdbcType="BIT" property="importRights"/>
-    <result column="IMPORT_TITLE" jdbcType="VARCHAR" property="importTitle"/>
-    <result column="EXPORT_RIGHTS" jdbcType="BIT" property="exportRights"/>
-    <result column="EXPORT_TITLE" jdbcType="VARCHAR" property="exportTitle"/>
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
-    <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
-    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
-    <result column="MODIFIER" jdbcType="VARCHAR" property="modifier"/>
+      <id column="PERMISSION_ID" jdbcType="BIGINT" property="permissionId"/>
+      <result column="PERMISSION_NAME" jdbcType="VARCHAR" property="permissionName"/>
+      <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+      <result column="ADD_RIGHTS" jdbcType="BIT" property="addRights"/>
+      <result column="ADD_TITLE" jdbcType="VARCHAR" property="addTitle"/>
+      <result column="DELETE_RIGHTS" jdbcType="BIT" property="deleteRights"/>
+      <result column="DELETE_TITLE" jdbcType="VARCHAR" property="deleteTitle"/>
+      <result column="EDIT_RIGHTS" jdbcType="BIT" property="editRights"/>
+      <result column="EDIT_TITLE" jdbcType="VARCHAR" property="editTitle"/>
+      <result column="VIEW_RIGHTS" jdbcType="BIT" property="viewRights"/>
+      <result column="VIEW_TITLE" jdbcType="VARCHAR" property="viewTitle"/>
+      <result column="IMPORT_RIGHTS" jdbcType="BIT" property="importRights"/>
+      <result column="IMPORT_TITLE" jdbcType="VARCHAR" property="importTitle"/>
+      <result column="EXPORT_RIGHTS" jdbcType="BIT" property="exportRights"/>
+      <result column="EXPORT_TITLE" jdbcType="VARCHAR" property="exportTitle"/>
+      <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+      <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+      <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
+      <result column="MODIFIER" jdbcType="VARCHAR" property="modifier"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -85,24 +85,24 @@
     DELETE_TITLE, EDIT_RIGHTS, EDIT_TITLE, VIEW_RIGHTS, VIEW_TITLE, IMPORT_RIGHTS, IMPORT_TITLE, 
     EXPORT_RIGHTS, EXPORT_TITLE, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
   </sql>
-  <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionExample"
-          resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionExample"
+            resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>
     from sys_permission
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
+        <include refid="Example_Where_Clause"/>
     </if>
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
+      select
+      <include refid="Base_Column_List"/>
     from sys_permission
     where PERMISSION_ID = #{permissionId,jdbcType=BIGINT}
   </select>
@@ -113,7 +113,7 @@
   <delete id="deleteByExample" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionExample">
     delete from sys_permission
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
+        <include refid="Example_Where_Clause"/>
     </if>
   </delete>
   <insert id="insert" parameterType="indi.orange1438.managementsystem.dao.entity.Permission">
@@ -253,101 +253,249 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionExample"
-          resultType="java.lang.Long">
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into sys_permission (PERMISSION_ID, PERMISSION_NAME, DESCRIPTION,
+        ADD_RIGHTS, ADD_TITLE, DELETE_RIGHTS,
+        DELETE_TITLE, EDIT_RIGHTS, EDIT_TITLE,
+        VIEW_RIGHTS, VIEW_TITLE, IMPORT_RIGHTS,
+        IMPORT_TITLE, EXPORT_RIGHTS, EXPORT_TITLE,
+        CREATE_TIME, CREATOR, MODIFY_TIME,
+        MODIFIER)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.permissionId,jdbcType=BIGINT}, #{item.permissionName,jdbcType=VARCHAR},
+            #{item.description,jdbcType=VARCHAR},
+            #{item.addRights,jdbcType=BIT}, #{item.addTitle,jdbcType=VARCHAR}, #{item.deleteRights,jdbcType=BIT},
+            #{item.deleteTitle,jdbcType=VARCHAR}, #{item.editRights,jdbcType=BIT}, #{item.editTitle,jdbcType=VARCHAR},
+            #{item.viewRights,jdbcType=BIT}, #{item.viewTitle,jdbcType=VARCHAR}, #{item.importRights,jdbcType=BIT},
+            #{item.importTitle,jdbcType=VARCHAR}, #{item.exportRights,jdbcType=BIT},
+            #{item.exportTitle,jdbcType=VARCHAR},
+            #{item.createTime,jdbcType=TIMESTAMP}, #{item.creator,jdbcType=VARCHAR},
+            #{item.modifyTime,jdbcType=TIMESTAMP},
+            #{item.modifier,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+    <insert id="insertBatchSelective" parameterType="java.util.List">
+        insert into sys_permission
+        (PERMISSION_ID, PERMISSION_NAME, DESCRIPTION, ADD_RIGHTS, ADD_TITLE, DELETE_RIGHTS,
+        DELETE_TITLE, EDIT_RIGHTS, EDIT_TITLE, VIEW_RIGHTS, VIEW_TITLE, IMPORT_RIGHTS,
+        IMPORT_TITLE, EXPORT_RIGHTS, EXPORT_TITLE, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
+        )
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.permissionId != null">
+                    #{item.permissionId,jdbcType=BIGINT},
+                </if>
+                <if test="item.permissionId == null">
+                    NULL,
+                </if>
+                <if test="item.permissionName != null">
+                    #{item.permissionName,jdbcType=VARCHAR},
+                </if>
+                <if test="item.permissionName == null">
+                    NULL,
+                </if>
+                <if test="item.description != null">
+                    #{item.description,jdbcType=VARCHAR},
+                </if>
+                <if test="item.description == null">
+                    NULL,
+                </if>
+                <if test="item.addRights != null">
+                    #{item.addRights,jdbcType=BIT},
+                </if>
+                <if test="item.addRights == null">
+                    NULL,
+                </if>
+                <if test="item.addTitle != null">
+                    #{item.addTitle,jdbcType=VARCHAR},
+                </if>
+                <if test="item.addTitle == null">
+                    NULL,
+                </if>
+                <if test="item.deleteRights != null">
+                    #{item.deleteRights,jdbcType=BIT},
+                </if>
+                <if test="item.deleteRights == null">
+                    NULL,
+                </if>
+                <if test="item.deleteTitle != null">
+                    #{item.deleteTitle,jdbcType=VARCHAR},
+                </if>
+                <if test="item.deleteTitle == null">
+                    NULL,
+                </if>
+                <if test="item.editRights != null">
+                    #{item.editRights,jdbcType=BIT},
+                </if>
+                <if test="item.editRights == null">
+                    NULL,
+                </if>
+                <if test="item.editTitle != null">
+                    #{item.editTitle,jdbcType=VARCHAR},
+                </if>
+                <if test="item.editTitle == null">
+                    NULL,
+                </if>
+                <if test="item.viewRights != null">
+                    #{item.viewRights,jdbcType=BIT},
+                </if>
+                <if test="item.viewRights == null">
+                    NULL,
+                </if>
+                <if test="item.viewTitle != null">
+                    #{item.viewTitle,jdbcType=VARCHAR},
+                </if>
+                <if test="item.viewTitle == null">
+                    NULL,
+                </if>
+                <if test="item.importRights != null">
+                    #{item.importRights,jdbcType=BIT},
+                </if>
+                <if test="item.importRights == null">
+                    NULL,
+                </if>
+                <if test="item.importTitle != null">
+                    #{item.importTitle,jdbcType=VARCHAR},
+                </if>
+                <if test="item.importTitle == null">
+                    NULL,
+                </if>
+                <if test="item.exportRights != null">
+                    #{item.exportRights,jdbcType=BIT},
+                </if>
+                <if test="item.exportRights == null">
+                    NULL,
+                </if>
+                <if test="item.exportTitle != null">
+                    #{item.exportTitle,jdbcType=VARCHAR},
+                </if>
+                <if test="item.exportTitle == null">
+                    NULL,
+                </if>
+                <if test="item.createTime != null">
+                    #{item.createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.createTime == null">
+                    NULL,
+                </if>
+                <if test="item.creator != null">
+                    #{item.creator,jdbcType=VARCHAR},
+                </if>
+                <if test="item.creator == null">
+                    NULL,
+                </if>
+                <if test="item.modifyTime != null">
+                    #{item.modifyTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.modifyTime == null">
+                    NULL,
+                </if>
+                <if test="item.modifier != null">
+                    #{item.modifier,jdbcType=VARCHAR},
+                </if>
+                <if test="item.modifier == null">
+                    NULL,
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+    <select id="countByExample" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionExample"
+            resultType="java.lang.Long">
     select count(*) from sys_permission
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
+        <include refid="Example_Where_Clause"/>
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update sys_permission
     <set>
       <if test="record.permissionId != null">
-        PERMISSION_ID = #{record.permissionId,jdbcType=BIGINT},
+          PERMISSION_ID = #{record..permissionId,jdbcType=BIGINT},
       </if>
       <if test="record.permissionName != null">
-        PERMISSION_NAME = #{record.permissionName,jdbcType=VARCHAR},
+          PERMISSION_NAME = #{record..permissionName,jdbcType=VARCHAR},
       </if>
       <if test="record.description != null">
-        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+          DESCRIPTION = #{record..description,jdbcType=VARCHAR},
       </if>
       <if test="record.addRights != null">
-        ADD_RIGHTS = #{record.addRights,jdbcType=BIT},
+          ADD_RIGHTS = #{record..addRights,jdbcType=BIT},
       </if>
       <if test="record.addTitle != null">
-        ADD_TITLE = #{record.addTitle,jdbcType=VARCHAR},
+          ADD_TITLE = #{record..addTitle,jdbcType=VARCHAR},
       </if>
       <if test="record.deleteRights != null">
-        DELETE_RIGHTS = #{record.deleteRights,jdbcType=BIT},
+          DELETE_RIGHTS = #{record..deleteRights,jdbcType=BIT},
       </if>
       <if test="record.deleteTitle != null">
-        DELETE_TITLE = #{record.deleteTitle,jdbcType=VARCHAR},
+          DELETE_TITLE = #{record..deleteTitle,jdbcType=VARCHAR},
       </if>
       <if test="record.editRights != null">
-        EDIT_RIGHTS = #{record.editRights,jdbcType=BIT},
+          EDIT_RIGHTS = #{record..editRights,jdbcType=BIT},
       </if>
       <if test="record.editTitle != null">
-        EDIT_TITLE = #{record.editTitle,jdbcType=VARCHAR},
+          EDIT_TITLE = #{record..editTitle,jdbcType=VARCHAR},
       </if>
       <if test="record.viewRights != null">
-        VIEW_RIGHTS = #{record.viewRights,jdbcType=BIT},
+          VIEW_RIGHTS = #{record..viewRights,jdbcType=BIT},
       </if>
       <if test="record.viewTitle != null">
-        VIEW_TITLE = #{record.viewTitle,jdbcType=VARCHAR},
+          VIEW_TITLE = #{record..viewTitle,jdbcType=VARCHAR},
       </if>
       <if test="record.importRights != null">
-        IMPORT_RIGHTS = #{record.importRights,jdbcType=BIT},
+          IMPORT_RIGHTS = #{record..importRights,jdbcType=BIT},
       </if>
       <if test="record.importTitle != null">
-        IMPORT_TITLE = #{record.importTitle,jdbcType=VARCHAR},
+          IMPORT_TITLE = #{record..importTitle,jdbcType=VARCHAR},
       </if>
       <if test="record.exportRights != null">
-        EXPORT_RIGHTS = #{record.exportRights,jdbcType=BIT},
+          EXPORT_RIGHTS = #{record..exportRights,jdbcType=BIT},
       </if>
       <if test="record.exportTitle != null">
-        EXPORT_TITLE = #{record.exportTitle,jdbcType=VARCHAR},
+          EXPORT_TITLE = #{record..exportTitle,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
-        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+          CREATE_TIME = #{record..createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.creator != null">
-        CREATOR = #{record.creator,jdbcType=VARCHAR},
+          CREATOR = #{record..creator,jdbcType=VARCHAR},
       </if>
       <if test="record.modifyTime != null">
-        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+          MODIFY_TIME = #{record..modifyTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.modifier != null">
-        MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+          MODIFIER = #{record..modifier,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause"/>
+        <include refid="Update_By_Example_Where_Clause"/>
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update sys_permission
-    set PERMISSION_ID = #{record.permissionId,jdbcType=BIGINT},
-    PERMISSION_NAME = #{record.permissionName,jdbcType=VARCHAR},
-    DESCRIPTION = #{record.description,jdbcType=VARCHAR},
-    ADD_RIGHTS = #{record.addRights,jdbcType=BIT},
-    ADD_TITLE = #{record.addTitle,jdbcType=VARCHAR},
-    DELETE_RIGHTS = #{record.deleteRights,jdbcType=BIT},
-    DELETE_TITLE = #{record.deleteTitle,jdbcType=VARCHAR},
-    EDIT_RIGHTS = #{record.editRights,jdbcType=BIT},
-    EDIT_TITLE = #{record.editTitle,jdbcType=VARCHAR},
-    VIEW_RIGHTS = #{record.viewRights,jdbcType=BIT},
-    VIEW_TITLE = #{record.viewTitle,jdbcType=VARCHAR},
-    IMPORT_RIGHTS = #{record.importRights,jdbcType=BIT},
-    IMPORT_TITLE = #{record.importTitle,jdbcType=VARCHAR},
-    EXPORT_RIGHTS = #{record.exportRights,jdbcType=BIT},
-    EXPORT_TITLE = #{record.exportTitle,jdbcType=VARCHAR},
-    CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-    CREATOR = #{record.creator,jdbcType=VARCHAR},
-    MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
-    MODIFIER = #{record.modifier,jdbcType=VARCHAR}
+      set PERMISSION_ID = #{record..permissionId,jdbcType=BIGINT},
+      PERMISSION_NAME = #{record..permissionName,jdbcType=VARCHAR},
+      DESCRIPTION = #{record..description,jdbcType=VARCHAR},
+      ADD_RIGHTS = #{record..addRights,jdbcType=BIT},
+      ADD_TITLE = #{record..addTitle,jdbcType=VARCHAR},
+      DELETE_RIGHTS = #{record..deleteRights,jdbcType=BIT},
+      DELETE_TITLE = #{record..deleteTitle,jdbcType=VARCHAR},
+      EDIT_RIGHTS = #{record..editRights,jdbcType=BIT},
+      EDIT_TITLE = #{record..editTitle,jdbcType=VARCHAR},
+      VIEW_RIGHTS = #{record..viewRights,jdbcType=BIT},
+      VIEW_TITLE = #{record..viewTitle,jdbcType=VARCHAR},
+      IMPORT_RIGHTS = #{record..importRights,jdbcType=BIT},
+      IMPORT_TITLE = #{record..importTitle,jdbcType=VARCHAR},
+      EXPORT_RIGHTS = #{record..exportRights,jdbcType=BIT},
+      EXPORT_TITLE = #{record..exportTitle,jdbcType=VARCHAR},
+      CREATE_TIME = #{record..createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{record..creator,jdbcType=VARCHAR},
+      MODIFY_TIME = #{record..modifyTime,jdbcType=TIMESTAMP},
+      MODIFIER = #{record..modifier,jdbcType=VARCHAR}
     <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause"/>
+        <include refid="Update_By_Example_Where_Clause"/>
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="indi.orange1438.managementsystem.dao.entity.Permission">

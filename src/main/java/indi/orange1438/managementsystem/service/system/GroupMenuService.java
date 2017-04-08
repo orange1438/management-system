@@ -35,16 +35,11 @@ public class GroupMenuService {
     }
 
     /**
-     * 批量插入GroupMenu,(可优化)
+     * 批量插入GroupMenu
      */
     public int insertGroupMenu(Long groupId, List<GroupMenu> groupMenuList) throws Exception {
         // 先删除，再添加
         deleteGroupMenuByGroupId(groupId);
-        int flag = 0;
-        for (GroupMenu groupMenu : groupMenuList) {
-            flag++;
-            groupMenuDAO.insertSelective(groupMenu);
-        }
-        return flag == groupMenuList.size() ? 1 : 0;
+        return groupMenuDAO.insertBatchSelective(groupMenuList);
     }
 }

@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Role implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = 8007860974308564102L;
+    private static final long serialVersionUID = -160559649818938895L;
 
     // 角色ID
     private Long roleId;

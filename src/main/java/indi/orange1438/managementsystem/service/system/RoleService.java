@@ -52,9 +52,7 @@ public class RoleService {
      * @return
      */
     public int insertRole(Role role, RoleGroup roleGroup, List<RolePermission> rolePermissionList) {
-        for (RolePermission rolePermission : rolePermissionList) {
-            rolePermissionDAO.insertSelective(rolePermission);
-        }
+        rolePermissionDAO.insertBatchSelective(rolePermissionList);
         roleDAO.insertSelective(role);
         return roleGroupDAO.insertSelective(roleGroup);
     }

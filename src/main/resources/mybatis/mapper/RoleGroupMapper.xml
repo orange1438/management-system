@@ -161,6 +161,69 @@
             </if>
         </trim>
     </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into sys_role_group (ROLE_GROUP_ID, ROLE_ID, GROUP_ID,
+        CREATE_TIME, CREATOR, MODIFY_TIME,
+        MODIFIER)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.roleGroupId,jdbcType=BIGINT}, #{item.roleId,jdbcType=BIGINT}, #{item.groupId,jdbcType=BIGINT},
+            #{item.createTime,jdbcType=TIMESTAMP}, #{item.creator,jdbcType=VARCHAR},
+            #{item.modifyTime,jdbcType=TIMESTAMP},
+            #{item.modifier,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+    <insert id="insertBatchSelective" parameterType="java.util.List">
+        insert into sys_role_group
+        (ROLE_GROUP_ID, ROLE_ID, GROUP_ID, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.roleGroupId != null">
+                    #{item.roleGroupId,jdbcType=BIGINT},
+                </if>
+                <if test="item.roleGroupId == null">
+                    NULL,
+                </if>
+                <if test="item.roleId != null">
+                    #{item.roleId,jdbcType=BIGINT},
+                </if>
+                <if test="item.roleId == null">
+                    NULL,
+                </if>
+                <if test="item.groupId != null">
+                    #{item.groupId,jdbcType=BIGINT},
+                </if>
+                <if test="item.groupId == null">
+                    NULL,
+                </if>
+                <if test="item.createTime != null">
+                    #{item.createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.createTime == null">
+                    NULL,
+                </if>
+                <if test="item.creator != null">
+                    #{item.creator,jdbcType=VARCHAR},
+                </if>
+                <if test="item.creator == null">
+                    NULL,
+                </if>
+                <if test="item.modifyTime != null">
+                    #{item.modifyTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.modifyTime == null">
+                    NULL,
+                </if>
+                <if test="item.modifier != null">
+                    #{item.modifier,jdbcType=VARCHAR},
+                </if>
+                <if test="item.modifier == null">
+                    NULL,
+                </if>
+            </trim>
+        </foreach>
+    </insert>
     <select id="countByExample" parameterType="indi.orange1438.managementsystem.dao.entity.RoleGroupExample"
             resultType="java.lang.Long">
         select count(*) from sys_role_group
@@ -172,25 +235,25 @@
         update sys_role_group
         <set>
             <if test="record.roleGroupId != null">
-                ROLE_GROUP_ID = #{record.roleGroupId,jdbcType=BIGINT},
+                ROLE_GROUP_ID = #{record..roleGroupId,jdbcType=BIGINT},
             </if>
             <if test="record.roleId != null">
-                ROLE_ID = #{record.roleId,jdbcType=BIGINT},
+                ROLE_ID = #{record..roleId,jdbcType=BIGINT},
             </if>
             <if test="record.groupId != null">
-                GROUP_ID = #{record.groupId,jdbcType=BIGINT},
+                GROUP_ID = #{record..groupId,jdbcType=BIGINT},
             </if>
             <if test="record.createTime != null">
-                CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+                CREATE_TIME = #{record..createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="record.creator != null">
-                CREATOR = #{record.creator,jdbcType=VARCHAR},
+                CREATOR = #{record..creator,jdbcType=VARCHAR},
             </if>
             <if test="record.modifyTime != null">
-                MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+                MODIFY_TIME = #{record..modifyTime,jdbcType=TIMESTAMP},
             </if>
             <if test="record.modifier != null">
-                MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+                MODIFIER = #{record..modifier,jdbcType=VARCHAR},
             </if>
         </set>
         <if test="_parameter != null">
@@ -199,13 +262,13 @@
     </update>
     <update id="updateByExample" parameterType="map">
         update sys_role_group
-        set ROLE_GROUP_ID = #{record.roleGroupId,jdbcType=BIGINT},
-        ROLE_ID = #{record.roleId,jdbcType=BIGINT},
-        GROUP_ID = #{record.groupId,jdbcType=BIGINT},
-        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-        CREATOR = #{record.creator,jdbcType=VARCHAR},
-        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
-        MODIFIER = #{record.modifier,jdbcType=VARCHAR}
+        set ROLE_GROUP_ID = #{record..roleGroupId,jdbcType=BIGINT},
+        ROLE_ID = #{record..roleId,jdbcType=BIGINT},
+        GROUP_ID = #{record..groupId,jdbcType=BIGINT},
+        CREATE_TIME = #{record..createTime,jdbcType=TIMESTAMP},
+        CREATOR = #{record..creator,jdbcType=VARCHAR},
+        MODIFY_TIME = #{record..modifyTime,jdbcType=TIMESTAMP},
+        MODIFIER = #{record..modifier,jdbcType=VARCHAR}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>

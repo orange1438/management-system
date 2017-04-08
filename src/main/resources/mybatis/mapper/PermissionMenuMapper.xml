@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="indi.orange1438.managementsystem.dao.PermissionMenuDAO">
   <resultMap id="BaseResultMap" type="indi.orange1438.managementsystem.dao.entity.PermissionMenu">
-    <id column="PERMISSION_MENU_ID" jdbcType="BIGINT" property="permissionMenuId"/>
-    <result column="PERMISSION_ID" jdbcType="BIGINT" property="permissionId"/>
-    <result column="MENU_ID" jdbcType="BIGINT" property="menuId"/>
-    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
-    <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
-    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
-    <result column="MODIFIER" jdbcType="VARCHAR" property="modifier"/>
+      <id column="PERMISSION_MENU_ID" jdbcType="BIGINT" property="permissionMenuId"/>
+      <result column="PERMISSION_ID" jdbcType="BIGINT" property="permissionId"/>
+      <result column="MENU_ID" jdbcType="BIGINT" property="menuId"/>
+      <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+      <result column="CREATOR" jdbcType="VARCHAR" property="creator"/>
+      <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
+      <result column="MODIFIER" jdbcType="VARCHAR" property="modifier"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,24 +71,24 @@
   <sql id="Base_Column_List">
     PERMISSION_MENU_ID, PERMISSION_ID, MENU_ID, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
   </sql>
-  <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionMenuExample"
-          resultMap="BaseResultMap">
+    <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionMenuExample"
+            resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>
     from sys_permission_menu
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
+        <include refid="Example_Where_Clause"/>
     </if>
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
+      select
+      <include refid="Base_Column_List"/>
     from sys_permission_menu
     where PERMISSION_MENU_ID = #{permissionMenuId,jdbcType=BIGINT}
   </select>
@@ -99,16 +99,16 @@
   <delete id="deleteByExample" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionMenuExample">
     delete from sys_permission_menu
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
+        <include refid="Example_Where_Clause"/>
     </if>
   </delete>
   <insert id="insert" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionMenu">
-    insert into sys_permission_menu (PERMISSION_MENU_ID, PERMISSION_ID, MENU_ID,
-    CREATE_TIME, CREATOR, MODIFY_TIME,
-    MODIFIER)
-    values (#{permissionMenuId,jdbcType=BIGINT}, #{permissionId,jdbcType=BIGINT}, #{menuId,jdbcType=BIGINT},
-    #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP},
-    #{modifier,jdbcType=VARCHAR})
+      insert into sys_permission_menu (PERMISSION_MENU_ID, PERMISSION_ID, MENU_ID,
+      CREATE_TIME, CREATOR, MODIFY_TIME,
+      MODIFIER)
+      values (#{permissionMenuId,jdbcType=BIGINT}, #{permissionId,jdbcType=BIGINT}, #{menuId,jdbcType=BIGINT},
+      #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP},
+      #{modifier,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionMenu">
     insert into sys_permission_menu
@@ -159,53 +159,116 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionMenuExample"
-          resultType="java.lang.Long">
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into sys_permission_menu (PERMISSION_MENU_ID, PERMISSION_ID,
+        MENU_ID, CREATE_TIME, CREATOR,
+        MODIFY_TIME, MODIFIER)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.permissionMenuId,jdbcType=BIGINT}, #{item.permissionId,jdbcType=BIGINT},
+            #{item.menuId,jdbcType=BIGINT}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.creator,jdbcType=VARCHAR},
+            #{item.modifyTime,jdbcType=TIMESTAMP}, #{item.modifier,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+    <insert id="insertBatchSelective" parameterType="java.util.List">
+        insert into sys_permission_menu
+        (PERMISSION_MENU_ID, PERMISSION_ID, MENU_ID, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
+        )
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.permissionMenuId != null">
+                    #{item.permissionMenuId,jdbcType=BIGINT},
+                </if>
+                <if test="item.permissionMenuId == null">
+                    NULL,
+                </if>
+                <if test="item.permissionId != null">
+                    #{item.permissionId,jdbcType=BIGINT},
+                </if>
+                <if test="item.permissionId == null">
+                    NULL,
+                </if>
+                <if test="item.menuId != null">
+                    #{item.menuId,jdbcType=BIGINT},
+                </if>
+                <if test="item.menuId == null">
+                    NULL,
+                </if>
+                <if test="item.createTime != null">
+                    #{item.createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.createTime == null">
+                    NULL,
+                </if>
+                <if test="item.creator != null">
+                    #{item.creator,jdbcType=VARCHAR},
+                </if>
+                <if test="item.creator == null">
+                    NULL,
+                </if>
+                <if test="item.modifyTime != null">
+                    #{item.modifyTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.modifyTime == null">
+                    NULL,
+                </if>
+                <if test="item.modifier != null">
+                    #{item.modifier,jdbcType=VARCHAR},
+                </if>
+                <if test="item.modifier == null">
+                    NULL,
+                </if>
+            </trim>
+        </foreach>
+    </insert>
+    <select id="countByExample" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionMenuExample"
+            resultType="java.lang.Long">
     select count(*) from sys_permission_menu
     <if test="_parameter != null">
-      <include refid="Example_Where_Clause"/>
+        <include refid="Example_Where_Clause"/>
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update sys_permission_menu
     <set>
       <if test="record.permissionMenuId != null">
-        PERMISSION_MENU_ID = #{record.permissionMenuId,jdbcType=BIGINT},
+          PERMISSION_MENU_ID = #{record..permissionMenuId,jdbcType=BIGINT},
       </if>
       <if test="record.permissionId != null">
-        PERMISSION_ID = #{record.permissionId,jdbcType=BIGINT},
+          PERMISSION_ID = #{record..permissionId,jdbcType=BIGINT},
       </if>
       <if test="record.menuId != null">
-        MENU_ID = #{record.menuId,jdbcType=BIGINT},
+          MENU_ID = #{record..menuId,jdbcType=BIGINT},
       </if>
       <if test="record.createTime != null">
-        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+          CREATE_TIME = #{record..createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.creator != null">
-        CREATOR = #{record.creator,jdbcType=VARCHAR},
+          CREATOR = #{record..creator,jdbcType=VARCHAR},
       </if>
       <if test="record.modifyTime != null">
-        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+          MODIFY_TIME = #{record..modifyTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.modifier != null">
-        MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+          MODIFIER = #{record..modifier,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause"/>
+        <include refid="Update_By_Example_Where_Clause"/>
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update sys_permission_menu
-    set PERMISSION_MENU_ID = #{record.permissionMenuId,jdbcType=BIGINT},
-    PERMISSION_ID = #{record.permissionId,jdbcType=BIGINT},
-    MENU_ID = #{record.menuId,jdbcType=BIGINT},
-    CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-    CREATOR = #{record.creator,jdbcType=VARCHAR},
-    MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
-    MODIFIER = #{record.modifier,jdbcType=VARCHAR}
+      set PERMISSION_MENU_ID = #{record..permissionMenuId,jdbcType=BIGINT},
+      PERMISSION_ID = #{record..permissionId,jdbcType=BIGINT},
+      MENU_ID = #{record..menuId,jdbcType=BIGINT},
+      CREATE_TIME = #{record..createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{record..creator,jdbcType=VARCHAR},
+      MODIFY_TIME = #{record..modifyTime,jdbcType=TIMESTAMP},
+      MODIFIER = #{record..modifier,jdbcType=VARCHAR}
     <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause"/>
+        <include refid="Update_By_Example_Where_Clause"/>
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionMenu">
@@ -235,11 +298,11 @@
   <update id="updateByPrimaryKey" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionMenu">
     update sys_permission_menu
     set PERMISSION_ID = #{permissionId,jdbcType=BIGINT},
-    MENU_ID = #{menuId,jdbcType=BIGINT},
-    CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-    CREATOR = #{creator,jdbcType=VARCHAR},
-    MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
-    MODIFIER = #{modifier,jdbcType=VARCHAR}
+      MENU_ID = #{menuId,jdbcType=BIGINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      MODIFY_TIME = #{modifyTime,jdbcType=TIMESTAMP},
+      MODIFIER = #{modifier,jdbcType=VARCHAR}
     where PERMISSION_MENU_ID = #{permissionMenuId,jdbcType=BIGINT}
   </update>
 </mapper>

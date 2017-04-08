@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Group implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = -5381021582882623263L;
+    private static final long serialVersionUID = -408329967506361821L;
 
     // 组ID
     private Long groupId;

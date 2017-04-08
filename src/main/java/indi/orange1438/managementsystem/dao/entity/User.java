@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class User implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = -1969890822251944945L;
+    private static final long serialVersionUID = 7291108838153047866L;
 
     // 用户ID
     private Long userId;

@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * 本文件由 https://github.com/orange1438/mybatis-generator-core-chinese-annotation1.3.5-chinese-annotation 自动生成
- *
  * @author orange1438 code generator
  */
 public class GroupMenuExample {
@@ -20,62 +19,59 @@ public class GroupMenuExample {
     // 查询条件
     protected List<Criteria> oredCriteria;
 
-    /**
+    /** 
      * 构造查询条件
      */
     public GroupMenuExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
-    /**
+    /** 
      * 设置排序字段
-     *
      * @param orderByClause 排序字段
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
-    /**
+    /** 
      * 获取排序字段
      */
     public String getOrderByClause() {
         return orderByClause;
     }
 
-    /**
+    /** 
      * 设置过滤重复数据
-     *
      * @param distinct 是否过滤重复数据
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
     }
 
-    /**
+    /** 
      * 是否过滤重复数据
      */
     public boolean isDistinct() {
         return distinct;
     }
 
-    /**
+    /** 
      * 获取当前的查询条件实例
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
     }
 
-    /**
+    /** 
      * 增加或者的查询条件,用于构建或者查询
-     *
      * @param criteria 过滤条件实例
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
     }
 
-    /**
+    /** 
      * 创建一个新的或者查询条件
      */
     public Criteria or() {
@@ -84,7 +80,7 @@ public class GroupMenuExample {
         return criteria;
     }
 
-    /**
+    /** 
      * 创建一个查询条件
      */
     public Criteria createCriteria() {
@@ -95,7 +91,7 @@ public class GroupMenuExample {
         return criteria;
     }
 
-    /**
+    /** 
      * 内部构建查询条件对象
      */
     protected Criteria createCriteriaInternal() {
@@ -103,7 +99,7 @@ public class GroupMenuExample {
         return criteria;
     }
 
-    /**
+    /** 
      * 清除查询条件
      */
     public void clear() {

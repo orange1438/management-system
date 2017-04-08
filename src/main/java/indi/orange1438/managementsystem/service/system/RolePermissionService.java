@@ -33,12 +33,7 @@ public class RolePermissionService {
         RolePermissionExample rolePermissionExample = new RolePermissionExample();
         rolePermissionExample.createCriteria().andRoleIdEqualTo(roleId);
         rolePermissionDAO.deleteByExample(rolePermissionExample);
-        int flag = 0;
-        for (RolePermission rolePermission : rolePermissions) {
-            flag++;
-            rolePermissionDAO.insertSelective(rolePermission);
-        }
-        return flag == rolePermissions.size() ? 1 : 0;
+        return rolePermissionDAO.insertBatchSelective(rolePermissions);
     }
 
     /**

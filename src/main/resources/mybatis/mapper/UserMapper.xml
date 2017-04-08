@@ -231,6 +231,132 @@
             </if>
         </trim>
     </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into sys_user (USER_ID, USER_NAME, PASSWORD,
+        IS_DISABLED, PARENT_ID, TRUE_NAME,
+        MOBILE, EMAIL, SKIN,
+        LAST_LOGIN_TIME, LOGIN_IP, LOGIN_COUNT,
+        CREATE_TIME, CREATOR, MODIFY_TIME,
+        MODIFIER)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.userId,jdbcType=BIGINT}, #{item.userName,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR},
+            #{item.isDisabled,jdbcType=BIT}, #{item.parentId,jdbcType=BIGINT}, #{item.trueName,jdbcType=VARCHAR},
+            #{item.mobile,jdbcType=VARCHAR}, #{item.email,jdbcType=VARCHAR}, #{item.skin,jdbcType=VARCHAR},
+            #{item.lastLoginTime,jdbcType=TIMESTAMP}, #{item.loginIp,jdbcType=VARCHAR},
+            #{item.loginCount,jdbcType=BIGINT},
+            #{item.createTime,jdbcType=TIMESTAMP}, #{item.creator,jdbcType=VARCHAR},
+            #{item.modifyTime,jdbcType=TIMESTAMP},
+            #{item.modifier,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+    <insert id="insertBatchSelective" parameterType="java.util.List">
+        insert into sys_user
+        (USER_ID, USER_NAME, PASSWORD, IS_DISABLED, PARENT_ID, TRUE_NAME, MOBILE, EMAIL,
+        SKIN, LAST_LOGIN_TIME, LOGIN_IP, LOGIN_COUNT, CREATE_TIME, CREATOR, MODIFY_TIME,
+        MODIFIER)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.userId != null">
+                    #{item.userId,jdbcType=BIGINT},
+                </if>
+                <if test="item.userId == null">
+                    NULL,
+                </if>
+                <if test="item.userName != null">
+                    #{item.userName,jdbcType=VARCHAR},
+                </if>
+                <if test="item.userName == null">
+                    NULL,
+                </if>
+                <if test="item.password != null">
+                    #{item.password,jdbcType=VARCHAR},
+                </if>
+                <if test="item.password == null">
+                    NULL,
+                </if>
+                <if test="item.isDisabled != null">
+                    #{item.isDisabled,jdbcType=BIT},
+                </if>
+                <if test="item.isDisabled == null">
+                    NULL,
+                </if>
+                <if test="item.parentId != null">
+                    #{item.parentId,jdbcType=BIGINT},
+                </if>
+                <if test="item.parentId == null">
+                    NULL,
+                </if>
+                <if test="item.trueName != null">
+                    #{item.trueName,jdbcType=VARCHAR},
+                </if>
+                <if test="item.trueName == null">
+                    NULL,
+                </if>
+                <if test="item.mobile != null">
+                    #{item.mobile,jdbcType=VARCHAR},
+                </if>
+                <if test="item.mobile == null">
+                    NULL,
+                </if>
+                <if test="item.email != null">
+                    #{item.email,jdbcType=VARCHAR},
+                </if>
+                <if test="item.email == null">
+                    NULL,
+                </if>
+                <if test="item.skin != null">
+                    #{item.skin,jdbcType=VARCHAR},
+                </if>
+                <if test="item.skin == null">
+                    NULL,
+                </if>
+                <if test="item.lastLoginTime != null">
+                    #{item.lastLoginTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.lastLoginTime == null">
+                    NULL,
+                </if>
+                <if test="item.loginIp != null">
+                    #{item.loginIp,jdbcType=VARCHAR},
+                </if>
+                <if test="item.loginIp == null">
+                    NULL,
+                </if>
+                <if test="item.loginCount != null">
+                    #{item.loginCount,jdbcType=BIGINT},
+                </if>
+                <if test="item.loginCount == null">
+                    NULL,
+                </if>
+                <if test="item.createTime != null">
+                    #{item.createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.createTime == null">
+                    NULL,
+                </if>
+                <if test="item.creator != null">
+                    #{item.creator,jdbcType=VARCHAR},
+                </if>
+                <if test="item.creator == null">
+                    NULL,
+                </if>
+                <if test="item.modifyTime != null">
+                    #{item.modifyTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.modifyTime == null">
+                    NULL,
+                </if>
+                <if test="item.modifier != null">
+                    #{item.modifier,jdbcType=VARCHAR},
+                </if>
+                <if test="item.modifier == null">
+                    NULL,
+                </if>
+            </trim>
+        </foreach>
+    </insert>
     <select id="countByExample" parameterType="indi.orange1438.managementsystem.dao.entity.UserExample"
             resultType="java.lang.Long">
         select count(*) from sys_user
@@ -242,52 +368,52 @@
         update sys_user
         <set>
             <if test="record.userId != null">
-                USER_ID = #{record.userId,jdbcType=BIGINT},
+                USER_ID = #{record..userId,jdbcType=BIGINT},
             </if>
             <if test="record.userName != null">
-                USER_NAME = #{record.userName,jdbcType=VARCHAR},
+                USER_NAME = #{record..userName,jdbcType=VARCHAR},
             </if>
             <if test="record.password != null">
-                PASSWORD = #{record.password,jdbcType=VARCHAR},
+                PASSWORD = #{record..password,jdbcType=VARCHAR},
             </if>
             <if test="record.isDisabled != null">
-                IS_DISABLED = #{record.isDisabled,jdbcType=BIT},
+                IS_DISABLED = #{record..isDisabled,jdbcType=BIT},
             </if>
             <if test="record.parentId != null">
-                PARENT_ID = #{record.parentId,jdbcType=BIGINT},
+                PARENT_ID = #{record..parentId,jdbcType=BIGINT},
             </if>
             <if test="record.trueName != null">
-                TRUE_NAME = #{record.trueName,jdbcType=VARCHAR},
+                TRUE_NAME = #{record..trueName,jdbcType=VARCHAR},
             </if>
             <if test="record.mobile != null">
-                MOBILE = #{record.mobile,jdbcType=VARCHAR},
+                MOBILE = #{record..mobile,jdbcType=VARCHAR},
             </if>
             <if test="record.email != null">
-                EMAIL = #{record.email,jdbcType=VARCHAR},
+                EMAIL = #{record..email,jdbcType=VARCHAR},
             </if>
             <if test="record.skin != null">
-                SKIN = #{record.skin,jdbcType=VARCHAR},
+                SKIN = #{record..skin,jdbcType=VARCHAR},
             </if>
             <if test="record.lastLoginTime != null">
-                LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+                LAST_LOGIN_TIME = #{record..lastLoginTime,jdbcType=TIMESTAMP},
             </if>
             <if test="record.loginIp != null">
-                LOGIN_IP = #{record.loginIp,jdbcType=VARCHAR},
+                LOGIN_IP = #{record..loginIp,jdbcType=VARCHAR},
             </if>
             <if test="record.loginCount != null">
-                LOGIN_COUNT = #{record.loginCount,jdbcType=BIGINT},
+                LOGIN_COUNT = #{record..loginCount,jdbcType=BIGINT},
             </if>
             <if test="record.createTime != null">
-                CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+                CREATE_TIME = #{record..createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="record.creator != null">
-                CREATOR = #{record.creator,jdbcType=VARCHAR},
+                CREATOR = #{record..creator,jdbcType=VARCHAR},
             </if>
             <if test="record.modifyTime != null">
-                MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+                MODIFY_TIME = #{record..modifyTime,jdbcType=TIMESTAMP},
             </if>
             <if test="record.modifier != null">
-                MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+                MODIFIER = #{record..modifier,jdbcType=VARCHAR},
             </if>
         </set>
         <if test="_parameter != null">
@@ -296,22 +422,22 @@
     </update>
     <update id="updateByExample" parameterType="map">
         update sys_user
-        set USER_ID = #{record.userId,jdbcType=BIGINT},
-        USER_NAME = #{record.userName,jdbcType=VARCHAR},
-        PASSWORD = #{record.password,jdbcType=VARCHAR},
-        IS_DISABLED = #{record.isDisabled,jdbcType=BIT},
-        PARENT_ID = #{record.parentId,jdbcType=BIGINT},
-        TRUE_NAME = #{record.trueName,jdbcType=VARCHAR},
-        MOBILE = #{record.mobile,jdbcType=VARCHAR},
-        EMAIL = #{record.email,jdbcType=VARCHAR},
-        SKIN = #{record.skin,jdbcType=VARCHAR},
-        LAST_LOGIN_TIME = #{record.lastLoginTime,jdbcType=TIMESTAMP},
-        LOGIN_IP = #{record.loginIp,jdbcType=VARCHAR},
-        LOGIN_COUNT = #{record.loginCount,jdbcType=BIGINT},
-        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-        CREATOR = #{record.creator,jdbcType=VARCHAR},
-        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
-        MODIFIER = #{record.modifier,jdbcType=VARCHAR}
+        set USER_ID = #{record..userId,jdbcType=BIGINT},
+        USER_NAME = #{record..userName,jdbcType=VARCHAR},
+        PASSWORD = #{record..password,jdbcType=VARCHAR},
+        IS_DISABLED = #{record..isDisabled,jdbcType=BIT},
+        PARENT_ID = #{record..parentId,jdbcType=BIGINT},
+        TRUE_NAME = #{record..trueName,jdbcType=VARCHAR},
+        MOBILE = #{record..mobile,jdbcType=VARCHAR},
+        EMAIL = #{record..email,jdbcType=VARCHAR},
+        SKIN = #{record..skin,jdbcType=VARCHAR},
+        LAST_LOGIN_TIME = #{record..lastLoginTime,jdbcType=TIMESTAMP},
+        LOGIN_IP = #{record..loginIp,jdbcType=VARCHAR},
+        LOGIN_COUNT = #{record..loginCount,jdbcType=BIGINT},
+        CREATE_TIME = #{record..createTime,jdbcType=TIMESTAMP},
+        CREATOR = #{record..creator,jdbcType=VARCHAR},
+        MODIFY_TIME = #{record..modifyTime,jdbcType=TIMESTAMP},
+        MODIFIER = #{record..modifier,jdbcType=VARCHAR}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>

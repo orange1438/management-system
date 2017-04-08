@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Menu implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = 7483741176361340437L;
+    private static final long serialVersionUID = 2050560371106994513L;
 
     // 菜单ID
     private Long menuId;

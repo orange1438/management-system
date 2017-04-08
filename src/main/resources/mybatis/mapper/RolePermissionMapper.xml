@@ -208,6 +208,112 @@
             </if>
         </trim>
     </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into sys_role_permission (ROLE_PERMISSION_ID, ROLE_ID, PERMISSION_ID,
+        ADD_RIGHTS, DELETE_RIGHTS, EDIT_RIGHTS,
+        VIEW_RIGHTS, IMPORT_RIGHTS, EXPORT_RIGHTS,
+        CREATE_TIME, CREATOR, MODIFY_TIME,
+        MODIFIER)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.rolePermissionId,jdbcType=BIGINT}, #{item.roleId,jdbcType=BIGINT},
+            #{item.permissionId,jdbcType=BIGINT},
+            #{item.addRights,jdbcType=BIT}, #{item.deleteRights,jdbcType=BIT}, #{item.editRights,jdbcType=BIT},
+            #{item.viewRights,jdbcType=BIT}, #{item.importRights,jdbcType=BIT}, #{item.exportRights,jdbcType=BIT},
+            #{item.createTime,jdbcType=TIMESTAMP}, #{item.creator,jdbcType=VARCHAR},
+            #{item.modifyTime,jdbcType=TIMESTAMP},
+            #{item.modifier,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+    <insert id="insertBatchSelective" parameterType="java.util.List">
+        insert into sys_role_permission
+        (ROLE_PERMISSION_ID, ROLE_ID, PERMISSION_ID, ADD_RIGHTS, DELETE_RIGHTS, EDIT_RIGHTS,
+        VIEW_RIGHTS, IMPORT_RIGHTS, EXPORT_RIGHTS, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
+        )
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="item.rolePermissionId != null">
+                    #{item.rolePermissionId,jdbcType=BIGINT},
+                </if>
+                <if test="item.rolePermissionId == null">
+                    NULL,
+                </if>
+                <if test="item.roleId != null">
+                    #{item.roleId,jdbcType=BIGINT},
+                </if>
+                <if test="item.roleId == null">
+                    NULL,
+                </if>
+                <if test="item.permissionId != null">
+                    #{item.permissionId,jdbcType=BIGINT},
+                </if>
+                <if test="item.permissionId == null">
+                    NULL,
+                </if>
+                <if test="item.addRights != null">
+                    #{item.addRights,jdbcType=BIT},
+                </if>
+                <if test="item.addRights == null">
+                    NULL,
+                </if>
+                <if test="item.deleteRights != null">
+                    #{item.deleteRights,jdbcType=BIT},
+                </if>
+                <if test="item.deleteRights == null">
+                    NULL,
+                </if>
+                <if test="item.editRights != null">
+                    #{item.editRights,jdbcType=BIT},
+                </if>
+                <if test="item.editRights == null">
+                    NULL,
+                </if>
+                <if test="item.viewRights != null">
+                    #{item.viewRights,jdbcType=BIT},
+                </if>
+                <if test="item.viewRights == null">
+                    NULL,
+                </if>
+                <if test="item.importRights != null">
+                    #{item.importRights,jdbcType=BIT},
+                </if>
+                <if test="item.importRights == null">
+                    NULL,
+                </if>
+                <if test="item.exportRights != null">
+                    #{item.exportRights,jdbcType=BIT},
+                </if>
+                <if test="item.exportRights == null">
+                    NULL,
+                </if>
+                <if test="item.createTime != null">
+                    #{item.createTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.createTime == null">
+                    NULL,
+                </if>
+                <if test="item.creator != null">
+                    #{item.creator,jdbcType=VARCHAR},
+                </if>
+                <if test="item.creator == null">
+                    NULL,
+                </if>
+                <if test="item.modifyTime != null">
+                    #{item.modifyTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="item.modifyTime == null">
+                    NULL,
+                </if>
+                <if test="item.modifier != null">
+                    #{item.modifier,jdbcType=VARCHAR},
+                </if>
+                <if test="item.modifier == null">
+                    NULL,
+                </if>
+            </trim>
+        </foreach>
+    </insert>
     <select id="countByExample" parameterType="indi.orange1438.managementsystem.dao.entity.RolePermissionExample"
             resultType="java.lang.Long">
         select count(*) from sys_role_permission
@@ -219,43 +325,43 @@
         update sys_role_permission
         <set>
             <if test="record.rolePermissionId != null">
-                ROLE_PERMISSION_ID = #{record.rolePermissionId,jdbcType=BIGINT},
+                ROLE_PERMISSION_ID = #{record..rolePermissionId,jdbcType=BIGINT},
             </if>
             <if test="record.roleId != null">
-                ROLE_ID = #{record.roleId,jdbcType=BIGINT},
+                ROLE_ID = #{record..roleId,jdbcType=BIGINT},
             </if>
             <if test="record.permissionId != null">
-                PERMISSION_ID = #{record.permissionId,jdbcType=BIGINT},
+                PERMISSION_ID = #{record..permissionId,jdbcType=BIGINT},
             </if>
             <if test="record.addRights != null">
-                ADD_RIGHTS = #{record.addRights,jdbcType=BIT},
+                ADD_RIGHTS = #{record..addRights,jdbcType=BIT},
             </if>
             <if test="record.deleteRights != null">
-                DELETE_RIGHTS = #{record.deleteRights,jdbcType=BIT},
+                DELETE_RIGHTS = #{record..deleteRights,jdbcType=BIT},
             </if>
             <if test="record.editRights != null">
-                EDIT_RIGHTS = #{record.editRights,jdbcType=BIT},
+                EDIT_RIGHTS = #{record..editRights,jdbcType=BIT},
             </if>
             <if test="record.viewRights != null">
-                VIEW_RIGHTS = #{record.viewRights,jdbcType=BIT},
+                VIEW_RIGHTS = #{record..viewRights,jdbcType=BIT},
             </if>
             <if test="record.importRights != null">
-                IMPORT_RIGHTS = #{record.importRights,jdbcType=BIT},
+                IMPORT_RIGHTS = #{record..importRights,jdbcType=BIT},
             </if>
             <if test="record.exportRights != null">
-                EXPORT_RIGHTS = #{record.exportRights,jdbcType=BIT},
+                EXPORT_RIGHTS = #{record..exportRights,jdbcType=BIT},
             </if>
             <if test="record.createTime != null">
-                CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+                CREATE_TIME = #{record..createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="record.creator != null">
-                CREATOR = #{record.creator,jdbcType=VARCHAR},
+                CREATOR = #{record..creator,jdbcType=VARCHAR},
             </if>
             <if test="record.modifyTime != null">
-                MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
+                MODIFY_TIME = #{record..modifyTime,jdbcType=TIMESTAMP},
             </if>
             <if test="record.modifier != null">
-                MODIFIER = #{record.modifier,jdbcType=VARCHAR},
+                MODIFIER = #{record..modifier,jdbcType=VARCHAR},
             </if>
         </set>
         <if test="_parameter != null">
@@ -264,19 +370,19 @@
     </update>
     <update id="updateByExample" parameterType="map">
         update sys_role_permission
-        set ROLE_PERMISSION_ID = #{record.rolePermissionId,jdbcType=BIGINT},
-        ROLE_ID = #{record.roleId,jdbcType=BIGINT},
-        PERMISSION_ID = #{record.permissionId,jdbcType=BIGINT},
-        ADD_RIGHTS = #{record.addRights,jdbcType=BIT},
-        DELETE_RIGHTS = #{record.deleteRights,jdbcType=BIT},
-        EDIT_RIGHTS = #{record.editRights,jdbcType=BIT},
-        VIEW_RIGHTS = #{record.viewRights,jdbcType=BIT},
-        IMPORT_RIGHTS = #{record.importRights,jdbcType=BIT},
-        EXPORT_RIGHTS = #{record.exportRights,jdbcType=BIT},
-        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
-        CREATOR = #{record.creator,jdbcType=VARCHAR},
-        MODIFY_TIME = #{record.modifyTime,jdbcType=TIMESTAMP},
-        MODIFIER = #{record.modifier,jdbcType=VARCHAR}
+        set ROLE_PERMISSION_ID = #{record..rolePermissionId,jdbcType=BIGINT},
+        ROLE_ID = #{record..roleId,jdbcType=BIGINT},
+        PERMISSION_ID = #{record..permissionId,jdbcType=BIGINT},
+        ADD_RIGHTS = #{record..addRights,jdbcType=BIT},
+        DELETE_RIGHTS = #{record..deleteRights,jdbcType=BIT},
+        EDIT_RIGHTS = #{record..editRights,jdbcType=BIT},
+        VIEW_RIGHTS = #{record..viewRights,jdbcType=BIT},
+        IMPORT_RIGHTS = #{record..importRights,jdbcType=BIT},
+        EXPORT_RIGHTS = #{record..exportRights,jdbcType=BIT},
+        CREATE_TIME = #{record..createTime,jdbcType=TIMESTAMP},
+        CREATOR = #{record..creator,jdbcType=VARCHAR},
+        MODIFY_TIME = #{record..modifyTime,jdbcType=TIMESTAMP},
+        MODIFIER = #{record..modifier,jdbcType=VARCHAR}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
         </if>

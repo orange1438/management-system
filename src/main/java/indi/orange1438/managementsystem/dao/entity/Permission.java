@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Permission implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = 4799255748725742125L;
+    private static final long serialVersionUID = -7480668947822923381L;
 
     // 权限ID
     private Long permissionId;

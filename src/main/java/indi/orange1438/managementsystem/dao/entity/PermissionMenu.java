@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class PermissionMenu implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = 4916010903498445298L;
+    private static final long serialVersionUID = -6496559204570534969L;
 
     // 权限菜单关系ID
     private Long permissionMenuId;
