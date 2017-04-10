@@ -59,7 +59,7 @@
         <if test="lastLoginEnd!=null and lastLoginEnd!=''">
             and u.LAST_LOGIN_TIME &lt;= #{lastLoginEnd}
         </if>
-        order by u.LAST_LOGIN_TIME desc
+        order by u.LAST_LOGIN_TIME desc,u.USER_ID ASC
     </select>
 
 
