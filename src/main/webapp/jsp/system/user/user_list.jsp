@@ -29,9 +29,9 @@
                         <tr>
                             <td>
 						<span class="input-icon">
-							<input autocomplete="off" id="nav-search-input" type="text" name="userName"
+							<input autocomplete="off" id="userName" type="text" name="userName"
                                    value="${requestMap.userName }" placeholder="这里输入关键词"/>
-							<i id="nav-search-icon" class="icon-search"></i>
+							<i id="nav-search-icon1" class="icon-search"></i>
 						</span>
                             </td>
                             <td><input class="span10 date-picker" name="lastLoginStart" id="lastLoginStart"
@@ -41,7 +41,7 @@
                                        value="${requestMap.lastLoginEnd}" type="text" data-date-format="yyyy-mm-dd"
                                        readonly="readonly" style="width:88px;" placeholder="结束日期" title="最近登录结束"/></td>
                             <td style="vertical-align:top;">
-                                <select class="chzn-select" name="roleId" id="role_id" data-placeholder="请选择角色"
+                                <select class="chzn-select" name="roleId" id="roleId" data-placeholder="请选择角色"
                                         style="vertical-align:top;width: 120px;">
                                     <option value=""></option>
                                     <option value="">全部</option>
@@ -393,34 +393,21 @@
 
     //导出excel
     function toExcel() {
-        var USERNAME = $("#nav-search-input").val();
+        var userName = $("#userName").val();
         var lastLoginStart = $("#lastLoginStart").val();
         var lastLoginEnd = $("#lastLoginEnd").val();
-        var ROLE_ID = $("#role_id").val();
-        window.location.href = '<%=basePath%>user/excel.do?USERNAME=' + USERNAME + '&lastLoginStart=' + lastLoginStart + '&lastLoginEnd=' + lastLoginEnd + '&ROLE_ID=' + ROLE_ID;
+        var roleId = $("#roleId").val();
+        window.location.href = '<%=basePath%>/user/excel.do?userName=' + userName + '&lastLoginStart=' + lastLoginStart + '&lastLoginEnd=' + lastLoginEnd + '&roleId=' + roleId;
     }
 
     //打开上传excel页面
     function fromExcel() {
-        top.jzts();
-        var diag = new top.Dialog();
-        diag.Drag = true;
-        diag.Title = "EXCEL 导入到数据库";
-        diag.URL = '<%=basePath%>user/goUploadExcel.do';
-        diag.Width = 300;
-        diag.Height = 150;
-        diag.CancelEvent = function () { //关闭事件
-            if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
-                if ('${page.pageNum}' == '0') {
-                    top.jzts();
-                    setTimeout("self.location.reload()", 100);
-                } else {
-                    nextPage(${page.pageNum});
-                }
-            }
-            diag.close();
-        };
-        diag.show();
+        layui.use(['layer', 'form'], function () {
+            layer.msg('功能未实现', {
+                time: 3000, //2s后自动关闭
+                icon: 2
+            });
+        });
     }
 
 </script>

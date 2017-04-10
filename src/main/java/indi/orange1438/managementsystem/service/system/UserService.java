@@ -169,6 +169,16 @@ public class UserService {
     }
 
     /**
+     * 根据Map条件查询用户
+     *
+     * @param requestMap
+     * @return
+     */
+    public List<UserRoleDTO> getUserByMap(Map<String, String> requestMap) {
+        return userDAO.getUserByMap(requestMap);
+    }
+
+    /**
      * 根据UserID得到UserRole
      *
      * @param userId

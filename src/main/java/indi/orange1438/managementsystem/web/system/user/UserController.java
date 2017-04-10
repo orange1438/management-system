@@ -10,10 +10,8 @@ import indi.orange1438.managementsystem.dto.UserRoleDTO;
 import indi.orange1438.managementsystem.service.system.RoleService;
 import indi.orange1438.managementsystem.service.system.UserRoleService;
 import indi.orange1438.managementsystem.service.system.UserService;
-import indi.orange1438.managementsystem.util.Const;
-import indi.orange1438.managementsystem.util.IdGeneratorUtils;
+import indi.orange1438.managementsystem.util.*;
 import indi.orange1438.managementsystem.util.SecurityUtils.DecodeUtils;
-import indi.orange1438.managementsystem.util.TableProperties;
 import indi.orange1438.managementsystem.web.system.base.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -233,6 +231,74 @@ public class UserController extends BaseController {
         } else {
             return new BaseResult(false, "批量删除用户失败！！！");
         }
+    }
+
+    /**
+     * 导出用户信息到EXCEL
+     *
+     * @return
+     */
+    @RequestMapping(value = "/excel")
+    public ModelAndView exportExcel() {
+        ModelAndView mv = this.getModelAndView();
+
+        // 接收get请求的参数
+        Map requestGetMap = this.getParameterMapByGet();
+        try {
+            //检索条件===
+            String userName = null == requestGetMap.get("userName") ? "" : DecodeUtils.urlDecode(requestGetMap.get("userName").toString());
+            String lastLoginStart = null == requestGetMap.get("lastLoginStart") ? "" : DecodeUtils.urlDecode(requestGetMap.get("lastLoginStart").toString());
+            String lastLoginEnd = null == requestGetMap.get("lastLoginEnd") ? "" : DecodeUtils.urlDecode(requestGetMap.get("lastLoginEnd").toString());
+
+            if (null != userName && !"".equals(userName)) {
+                userName = userName.trim();
+                requestGetMap.put("userName", userName);
+            }
+            if (lastLoginStart != null && !"".equals(lastLoginStart)) {
+                lastLoginStart = lastLoginStart + " 00:00:00";
+                requestGetMap.put("lastLoginStart", lastLoginStart);
+            }
+            if (lastLoginEnd != null && !"".equals(lastLoginEnd)) {
+                lastLoginEnd = lastLoginEnd + " 00:00:00";
+                requestGetMap.put("lastLoginEnd", lastLoginEnd);
+            }
+
+
+            Map<String, Object> dataMap = new HashMap<String, Object>();
+            List<String> titles = new ArrayList<String>();
+            titles.add("编号");         //1
+            titles.add("用户名");        //2
+            titles.add("姓名");            //3
+            titles.add("职位");            //4
+            titles.add("手机");            //5
+            titles.add("邮箱");            //6
+            titles.add("最近登录");        //7
+            titles.add("上次登录IP");        //8
+
+            dataMap.put("titles", titles);
+
+            List<UserRoleDTO> userList = userService.getUserByMap(requestGetMap);
+            List<Map<String, String>> varList = new ArrayList<Map<String, String>>();
+            for (UserRoleDTO userRoleDTO : userList) {
+                Map<String, String> vpd = new HashMap();
+                vpd.put("var1", userRoleDTO.getUserId().toString());       //1
+                vpd.put("var2", userRoleDTO.getUserName());          //2
+                vpd.put("var3", userRoleDTO.getTrueName());              //3
+                vpd.put("var4", userRoleDTO.getRoleName());      //4
+                vpd.put("var5", userRoleDTO.getMobile());          //5
+                vpd.put("var6", userRoleDTO.getEmail());          //6
+                vpd.put("var7", DateUtils.date2Str(userRoleDTO.getLastLoginTime()));      //7
+                vpd.put("var8", userRoleDTO.getLoginIp());              //8
+                varList.add(vpd);
+            }
+            dataMap.put("excelList", varList);
+            ObjectExcelView erv = new ObjectExcelView();                    //执行excel操作
+            mv = new ModelAndView(erv, dataMap);
+
+        } catch (Exception e) {
+            logger.error(e.toString(), e);
+        }
+        return mv;
     }
 
     /**

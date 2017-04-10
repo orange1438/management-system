@@ -124,12 +124,24 @@ function editUser() {
 
 //系统设置
 function editSys() {
-    jzts();
+
+    layui.use(['layer', 'form'], function () {
+        layer.msg('功能未实现', {
+            time: 3000, //2s后自动关闭
+            icon: 2
+        });
+    });
 }
 
 //代码生成
 function productCode() {
-    jzts();
+
+    layui.use(['layer', 'form'], function () {
+        layer.msg('功能未实现', {
+            time: 3000, //2s后自动关闭
+            icon: 2
+        });
+    });
 }
 
 //数据字典
