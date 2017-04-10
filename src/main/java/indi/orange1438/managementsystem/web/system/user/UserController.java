@@ -23,8 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 用户
@@ -89,8 +88,7 @@ public class UserController extends BaseController {
 
         mv.addObject("requestMap", requestMap);
 
-        PageInfo pageInfo = new PageInfo(userList);
-        PageDTO pageDTO = new PageDTO(pageInfo);
+        PageDTO pageDTO = new PageDTO(new PageInfo(userList));
         mv.addObject("page", pageDTO);
 
         mv.setViewName("system/user/user_list");
@@ -217,6 +215,24 @@ public class UserController extends BaseController {
     @ResponseBody
     public Object delete(@RequestParam String userId) throws Exception {
         return userService.deleteUser(Long.valueOf(userId)) > 0 ? new BaseResult(true, "删除用户成功！！！") : new BaseResult(false, "删除用户失败！！！");
+    }
+
+    /**
+     * 批量删除
+     */
+    @RequestMapping(value = "/deleteAllUser")
+    @ResponseBody
+    public Object deleteAllUser() throws Exception {
+        // 接收post请求的参数
+        Map requestMap = this.getParameterMapByPost();
+
+        String userIds = null == requestMap.get("userIds") ? "" : DecodeUtils.urlDecode(requestMap.get("userIds").toString());
+        if (null != userIds && !"".equals(userIds)) {
+            String arrayUserIds[] = userIds.split(",");
+            return userService.deleteAllUser(Arrays.asList(arrayUserIds)) > 0 ? new BaseResult(true, "批量删除用户成功！！！") : new BaseResult(false, "批量删除用户失败！！！");
+        } else {
+            return new BaseResult(false, "批量删除用户失败！！！");
+        }
     }
 
     /**

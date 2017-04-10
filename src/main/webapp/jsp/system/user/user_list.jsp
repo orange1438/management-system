@@ -107,7 +107,7 @@
 
                                     <tr>
                                         <td class='center' style="width: 30px;">
-                                            <c:if test="${user.userName == 'admin'}"><label><input type='checkbox'
+                                            <c:if test="${user.userName != 'admin'}"><label><input type='checkbox'
                                                                                                    name='ids'
                                                                                                    value="${user.userId }"
                                                                                                    id="${user.email }"
@@ -224,7 +224,6 @@
      * 是否禁用
      */
     function isDisabled(id, userId) {
-
         var checkedStatus = $("#" + id).attr("checked");
         var status = "true";
         if (checkedStatus == 'checked') {
@@ -315,36 +314,23 @@
 
     //批量操作
     function makeAll(msg) {
-        bootbox.confirm(msg, function (result) {
-            if (result) {
+        layui.use(['layer', 'form'], function () {
+            //询问框
+            layer.confirm(msg, {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
                 var str = '';
-                var emstr = '';
-                var phones = '';
                 for (var i = 0; i < document.getElementsByName('ids').length; i++) {
                     if (document.getElementsByName('ids')[i].checked) {
                         if (str == '') str += document.getElementsByName('ids')[i].value;
                         else str += ',' + document.getElementsByName('ids')[i].value;
-
-                        if (emstr == '') emstr += document.getElementsByName('ids')[i].id;
-                        else emstr += ';' + document.getElementsByName('ids')[i].id;
-
-                        if (phones == '') phones += document.getElementsByName('ids')[i].alt;
-                        else phones += ';' + document.getElementsByName('ids')[i].alt;
                     }
                 }
-                if (str == '') {
-                    bootbox.dialog("您没有选择任何内容!",
-                        [
-                            {
-                                "label": "关闭",
-                                "class": "btn-small btn-success",
-                                "callback": function () {
-                                    //Example.show("great success");
-                                }
-                            }
-                        ]
-                    );
-
+                if (str == "") {
+                    layer.msg('您没有选择任何内容!', {
+                        time: 3000, //2s后自动关闭
+                        icon: 2
+                    });
                     $("#zcheckbox").tips({
                         side: 3,
                         msg: '点这里全选',
@@ -353,31 +339,29 @@
                     });
 
                     return;
-                } else {
-                    if (msg == '确定要删除选中的数据吗?') {
-                        top.jzts();
-                        $.ajax({
-                            type: "POST",
-                            url: '<%=basePath%>user/deleteAllU.do?tm=' + new Date().getTime(),
-                            data: {USER_IDS: str},
-                            dataType: 'json',
-                            //beforeSend: validateData,
-                            cache: false,
-                            success: function (data) {
-                                $.each(data.list, function (i, list) {
-                                    nextPage(${page.pageNum});
-                                });
-                            }
-                        });
-                    } else if (msg == '确定要给选中的用户发送邮件吗?') {
-                        sendEmail(emstr);
-                    } else if (msg == '确定要给选中的用户发送短信吗?') {
-                        sendSms(phones);
-                    }
-
-
                 }
-            }
+
+                top.jzts();
+                $.ajax({
+                    type: "POST",
+                    url: '<%=basePath%>/user/deleteAllUser.do?tm=' + new Date().getTime(),
+                    data: {userIds: str},
+                    dataType: 'json',
+                    //beforeSend: validateData,
+                    cache: false,
+                    success: function (data) {
+                        if (data.success) {
+                            window.location.href = "user.do";
+                        } else {
+                            top.hangge();
+                            layer.msg(data.message, {
+                                time: 2000, //2s后自动关闭
+                                icon: 2
+                            });
+                        }
+                    }
+                });
+            });
         });
     }
 

@@ -140,6 +140,23 @@ public class UserService {
     }
 
     /**
+     * 批量删除用户
+     *
+     * @param userIds
+     * @return
+     * @throws Exception
+     */
+    public int deleteAllUser(List userIds) throws Exception {
+        UserRoleExample userRoleExample = new UserRoleExample();
+        userRoleExample.createCriteria().andUserIdIn(userIds);
+        userRoleDAO.deleteByExample(userRoleExample);
+
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andUserIdIn(userIds);
+        return userDAO.deleteByExample(userExample);
+    }
+
+    /**
      * 根据Map条件查询用户
      * @param requestMap
      * @param currentPage 当前页数
