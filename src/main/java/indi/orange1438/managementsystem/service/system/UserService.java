@@ -141,12 +141,13 @@ public class UserService {
 
     /**
      * 根据Map条件查询用户
-     *
      * @param requestMap
+     * @param currentPage 当前页数
+     * @param showCount 每页显示的条数
      * @return
      */
-    public List<UserRoleDTO> getUserByMap(Map<String, String> requestMap) {
-        PageHelper.startPage(1, 10);
+    public List<UserRoleDTO> getUserByMap(Map<String, String> requestMap, int currentPage, int showCount) {
+        PageHelper.startPage(currentPage, showCount);
         return userDAO.getUserByMap(requestMap);
     }
 

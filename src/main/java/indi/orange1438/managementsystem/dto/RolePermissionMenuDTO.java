@@ -1,6 +1,5 @@
 package indi.orange1438.managementsystem.dto;
 
-
 /**
  * 角色权限菜单
  *

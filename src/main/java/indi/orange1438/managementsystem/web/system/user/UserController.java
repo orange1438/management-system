@@ -1,9 +1,11 @@
 package indi.orange1438.managementsystem.web.system.user;
 
+import com.github.pagehelper.PageInfo;
 import indi.orange1438.managementsystem.dao.entity.Role;
 import indi.orange1438.managementsystem.dao.entity.User;
 import indi.orange1438.managementsystem.dao.entity.UserRole;
 import indi.orange1438.managementsystem.dto.BaseResult;
+import indi.orange1438.managementsystem.dto.PageDTO;
 import indi.orange1438.managementsystem.dto.UserRoleDTO;
 import indi.orange1438.managementsystem.service.system.RoleService;
 import indi.orange1438.managementsystem.service.system.UserRoleService;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,10 +52,17 @@ public class UserController extends BaseController {
     @RequestMapping
     public ModelAndView list() throws Exception {
         ModelAndView mv = this.getModelAndView();
+
+        // 接收post请求的参数
         Map requestMap = this.getParameterMapByPost();
         String userName = null == requestMap.get("userName") ? "" : DecodeUtils.urlDecode(requestMap.get("userName").toString());
         String lastLoginStart = null == requestMap.get("lastLoginStart") ? "" : DecodeUtils.urlDecode(requestMap.get("lastLoginStart").toString());
         String lastLoginEnd = null == requestMap.get("lastLoginEnd") ? "" : DecodeUtils.urlDecode(requestMap.get("lastLoginEnd").toString());
+
+        // 接收get请求的参数
+        Map requestGetMap = this.getParameterMapByGet();
+        int currentPage = null == requestGetMap.get("pageNum") ? 1 : Integer.valueOf(DecodeUtils.urlDecode(requestGetMap.get("pageNum").toString()));
+        int showCount = null == requestGetMap.get("pageSize") ? 10 : Integer.valueOf(DecodeUtils.urlDecode(requestGetMap.get("pageSize").toString()));
 
         if (null != userName && !"".equals(userName)) {
             userName = userName.trim();
@@ -70,7 +78,7 @@ public class UserController extends BaseController {
             requestMap.put("lastLoginEnd", lastLoginEnd);
         }
 
-        List<UserRoleDTO> userList = userService.getUserByMap(requestMap);            //列出用户列表
+        List<UserRoleDTO> userList = userService.getUserByMap(requestMap, currentPage, showCount);            //列出用户列表
         mv.addObject("userList", userList);
 
         List<Role> roleList = roleService.getAllRole();                                //列出所有二级角色
@@ -80,6 +88,11 @@ public class UserController extends BaseController {
         mv.addObject("permission", rolePermissionMenuMap.get(Const.PERMISSION_USER));
 
         mv.addObject("requestMap", requestMap);
+
+        PageInfo pageInfo = new PageInfo(userList);
+        PageDTO pageDTO = new PageDTO(pageInfo);
+        mv.addObject("page", pageDTO);
+
         mv.setViewName("system/user/user_list");
         return mv;
     }

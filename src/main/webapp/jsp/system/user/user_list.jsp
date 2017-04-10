@@ -184,7 +184,7 @@
                                 </td>
                                 <td style="vertical-align:top;">
                                     <div class="pagination"
-                                         style="float: right;padding-top: 0px;margin-top: 0px;">x${page.pageSize}</div>
+                                         style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div>
                                 </td>
                             </tr>
                         </table>
@@ -365,7 +365,7 @@
                             cache: false,
                             success: function (data) {
                                 $.each(data.list, function (i, list) {
-                                    nextPage(${page.currentPage});
+                                    nextPage(${page.pageNum});
                                 });
                             }
                         });
@@ -427,11 +427,11 @@
         diag.Height = 150;
         diag.CancelEvent = function () { //关闭事件
             if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
-                if ('${page.currentPage}' == '0') {
+                if ('${page.pageNum}' == '0') {
                     top.jzts();
                     setTimeout("self.location.reload()", 100);
                 } else {
-                    nextPage(${page.currentPage});
+                    nextPage(${page.pageNum});
                 }
             }
             diag.close();
