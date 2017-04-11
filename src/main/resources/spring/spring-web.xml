@@ -26,7 +26,6 @@
             <mvc:exclude-mapping path="/logout"/>
             <mvc:exclude-mapping path="/login_login"/>
             <mvc:exclude-mapping path="/resource/**"/>
-
             <bean class="indi.orange1438.managementsystem.interceptor.UserInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
