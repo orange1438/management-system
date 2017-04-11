@@ -15,6 +15,22 @@
         </property>
     </bean>
 
+    <!-- 登录拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/*"/>  <!-- 拦截/  /test  /login  等等单层结构的请求  -->
+            <mvc:mapping path="/**/*.do"/><!-- 拦截后缀为 .do的请求 -->
+            <mvc:mapping path="/**/*"/>
+            <mvc:exclude-mapping path="/login_toLogin"/>
+            <mvc:exclude-mapping path="/code.do"/>
+            <mvc:exclude-mapping path="/logout"/>
+            <mvc:exclude-mapping path="/login_login"/>
+            <mvc:exclude-mapping path="/resource/**"/>
+
+            <bean class="indi.orange1438.managementsystem.interceptor.UserInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!--配置springMVC-->
        <!--1:开启springMVC注解模式-->
        <!--简化配置
@@ -39,4 +55,5 @@
               <property name="prefix" value="/jsp/"/>
               <property name="suffix" value=".jsp"/>
        </bean>
+
 </beans>
