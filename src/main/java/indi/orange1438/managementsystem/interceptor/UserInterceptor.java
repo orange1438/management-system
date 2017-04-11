@@ -27,7 +27,7 @@ public class UserInterceptor implements HandlerInterceptor {
         if (sessionObj != null) {
             return true;
         }
-        httpServletResponse.sendRedirect("login_toLogin");
+        httpServletResponse.sendRedirect("toLogin");
         return false;
     }
 

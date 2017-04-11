@@ -21,7 +21,7 @@
             <mvc:mapping path="/*"/>  <!-- 拦截/  /test  /login  等等单层结构的请求  -->
             <mvc:mapping path="/**/*.do"/><!-- 拦截后缀为 .do的请求 -->
             <mvc:mapping path="/**/*"/>
-            <mvc:exclude-mapping path="/login_toLogin"/>
+            <mvc:exclude-mapping path="/toLogin"/>
             <mvc:exclude-mapping path="/code.do"/>
             <mvc:exclude-mapping path="/logout"/>
             <mvc:exclude-mapping path="/login_login"/>

@@ -54,7 +54,7 @@ public class LoginController extends BaseController {
     /**
      * 访问登录页
      */
-    @RequestMapping(value = "/login_toLogin")
+    @RequestMapping(value = "/toLogin")
     public ModelAndView toLoginPage() throws Exception {
         Map map = new HashMap();
         map.put("SysName", "Orange"); //填入系统名称
