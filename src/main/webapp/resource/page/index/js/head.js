@@ -106,7 +106,7 @@ function hf(b) {
 }
 
 //修改个人资料
-function editUser() {
+function editUserData() {
     jzts();
     layui.use(['layer', 'form'], function () {
         layer.open({
@@ -114,7 +114,24 @@ function editUser() {
             title: '<i class="layui-icon" style="font-size: 15px;">&#xe642;</i>修改资料',
             skin: 'layui-layer-lan', //加上边框
             area: ['250px', '450px'], //宽高
-            content: '/user/toEdit.do?userId=' + USER_ID,
+            content: '/user/toEditData.do?userId=' + USER_ID,
+            cancel: function (index, layero) {
+                layer.close(index)
+            }
+        });
+    });
+}
+
+//修改个人密码
+function editUserPassword() {
+    jzts();
+    layui.use(['layer', 'form'], function () {
+        layer.open({
+            type: 2,
+            title: '<i class="layui-icon" style="font-size: 15px;">&#xe642;</i>修改资料',
+            skin: 'layui-layer-lan', //加上边框
+            area: ['250px', '450px'], //宽高
+            content: '/user/toEditPassword.do?userId=' + USER_ID,
             cancel: function (index, layero) {
                 layer.close(index)
             }

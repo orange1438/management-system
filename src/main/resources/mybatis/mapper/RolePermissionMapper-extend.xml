@@ -9,7 +9,7 @@
         ADD_RIGHTS,
         DELETE_RIGHTS,
         EDIT_RIGHTS,
-        VIEW_RIGHTS,
+        DETAIL_RIGHTS,
         IMPORT_RIGHTS,
         EXPORT_RIGHTS,
         srp.CREATE_TIME,
@@ -36,7 +36,7 @@
         rp.add_rights AS addRights,
         rp.delete_rights AS deleteRights,
         rp.edit_rights AS editRights,
-        rp.view_rights AS viewRights,
+        rp.DETAIL_RIGHTS AS detailRights,
         rp.import_rights AS importRights,
         rp.export_rights AS exportRights
         FROM

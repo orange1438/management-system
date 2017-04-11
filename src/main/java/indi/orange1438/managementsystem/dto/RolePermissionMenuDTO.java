@@ -35,8 +35,8 @@ public class RolePermissionMenuDTO {
     // 编辑权限:1表示能，0表示不能  默认：1
     private Boolean editRights;
 
-    // 查看详细权限:1表示能，0表示不能  默认：1
-    private Boolean viewRights;
+    // 详细权限:1表示能，0表示不能  默认：1
+    private Boolean detailRights;
 
     // 导入权限:1表示能，0表示不能  默认：1
     private Boolean importRights;
@@ -116,12 +116,12 @@ public class RolePermissionMenuDTO {
         this.editRights = editRights;
     }
 
-    public Boolean getViewRights() {
-        return viewRights;
+    public Boolean getDetailRights() {
+        return detailRights;
     }
 
-    public void setViewRights(Boolean viewRights) {
-        this.viewRights = viewRights;
+    public void setDetailRights(Boolean detailRights) {
+        this.detailRights = detailRights;
     }
 
     public Boolean getImportRights() {

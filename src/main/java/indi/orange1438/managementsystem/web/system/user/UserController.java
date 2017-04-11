@@ -152,23 +152,71 @@ public class UserController extends BaseController {
     /**
      * 编辑用户页面
      */
+    @RequestMapping(value = "/toDetail")
+    public ModelAndView toDetail() throws Exception {
+        ModelAndView mv = this.getModelAndView();
+        editUser(mv);
+        List<Role> roleList = roleService.getAllRole();                                //列出所有二级角色
+        mv.addObject("roleList", roleList);
+        mv.setViewName("system/user/user_detail");
+        return mv;
+    }
+
+    /**
+     * 编辑用户页面
+     */
     @RequestMapping(value = "/toEdit")
     public ModelAndView toEdit() throws Exception {
         ModelAndView mv = this.getModelAndView();
+        editUser(mv);
+        List<Role> roleList = roleService.getAllRole();                                //列出所有二级角色
+        mv.addObject("roleList", roleList);
+        mv.setViewName("system/user/user_edit");
+        mv.addObject("action", "/user/edit.do");
+        return mv;
+    }
+
+    /**
+     * 编辑用户页面,不修改密码
+     */
+    @RequestMapping(value = "/toEditData")
+    public ModelAndView toEditData() throws Exception {
+        ModelAndView mv = this.getModelAndView();
+        editUser(mv);
+        List<Role> roleList = roleService.getAllRole();                                //列出所有二级角色
+        mv.addObject("roleList", roleList);
+        mv.setViewName("system/user/user_edit_data");
+        mv.addObject("action", "/user/edit.do");
+        return mv;
+    }
+
+    /**
+     * 编辑用户页面,只修改密码
+     */
+    @RequestMapping(value = "/toEditPassword")
+    public ModelAndView toEditPassword() throws Exception {
+        ModelAndView mv = this.getModelAndView();
+        editUser(mv);
+        mv.setViewName("system/user/user_edit_password");
+        return mv;
+    }
+
+    /**
+     * 编辑用户
+     *
+     * @return
+     * @throws Exception
+     */
+    private void editUser(ModelAndView mv) throws Exception {
         Map requestMap = this.getParameterMapByGet();
         String userId = null == requestMap.get("userId") ? "" : requestMap.get("userId").toString();
-
         try {
             UserRoleDTO user = userService.getUserRoleByUserId(Long.valueOf(userId));
-            List<Role> roleList = roleService.getAllRole();                                //列出所有二级角色
-            mv.setViewName("system/user/user_edit");
             mv.addObject("user", user);
-            mv.addObject("roleList", roleList);
             mv.addObject("action", "/user/edit.do");
         } catch (Exception e) {
             logger.error(e.toString(), e);
         }
-        return mv;
     }
 
     /**
@@ -179,20 +227,21 @@ public class UserController extends BaseController {
     public Object edit() throws Exception {
         Map requestMap = this.getParameterMapByJsonPost();
         Long userId = null == requestMap.get("userId") ? null : Long.valueOf(requestMap.get("userId").toString());
-        String userName = null == requestMap.get("userName") ? "" : DecodeUtils.urlDecode(requestMap.get("userName").toString());
-        String password = null == requestMap.get("password") ? "" : DecodeUtils.urlDecode(requestMap.get("password").toString());
-        String email = null == requestMap.get("email") ? "" : DecodeUtils.urlDecode(requestMap.get("email").toString());
-        String mobile = null == requestMap.get("mobile") ? "" : DecodeUtils.urlDecode(requestMap.get("mobile").toString());
-        String trueName = null == requestMap.get("trueName") ? "" : DecodeUtils.urlDecode(requestMap.get("trueName").toString());
+        String userName = null == requestMap.get("userName") ? null : DecodeUtils.urlDecode(requestMap.get("userName").toString());
+        String password = null == requestMap.get("password") ? null : DecodeUtils.urlDecode(requestMap.get("password").toString());
+        String email = null == requestMap.get("email") ? null : DecodeUtils.urlDecode(requestMap.get("email").toString());
+        String mobile = null == requestMap.get("mobile") ? null : DecodeUtils.urlDecode(requestMap.get("mobile").toString());
+        String trueName = null == requestMap.get("trueName") ? null : DecodeUtils.urlDecode(requestMap.get("trueName").toString());
         String roleId = null == requestMap.get("roleId") ? null : requestMap.get("roleId").toString();
 
         User currentUser = (User) this.getSession().getAttribute(Const.SESSION_USER);
 
         // sys_user
-        User user = new User();
-        user.setUserId(userId);
+        User user = userService.getUserEntityByUserId(userId);
         user.setUserName(userName);
-        user.setPassword(password);
+        if (null != password && !password.isEmpty()) {
+            user.setPassword(password);
+        }
         user.setEmail(email);
         user.setMobile(mobile);
         user.setTrueName(trueName);
@@ -200,7 +249,10 @@ public class UserController extends BaseController {
 
         // sys_user_role
         UserRole userRole = userRoleService.getUserRoleByUserId(userId);
-        userRole.setRoleId(Long.valueOf(roleId));
+        if (null != roleId && !roleId.isEmpty()) {
+            userRole.setRoleId(Long.valueOf(roleId));
+            userRole.setUserId(user.getUserId());
+        }
         TableProperties.modifyProperties(userRole, currentUser.getTrueName());
 
         return userService.updateUserByUserAndUserRole(user, userRole) > 0 ? new BaseResult(true, "修改用户成功！！！") : new BaseResult(false, "修改用户失败！！！");

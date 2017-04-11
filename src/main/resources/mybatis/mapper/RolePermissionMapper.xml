@@ -8,7 +8,7 @@
         <result column="ADD_RIGHTS" jdbcType="BIT" property="addRights"/>
         <result column="DELETE_RIGHTS" jdbcType="BIT" property="deleteRights"/>
         <result column="EDIT_RIGHTS" jdbcType="BIT" property="editRights"/>
-        <result column="VIEW_RIGHTS" jdbcType="BIT" property="viewRights"/>
+        <result column="DETAIL_RIGHTS" jdbcType="BIT" property="detailRights"/>
         <result column="IMPORT_RIGHTS" jdbcType="BIT" property="importRights"/>
         <result column="EXPORT_RIGHTS" jdbcType="BIT" property="exportRights"/>
         <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
@@ -77,8 +77,8 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    ROLE_PERMISSION_ID, ROLE_ID, PERMISSION_ID, ADD_RIGHTS, DELETE_RIGHTS, EDIT_RIGHTS, 
-    VIEW_RIGHTS, IMPORT_RIGHTS, EXPORT_RIGHTS, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
+    ROLE_PERMISSION_ID, ROLE_ID, PERMISSION_ID, ADD_RIGHTS, DELETE_RIGHTS, EDIT_RIGHTS,
+        DETAIL_RIGHTS, IMPORT_RIGHTS, EXPORT_RIGHTS, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
   </sql>
     <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.RolePermissionExample"
             resultMap="BaseResultMap">
@@ -113,13 +113,13 @@
     </delete>
     <insert id="insert" parameterType="indi.orange1438.managementsystem.dao.entity.RolePermission">
     insert into sys_role_permission (ROLE_PERMISSION_ID, ROLE_ID, PERMISSION_ID, 
-      ADD_RIGHTS, DELETE_RIGHTS, EDIT_RIGHTS, 
-      VIEW_RIGHTS, IMPORT_RIGHTS, EXPORT_RIGHTS, 
+      ADD_RIGHTS, DELETE_RIGHTS, EDIT_RIGHTS,
+        DETAIL_RIGHTS, IMPORT_RIGHTS, EXPORT_RIGHTS,
       CREATE_TIME, CREATOR, MODIFY_TIME, 
       MODIFIER)
     values (#{rolePermissionId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{permissionId,jdbcType=BIGINT}, 
-      #{addRights,jdbcType=BIT}, #{deleteRights,jdbcType=BIT}, #{editRights,jdbcType=BIT}, 
-      #{viewRights,jdbcType=BIT}, #{importRights,jdbcType=BIT}, #{exportRights,jdbcType=BIT}, 
+      #{addRights,jdbcType=BIT}, #{deleteRights,jdbcType=BIT}, #{editRights,jdbcType=BIT},
+        #{detailRights,jdbcType=BIT}, #{importRights,jdbcType=BIT}, #{exportRights,jdbcType=BIT},
       #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
       #{modifier,jdbcType=VARCHAR})
   </insert>
@@ -144,8 +144,8 @@
             <if test="editRights != null">
                 EDIT_RIGHTS,
             </if>
-            <if test="viewRights != null">
-                VIEW_RIGHTS,
+            <if test="detailRights != null">
+                DETAIL_RIGHTS,
             </if>
             <if test="importRights != null">
                 IMPORT_RIGHTS,
@@ -185,8 +185,8 @@
             <if test="editRights != null">
                 #{editRights,jdbcType=BIT},
             </if>
-            <if test="viewRights != null">
-                #{viewRights,jdbcType=BIT},
+            <if test="detailRights != null">
+                #{detailRights,jdbcType=BIT},
             </if>
             <if test="importRights != null">
                 #{importRights,jdbcType=BIT},
@@ -211,7 +211,7 @@
     <insert id="insertBatch" parameterType="java.util.List">
         insert into sys_role_permission (ROLE_PERMISSION_ID, ROLE_ID, PERMISSION_ID,
         ADD_RIGHTS, DELETE_RIGHTS, EDIT_RIGHTS,
-        VIEW_RIGHTS, IMPORT_RIGHTS, EXPORT_RIGHTS,
+        DETAIL_RIGHTS, IMPORT_RIGHTS, EXPORT_RIGHTS,
         CREATE_TIME, CREATOR, MODIFY_TIME,
         MODIFIER)
         values
@@ -219,7 +219,7 @@
             (#{item.rolePermissionId,jdbcType=BIGINT}, #{item.roleId,jdbcType=BIGINT},
             #{item.permissionId,jdbcType=BIGINT},
             #{item.addRights,jdbcType=BIT}, #{item.deleteRights,jdbcType=BIT}, #{item.editRights,jdbcType=BIT},
-            #{item.viewRights,jdbcType=BIT}, #{item.importRights,jdbcType=BIT}, #{item.exportRights,jdbcType=BIT},
+            #{item.detailRights,jdbcType=BIT}, #{item.importRights,jdbcType=BIT}, #{item.exportRights,jdbcType=BIT},
             #{item.createTime,jdbcType=TIMESTAMP}, #{item.creator,jdbcType=VARCHAR},
             #{item.modifyTime,jdbcType=TIMESTAMP},
             #{item.modifier,jdbcType=VARCHAR})
@@ -228,8 +228,8 @@
     <insert id="insertBatchSelective" parameterType="java.util.List">
         insert into sys_role_permission
         (ROLE_PERMISSION_ID, ROLE_ID, PERMISSION_ID, ADD_RIGHTS, DELETE_RIGHTS, EDIT_RIGHTS,
-        VIEW_RIGHTS, IMPORT_RIGHTS, EXPORT_RIGHTS, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
-        )
+        DETAIL_RIGHTS, IMPORT_RIGHTS, EXPORT_RIGHTS, CREATE_TIME, CREATOR, MODIFY_TIME,
+        MODIFIER)
         values
         <foreach collection="list" index="index" item="item" separator=",">
             <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -269,10 +269,10 @@
                 <if test="item.editRights == null">
                     NULL,
                 </if>
-                <if test="item.viewRights != null">
-                    #{item.viewRights,jdbcType=BIT},
+                <if test="item.detailRights != null">
+                    #{item.detailRights,jdbcType=BIT},
                 </if>
-                <if test="item.viewRights == null">
+                <if test="item.detailRights == null">
                     NULL,
                 </if>
                 <if test="item.importRights != null">
@@ -342,8 +342,8 @@
             <if test="record.editRights != null">
                 EDIT_RIGHTS = #{record..editRights,jdbcType=BIT},
             </if>
-            <if test="record.viewRights != null">
-                VIEW_RIGHTS = #{record..viewRights,jdbcType=BIT},
+            <if test="record.detailRights != null">
+                DETAIL_RIGHTS = #{record..detailRights,jdbcType=BIT},
             </if>
             <if test="record.importRights != null">
                 IMPORT_RIGHTS = #{record..importRights,jdbcType=BIT},
@@ -376,7 +376,7 @@
         ADD_RIGHTS = #{record..addRights,jdbcType=BIT},
         DELETE_RIGHTS = #{record..deleteRights,jdbcType=BIT},
         EDIT_RIGHTS = #{record..editRights,jdbcType=BIT},
-        VIEW_RIGHTS = #{record..viewRights,jdbcType=BIT},
+        DETAIL_RIGHTS = #{record..detailRights,jdbcType=BIT},
         IMPORT_RIGHTS = #{record..importRights,jdbcType=BIT},
         EXPORT_RIGHTS = #{record..exportRights,jdbcType=BIT},
         CREATE_TIME = #{record..createTime,jdbcType=TIMESTAMP},
@@ -405,8 +405,8 @@
             <if test="editRights != null">
                 EDIT_RIGHTS = #{editRights,jdbcType=BIT},
             </if>
-            <if test="viewRights != null">
-                VIEW_RIGHTS = #{viewRights,jdbcType=BIT},
+            <if test="detailRights != null">
+                DETAIL_RIGHTS = #{detailRights,jdbcType=BIT},
             </if>
             <if test="importRights != null">
                 IMPORT_RIGHTS = #{importRights,jdbcType=BIT},
@@ -436,7 +436,7 @@
       ADD_RIGHTS = #{addRights,jdbcType=BIT},
       DELETE_RIGHTS = #{deleteRights,jdbcType=BIT},
       EDIT_RIGHTS = #{editRights,jdbcType=BIT},
-      VIEW_RIGHTS = #{viewRights,jdbcType=BIT},
+        DETAIL_RIGHTS = #{detailRights,jdbcType=BIT},
       IMPORT_RIGHTS = #{importRights,jdbcType=BIT},
       EXPORT_RIGHTS = #{exportRights,jdbcType=BIT},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},

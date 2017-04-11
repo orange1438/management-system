@@ -30,11 +30,7 @@
     <script type="text/javascript">
         $(top.hangge());
         $(document).ready(function () {
-            // 不为空，说明是新增
-            if ($("#userId").val() != "") {
-                $("#userName").attr("readonly", "readonly");
-                $("#userName").css("color", "gray");
-            }
+
         });
 
         //保存
@@ -68,31 +64,6 @@
                 $("#userName").val(jQuery.trim($('#userName').val()));
             }
 
-
-            if ($("#userId").val() == "" && $("#password").val() == "") {
-
-                $("#password").tips({
-                    side: 3,
-                    msg: '输入密码',
-                    bg: '#AE81FF',
-                    time: 2
-                });
-
-                $("#password").focus();
-                return false;
-            }
-            if ($("#password").val() != $("#checkPassword").val()) {
-
-                $("#checkPassword").tips({
-                    side: 3,
-                    msg: '两次密码不相同',
-                    bg: '#AE81FF',
-                    time: 3
-                });
-
-                $("#checkPassword").focus();
-                return false;
-            }
             if ($("#trueName").val() == "") {
 
                 $("#trueName").tips({
@@ -152,92 +123,39 @@
                 return false;
             }
 
-            if ($("#userId").val() == "") {
-                existUserName();
-            } else {
-                $.ajax({
-                    url: "${action}",
-                    data: getToJsonString($('#userForm').serialize()),
-                    dataType: "json",
-                    type: 'POST',
-                    async: true,    //或false,是否异步
-                    timeout: 10000,    //超时时间
-                    cache: false,
-                    error: function (data) {
-                        alert(data.message);
-                    },
-                    success: function (data) {
-                        if (data.success) {
-                            // close 当前对话框
-                            parent.layer.close(parent.layer.getFrameIndex(window.name));
-                            parent.location.reload(true);
-                        } else {
-                            top.hangge();
-                            layui.use(['layer', 'form'], function () {
-                                layer.msg(data.message, {
-                                    time: 2000, //2s后自动关闭
-                                    icon: 2
-                                });
+            $.ajax({
+                url: "${action}",
+                data: getToJsonString($('#userForm').serialize()),
+                dataType: "json",
+                type: 'POST',
+                async: true,    //或false,是否异步
+                timeout: 10000,    //超时时间
+                cache: false,
+                error: function (data) {
+                    alert(data.message);
+                },
+                success: function (data) {
+                    if (data.success) {
+                        // close 当前对话框
+                        parent.layer.close(parent.layer.getFrameIndex(window.name));
+                    } else {
+                        top.hangge();
+                        layui.use(['layer', 'form'], function () {
+                            layer.msg(data.message, {
+                                time: 2000, //2s后自动关闭
+                                icon: 2
                             });
-                        }
+                        });
                     }
-                });
-                $("#zhongxin").hide();
-                $("#zhongxin2").show();
-            }
+                }
+            });
+            $("#zhongxin").hide();
+            $("#zhongxin2").show();
+
         }
 
         function ismail(mail) {
             return (new RegExp(/^(?:[a-zA-Z0-9]+[_\-\+\.]?)*[a-zA-Z0-9]+@(?:([a-zA-Z0-9]+[_\-]?)*[a-zA-Z0-9]+\.)+([a-zA-Z]{2,})+$/).test(mail));
-        }
-
-        //判断用户名是否存在
-        function existUserName() {
-            var userName = $.trim($("#userName").val());
-            $.ajax({
-                type: "POST",
-                url: '<%=basePath%>/user/existUserName.do',
-                data: getToJsonString($.param({userName: userName, tm: new Date().getTime()})),
-                dataType: 'json',
-                cache: false,
-                success: function (data) {
-                    if (data.success) {
-                        $.ajax({
-                            url: "${action}",
-                            data: getToJsonString($('#userForm').serialize()),
-                            dataType: "json",
-                            type: 'POST',
-                            async: true,    //或false,是否异步
-                            timeout: 10000,    //超时时间
-                            cache: false,
-                            error: function (data) {
-                                alert(data.message);
-                            },
-                            success: function (data) {
-                                if (data.success) {
-                                    // close 当前对话框
-                                    parent.layer.close(parent.layer.getFrameIndex(window.name));
-                                    parent.location.reload(true);
-                                } else {
-                                    top.hangge();
-                                    layui.use(['layer', 'form'], function () {
-                                        layer.msg(data.message, {
-                                            time: 2000, //2s后自动关闭
-                                            icon: 2
-                                        });
-                                    });
-                                }
-                            }
-                        });
-
-                        $("#zhongxin").hide();
-                        $("#zhongxin2").show();
-                    } else {
-                        $("#userName").css("background-color", "#D16E6C");
-                        setTimeout("$('#userName').val('此用户名已存在!')", 500);
-                    }
-                }
-            });
         }
 
         //判断邮箱是否存在
@@ -278,31 +196,23 @@
     <div id="zhongxin">
         <table>
 
-                <tr class="info">
-                    <td>
-                        <select class="chzn-select" name="roleId" id="roleId" data-placeholder="请选择职位"
-                                style="vertical-align:top;">
-                            <option value=""></option>
-                            <c:forEach items="${roleList}" var="role">
-                                <option value="${role.roleId }"
-                                        <c:if test="${role.roleId == user.roleId }">selected</c:if>>${role.roleName }
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                </tr>
+            <tr class="info">
+                <td>
+                    <select class="chzn-select" name="roleId" id="roleId" data-placeholder="请选择职位"
+                            style="vertical-align:top;">
+                        <option value=""></option>
+                        <c:forEach items="${roleList}" var="role">
+                            <option value="${role.roleId }"
+                                    <c:if test="${role.roleId == user.roleId }">selected</c:if>>${role.roleName }
+                            </option>
+                        </c:forEach>
+                    </select>
+                </td>
+            </tr>
 
             <tr>
                 <td><input type="text" name="userName" id="userName" value="${user.userName }" maxlength="32"
                            placeholder="这里输入用户名" title="用户名"/></td>
-            </tr>
-            <tr>
-                <td><input type="password" name="password" id="password" maxlength="32" placeholder="输入密码" title="密码"/>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="password" name="checkPassword" id="checkPassword" maxlength="32" placeholder="确认密码"
-                           title="确认密码"/></td>
             </tr>
             <tr>
                 <td><input type="text" name="trueName" id="trueName" value="${user.trueName}" maxlength="32"

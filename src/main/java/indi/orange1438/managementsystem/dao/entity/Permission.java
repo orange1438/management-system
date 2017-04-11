@@ -1,4 +1,3 @@
-/* https://github.com/orange1438 */
 package indi.orange1438.managementsystem.dao.entity;
 
 import java.io.Serializable;
@@ -10,7 +9,7 @@ import java.util.Date;
  */
 public class Permission implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = -7480668947822923381L;
+    private static final long serialVersionUID = -7329554073481094948L;
 
     // 权限ID
     private Long permissionId;
@@ -39,11 +38,11 @@ public class Permission implements Serializable {
     // EDIT标题
     private String editTitle;
 
-    // 查看详细权限:1表示能，0表示不能  默认：1
-    private Boolean viewRights;
+    // 详细权限:1表示能，0表示不能  默认：1
+    private Boolean detailRights;
 
-    // VIEW标题
-    private String viewTitle;
+    // DETAIL标题
+    private String detailTitle;
 
     // 导入权限:1表示能，0表示不能  默认：1
     private Boolean importRights;
@@ -213,36 +212,36 @@ public class Permission implements Serializable {
         this.editTitle = editTitle == null ? null : editTitle.trim();
     }
 
-    /** 
-     * 获取 查看详细权限:1表示能，0表示不能 sys_permission.VIEW_RIGHTS
-     * @return 查看详细权限:1表示能，0表示不能
+    /**
+     * 获取 详细权限:1表示能，0表示不能 sys_permission.DETAIL_RIGHTS
+     * @return 详细权限:1表示能，0表示不能
      */
-    public Boolean getViewRights() {
-        return viewRights;
+    public Boolean getDetailRights() {
+        return detailRights;
     }
 
-    /** 
-     * 设置 查看详细权限:1表示能，0表示不能 sys_permission.VIEW_RIGHTS
-     * @param viewRights 查看详细权限:1表示能，0表示不能
+    /**
+     * 设置 详细权限:1表示能，0表示不能 sys_permission.DETAIL_RIGHTS
+     * @param detailRights 详细权限:1表示能，0表示不能
      */
-    public void setViewRights(Boolean viewRights) {
-        this.viewRights = viewRights;
+    public void setDetailRights(Boolean detailRights) {
+        this.detailRights = detailRights;
     }
 
-    /** 
-     * 获取 VIEW标题 sys_permission.VIEW_TITLE
-     * @return VIEW标题
+    /**
+     * 获取 DETAIL标题 sys_permission.DETAIL_TITLE
+     * @return DETAIL标题
      */
-    public String getViewTitle() {
-        return viewTitle;
+    public String getDetailTitle() {
+        return detailTitle;
     }
 
-    /** 
-     * 设置 VIEW标题 sys_permission.VIEW_TITLE
-     * @param viewTitle VIEW标题
+    /**
+     * 设置 DETAIL标题 sys_permission.DETAIL_TITLE
+     * @param detailTitle DETAIL标题
      */
-    public void setViewTitle(String viewTitle) {
-        this.viewTitle = viewTitle == null ? null : viewTitle.trim();
+    public void setDetailTitle(String detailTitle) {
+        this.detailTitle = detailTitle == null ? null : detailTitle.trim();
     }
 
     /** 
@@ -389,8 +388,8 @@ public class Permission implements Serializable {
         sb.append(", deleteTitle=").append(deleteTitle);
         sb.append(", editRights=").append(editRights);
         sb.append(", editTitle=").append(editTitle);
-        sb.append(", viewRights=").append(viewRights);
-        sb.append(", viewTitle=").append(viewTitle);
+        sb.append(", detailRights=").append(detailRights);
+        sb.append(", detailTitle=").append(detailTitle);
         sb.append(", importRights=").append(importRights);
         sb.append(", importTitle=").append(importTitle);
         sb.append(", exportRights=").append(exportRights);

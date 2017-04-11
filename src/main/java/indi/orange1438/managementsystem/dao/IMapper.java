@@ -11,8 +11,7 @@ import org.apache.ibatis.annotations.Param;
  * ID:主键的变量类型
  *
  * @author orange1438
- *         github: https://github.com/orange1438
- *         date: 2017-04-08 22:08:46
+ *         date: 2017-04-11 14:18:19
  */
 public interface IMapper<M, E, ID extends Serializable> {
     /** 
@@ -45,16 +44,14 @@ public interface IMapper<M, E, ID extends Serializable> {
      */
     int insertSelective(M record);
 
-    /**
+    /** 
      * 添加List集合对象所有字段
-     *
      * @param record 批量插入字段对象(必须含ID）
      */
     int insertBatch(List<M> record);
 
-    /**
+    /** 
      * 添加List集合对象对应字段
-     *
      * @param record 批量插入字段对象(必须含ID）
      */
     int insertBatchSelective(List<M> record);

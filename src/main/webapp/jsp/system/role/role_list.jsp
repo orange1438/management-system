@@ -129,9 +129,10 @@
                                                 onclick="roleRights('${role.roleId }','edit');"
                                                 class="btn btn-warning btn-mini" title="分配修改权限"><i
                                                 class="icon-wrench icon-2x icon-only"></i></a></td>
-                                        <td style="width:30px;"><a onclick="roleRights('${role.roleId }','view','详细');"
-                                                                   class="btn btn-warning btn-mini"
-                                                                   title="分配详细权限"><i
+                                        <td style="width:30px;"><a
+                                                onclick="roleRights('${role.roleId }','detail','详细');"
+                                                class="btn btn-warning btn-mini"
+                                                title="分配详细权限"><i
                                                 class="icon-wrench icon-2x icon-only"></i></a></td>
                                         <td style="width:30px;"><a
                                                 onclick="roleRights('${role.roleId }','import','导入');"

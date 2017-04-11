@@ -10,8 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * 本文件由 https://github.com/orange1438/mybatis-generator-core-chinese-annotation1.3.5-chinese-annotation 自动生成
- *
+ * 本文件由 mybatis-generator-1.3.5 自动生成
  * @author orange1438 code generator
  */
 @Repository

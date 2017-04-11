@@ -11,8 +11,8 @@
       <result column="DELETE_TITLE" jdbcType="VARCHAR" property="deleteTitle"/>
       <result column="EDIT_RIGHTS" jdbcType="BIT" property="editRights"/>
       <result column="EDIT_TITLE" jdbcType="VARCHAR" property="editTitle"/>
-      <result column="VIEW_RIGHTS" jdbcType="BIT" property="viewRights"/>
-      <result column="VIEW_TITLE" jdbcType="VARCHAR" property="viewTitle"/>
+      <result column="DETAIL_RIGHTS" jdbcType="BIT" property="detailRights"/>
+      <result column="DETAIL_TITLE" jdbcType="VARCHAR" property="detailTitle"/>
       <result column="IMPORT_RIGHTS" jdbcType="BIT" property="importRights"/>
       <result column="IMPORT_TITLE" jdbcType="VARCHAR" property="importTitle"/>
       <result column="EXPORT_RIGHTS" jdbcType="BIT" property="exportRights"/>
@@ -81,9 +81,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    PERMISSION_ID, PERMISSION_NAME, DESCRIPTION, ADD_RIGHTS, ADD_TITLE, DELETE_RIGHTS, 
-    DELETE_TITLE, EDIT_RIGHTS, EDIT_TITLE, VIEW_RIGHTS, VIEW_TITLE, IMPORT_RIGHTS, IMPORT_TITLE, 
-    EXPORT_RIGHTS, EXPORT_TITLE, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
+    PERMISSION_ID, PERMISSION_NAME, DESCRIPTION, ADD_RIGHTS, ADD_TITLE, DELETE_RIGHTS,
+      DELETE_TITLE, EDIT_RIGHTS, EDIT_TITLE, DETAIL_RIGHTS, DETAIL_TITLE, IMPORT_RIGHTS,
+      IMPORT_TITLE, EXPORT_RIGHTS, EXPORT_TITLE, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
   </sql>
     <select id="selectByExample" parameterType="indi.orange1438.managementsystem.dao.entity.PermissionExample"
             resultMap="BaseResultMap">
@@ -119,15 +119,15 @@
   <insert id="insert" parameterType="indi.orange1438.managementsystem.dao.entity.Permission">
     insert into sys_permission (PERMISSION_ID, PERMISSION_NAME, DESCRIPTION, 
       ADD_RIGHTS, ADD_TITLE, DELETE_RIGHTS, 
-      DELETE_TITLE, EDIT_RIGHTS, EDIT_TITLE, 
-      VIEW_RIGHTS, VIEW_TITLE, IMPORT_RIGHTS, 
+      DELETE_TITLE, EDIT_RIGHTS, EDIT_TITLE,
+      DETAIL_RIGHTS, DETAIL_TITLE, IMPORT_RIGHTS, 
       IMPORT_TITLE, EXPORT_RIGHTS, EXPORT_TITLE, 
       CREATE_TIME, CREATOR, MODIFY_TIME, 
       MODIFIER)
     values (#{permissionId,jdbcType=BIGINT}, #{permissionName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{addRights,jdbcType=BIT}, #{addTitle,jdbcType=VARCHAR}, #{deleteRights,jdbcType=BIT}, 
-      #{deleteTitle,jdbcType=VARCHAR}, #{editRights,jdbcType=BIT}, #{editTitle,jdbcType=VARCHAR}, 
-      #{viewRights,jdbcType=BIT}, #{viewTitle,jdbcType=VARCHAR}, #{importRights,jdbcType=BIT}, 
+      #{deleteTitle,jdbcType=VARCHAR}, #{editRights,jdbcType=BIT}, #{editTitle,jdbcType=VARCHAR},
+      #{detailRights,jdbcType=BIT}, #{detailTitle,jdbcType=VARCHAR}, #{importRights,jdbcType=BIT}, 
       #{importTitle,jdbcType=VARCHAR}, #{exportRights,jdbcType=BIT}, #{exportTitle,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
       #{modifier,jdbcType=VARCHAR})
@@ -162,11 +162,11 @@
       <if test="editTitle != null">
         EDIT_TITLE,
       </if>
-      <if test="viewRights != null">
-        VIEW_RIGHTS,
+        <if test="detailRights != null">
+            DETAIL_RIGHTS,
       </if>
-      <if test="viewTitle != null">
-        VIEW_TITLE,
+        <if test="detailTitle != null">
+            DETAIL_TITLE,
       </if>
       <if test="importRights != null">
         IMPORT_RIGHTS,
@@ -221,11 +221,11 @@
       <if test="editTitle != null">
         #{editTitle,jdbcType=VARCHAR},
       </if>
-      <if test="viewRights != null">
-        #{viewRights,jdbcType=BIT},
+        <if test="detailRights != null">
+            #{detailRights,jdbcType=BIT},
       </if>
-      <if test="viewTitle != null">
-        #{viewTitle,jdbcType=VARCHAR},
+        <if test="detailTitle != null">
+            #{detailTitle,jdbcType=VARCHAR},
       </if>
       <if test="importRights != null">
         #{importRights,jdbcType=BIT},
@@ -257,7 +257,7 @@
         insert into sys_permission (PERMISSION_ID, PERMISSION_NAME, DESCRIPTION,
         ADD_RIGHTS, ADD_TITLE, DELETE_RIGHTS,
         DELETE_TITLE, EDIT_RIGHTS, EDIT_TITLE,
-        VIEW_RIGHTS, VIEW_TITLE, IMPORT_RIGHTS,
+        DETAIL_RIGHTS, DETAIL_TITLE, IMPORT_RIGHTS,
         IMPORT_TITLE, EXPORT_RIGHTS, EXPORT_TITLE,
         CREATE_TIME, CREATOR, MODIFY_TIME,
         MODIFIER)
@@ -267,7 +267,7 @@
             #{item.description,jdbcType=VARCHAR},
             #{item.addRights,jdbcType=BIT}, #{item.addTitle,jdbcType=VARCHAR}, #{item.deleteRights,jdbcType=BIT},
             #{item.deleteTitle,jdbcType=VARCHAR}, #{item.editRights,jdbcType=BIT}, #{item.editTitle,jdbcType=VARCHAR},
-            #{item.viewRights,jdbcType=BIT}, #{item.viewTitle,jdbcType=VARCHAR}, #{item.importRights,jdbcType=BIT},
+            #{item.detailRights,jdbcType=BIT}, #{item.detailTitle,jdbcType=VARCHAR}, #{item.importRights,jdbcType=BIT},
             #{item.importTitle,jdbcType=VARCHAR}, #{item.exportRights,jdbcType=BIT},
             #{item.exportTitle,jdbcType=VARCHAR},
             #{item.createTime,jdbcType=TIMESTAMP}, #{item.creator,jdbcType=VARCHAR},
@@ -278,7 +278,7 @@
     <insert id="insertBatchSelective" parameterType="java.util.List">
         insert into sys_permission
         (PERMISSION_ID, PERMISSION_NAME, DESCRIPTION, ADD_RIGHTS, ADD_TITLE, DELETE_RIGHTS,
-        DELETE_TITLE, EDIT_RIGHTS, EDIT_TITLE, VIEW_RIGHTS, VIEW_TITLE, IMPORT_RIGHTS,
+        DELETE_TITLE, EDIT_RIGHTS, EDIT_TITLE, DETAIL_RIGHTS, DETAIL_TITLE, IMPORT_RIGHTS,
         IMPORT_TITLE, EXPORT_RIGHTS, EXPORT_TITLE, CREATE_TIME, CREATOR, MODIFY_TIME, MODIFIER
         )
         values
@@ -338,16 +338,16 @@
                 <if test="item.editTitle == null">
                     NULL,
                 </if>
-                <if test="item.viewRights != null">
-                    #{item.viewRights,jdbcType=BIT},
+                <if test="item.detailRights != null">
+                    #{item.detailRights,jdbcType=BIT},
                 </if>
-                <if test="item.viewRights == null">
+                <if test="item.detailRights == null">
                     NULL,
                 </if>
-                <if test="item.viewTitle != null">
-                    #{item.viewTitle,jdbcType=VARCHAR},
+                <if test="item.detailTitle != null">
+                    #{item.detailTitle,jdbcType=VARCHAR},
                 </if>
-                <if test="item.viewTitle == null">
+                <if test="item.detailTitle == null">
                     NULL,
                 </if>
                 <if test="item.importRights != null">
@@ -438,11 +438,11 @@
       <if test="record.editTitle != null">
           EDIT_TITLE = #{record..editTitle,jdbcType=VARCHAR},
       </if>
-      <if test="record.viewRights != null">
-          VIEW_RIGHTS = #{record..viewRights,jdbcType=BIT},
+        <if test="record.detailRights != null">
+            DETAIL_RIGHTS = #{record..detailRights,jdbcType=BIT},
       </if>
-      <if test="record.viewTitle != null">
-          VIEW_TITLE = #{record..viewTitle,jdbcType=VARCHAR},
+        <if test="record.detailTitle != null">
+            DETAIL_TITLE = #{record..detailTitle,jdbcType=VARCHAR},
       </if>
       <if test="record.importRights != null">
           IMPORT_RIGHTS = #{record..importRights,jdbcType=BIT},
@@ -484,8 +484,8 @@
       DELETE_TITLE = #{record..deleteTitle,jdbcType=VARCHAR},
       EDIT_RIGHTS = #{record..editRights,jdbcType=BIT},
       EDIT_TITLE = #{record..editTitle,jdbcType=VARCHAR},
-      VIEW_RIGHTS = #{record..viewRights,jdbcType=BIT},
-      VIEW_TITLE = #{record..viewTitle,jdbcType=VARCHAR},
+      DETAIL_RIGHTS = #{record..detailRights,jdbcType=BIT},
+      DETAIL_TITLE = #{record..detailTitle,jdbcType=VARCHAR},
       IMPORT_RIGHTS = #{record..importRights,jdbcType=BIT},
       IMPORT_TITLE = #{record..importTitle,jdbcType=VARCHAR},
       EXPORT_RIGHTS = #{record..exportRights,jdbcType=BIT},
@@ -525,11 +525,11 @@
       <if test="editTitle != null">
         EDIT_TITLE = #{editTitle,jdbcType=VARCHAR},
       </if>
-      <if test="viewRights != null">
-        VIEW_RIGHTS = #{viewRights,jdbcType=BIT},
+        <if test="detailRights != null">
+            DETAIL_RIGHTS = #{detailRights,jdbcType=BIT},
       </if>
-      <if test="viewTitle != null">
-        VIEW_TITLE = #{viewTitle,jdbcType=VARCHAR},
+        <if test="detailTitle != null">
+            DETAIL_TITLE = #{detailTitle,jdbcType=VARCHAR},
       </if>
       <if test="importRights != null">
         IMPORT_RIGHTS = #{importRights,jdbcType=BIT},
@@ -568,8 +568,8 @@
       DELETE_TITLE = #{deleteTitle,jdbcType=VARCHAR},
       EDIT_RIGHTS = #{editRights,jdbcType=BIT},
       EDIT_TITLE = #{editTitle,jdbcType=VARCHAR},
-      VIEW_RIGHTS = #{viewRights,jdbcType=BIT},
-      VIEW_TITLE = #{viewTitle,jdbcType=VARCHAR},
+      DETAIL_RIGHTS = #{detailRights,jdbcType=BIT},
+      DETAIL_TITLE = #{detailTitle,jdbcType=VARCHAR},
       IMPORT_RIGHTS = #{importRights,jdbcType=BIT},
       IMPORT_TITLE = #{importTitle,jdbcType=VARCHAR},
       EXPORT_RIGHTS = #{exportRights,jdbcType=BIT},

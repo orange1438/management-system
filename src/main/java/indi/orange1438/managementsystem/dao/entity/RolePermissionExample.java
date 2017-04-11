@@ -1,4 +1,3 @@
-/* https://github.com/orange1438 */
 package indi.orange1438.managementsystem.dao.entity;
 
 import java.util.ArrayList;
@@ -6,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 本文件由 https://github.com/orange1438/mybatis-generator-core-chinese-annotation1.3.5-chinese-annotation 自动生成
+ * 本文件由 mybatis-generator-1.3.5 自动生成
  * @author orange1438 code generator
  */
 public class RolePermissionExample {
@@ -512,63 +511,63 @@ public class RolePermissionExample {
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsIsNull() {
-            addCriterion("VIEW_RIGHTS is null");
+        public Criteria andDetailRightsIsNull() {
+            addCriterion("DETAIL_RIGHTS is null");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsIsNotNull() {
-            addCriterion("VIEW_RIGHTS is not null");
+        public Criteria andDetailRightsIsNotNull() {
+            addCriterion("DETAIL_RIGHTS is not null");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsEqualTo(Boolean value) {
-            addCriterion("VIEW_RIGHTS =", value, "viewRights");
+        public Criteria andDetailRightsEqualTo(Boolean value) {
+            addCriterion("DETAIL_RIGHTS =", value, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsNotEqualTo(Boolean value) {
-            addCriterion("VIEW_RIGHTS <>", value, "viewRights");
+        public Criteria andDetailRightsNotEqualTo(Boolean value) {
+            addCriterion("DETAIL_RIGHTS <>", value, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsGreaterThan(Boolean value) {
-            addCriterion("VIEW_RIGHTS >", value, "viewRights");
+        public Criteria andDetailRightsGreaterThan(Boolean value) {
+            addCriterion("DETAIL_RIGHTS >", value, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("VIEW_RIGHTS >=", value, "viewRights");
+        public Criteria andDetailRightsGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("DETAIL_RIGHTS >=", value, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsLessThan(Boolean value) {
-            addCriterion("VIEW_RIGHTS <", value, "viewRights");
+        public Criteria andDetailRightsLessThan(Boolean value) {
+            addCriterion("DETAIL_RIGHTS <", value, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsLessThanOrEqualTo(Boolean value) {
-            addCriterion("VIEW_RIGHTS <=", value, "viewRights");
+        public Criteria andDetailRightsLessThanOrEqualTo(Boolean value) {
+            addCriterion("DETAIL_RIGHTS <=", value, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsIn(List<Boolean> values) {
-            addCriterion("VIEW_RIGHTS in", values, "viewRights");
+        public Criteria andDetailRightsIn(List<Boolean> values) {
+            addCriterion("DETAIL_RIGHTS in", values, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsNotIn(List<Boolean> values) {
-            addCriterion("VIEW_RIGHTS not in", values, "viewRights");
+        public Criteria andDetailRightsNotIn(List<Boolean> values) {
+            addCriterion("DETAIL_RIGHTS not in", values, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsBetween(Boolean value1, Boolean value2) {
-            addCriterion("VIEW_RIGHTS between", value1, value2, "viewRights");
+        public Criteria andDetailRightsBetween(Boolean value1, Boolean value2) {
+            addCriterion("DETAIL_RIGHTS between", value1, value2, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("VIEW_RIGHTS not between", value1, value2, "viewRights");
+        public Criteria andDetailRightsNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("DETAIL_RIGHTS not between", value1, value2, "detailRights");
             return (Criteria) this;
         }
 

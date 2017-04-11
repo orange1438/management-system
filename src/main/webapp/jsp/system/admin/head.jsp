@@ -15,7 +15,9 @@
                         <i class="icon-caret-down"></i>
                     </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
-                        <li><a onclick="editUser();" style="cursor:pointer;"><i class="icon-user"></i> 修改资料</a></li>
+                        <li><a onclick="editUserData();" style="cursor:pointer;"><i class="icon-user"></i> 修改资料</a></li>
+                        <li><a onclick="editUserPassword();" style="cursor:pointer;"><i class="icon-user"></i> 修改密码</a>
+                        </li>
                         <li id="systemset"><a onclick="editSys();" style="cursor:pointer;"><i class="icon-cog"></i> 系统设置</a>
                         </li>
                         <li id="productCode"><a onclick="productCode();" style="cursor:pointer;">

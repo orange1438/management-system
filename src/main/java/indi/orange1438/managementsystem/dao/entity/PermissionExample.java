@@ -1,4 +1,3 @@
-/* https://github.com/orange1438 */
 package indi.orange1438.managementsystem.dao.entity;
 
 import java.util.ArrayList;
@@ -6,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 本文件由 https://github.com/orange1438/mybatis-generator-core-chinese-annotation1.3.5-chinese-annotation 自动生成
+ * 本文件由 mybatis-generator-1.3.5 自动生成
  * @author orange1438 code generator
  */
 public class PermissionExample {
@@ -742,133 +741,133 @@ public class PermissionExample {
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsIsNull() {
-            addCriterion("VIEW_RIGHTS is null");
+        public Criteria andDetailRightsIsNull() {
+            addCriterion("DETAIL_RIGHTS is null");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsIsNotNull() {
-            addCriterion("VIEW_RIGHTS is not null");
+        public Criteria andDetailRightsIsNotNull() {
+            addCriterion("DETAIL_RIGHTS is not null");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsEqualTo(Boolean value) {
-            addCriterion("VIEW_RIGHTS =", value, "viewRights");
+        public Criteria andDetailRightsEqualTo(Boolean value) {
+            addCriterion("DETAIL_RIGHTS =", value, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsNotEqualTo(Boolean value) {
-            addCriterion("VIEW_RIGHTS <>", value, "viewRights");
+        public Criteria andDetailRightsNotEqualTo(Boolean value) {
+            addCriterion("DETAIL_RIGHTS <>", value, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsGreaterThan(Boolean value) {
-            addCriterion("VIEW_RIGHTS >", value, "viewRights");
+        public Criteria andDetailRightsGreaterThan(Boolean value) {
+            addCriterion("DETAIL_RIGHTS >", value, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("VIEW_RIGHTS >=", value, "viewRights");
+        public Criteria andDetailRightsGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("DETAIL_RIGHTS >=", value, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsLessThan(Boolean value) {
-            addCriterion("VIEW_RIGHTS <", value, "viewRights");
+        public Criteria andDetailRightsLessThan(Boolean value) {
+            addCriterion("DETAIL_RIGHTS <", value, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsLessThanOrEqualTo(Boolean value) {
-            addCriterion("VIEW_RIGHTS <=", value, "viewRights");
+        public Criteria andDetailRightsLessThanOrEqualTo(Boolean value) {
+            addCriterion("DETAIL_RIGHTS <=", value, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsIn(List<Boolean> values) {
-            addCriterion("VIEW_RIGHTS in", values, "viewRights");
+        public Criteria andDetailRightsIn(List<Boolean> values) {
+            addCriterion("DETAIL_RIGHTS in", values, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsNotIn(List<Boolean> values) {
-            addCriterion("VIEW_RIGHTS not in", values, "viewRights");
+        public Criteria andDetailRightsNotIn(List<Boolean> values) {
+            addCriterion("DETAIL_RIGHTS not in", values, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsBetween(Boolean value1, Boolean value2) {
-            addCriterion("VIEW_RIGHTS between", value1, value2, "viewRights");
+        public Criteria andDetailRightsBetween(Boolean value1, Boolean value2) {
+            addCriterion("DETAIL_RIGHTS between", value1, value2, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewRightsNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("VIEW_RIGHTS not between", value1, value2, "viewRights");
+        public Criteria andDetailRightsNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("DETAIL_RIGHTS not between", value1, value2, "detailRights");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleIsNull() {
-            addCriterion("VIEW_TITLE is null");
+        public Criteria andDetailTitleIsNull() {
+            addCriterion("DETAIL_TITLE is null");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleIsNotNull() {
-            addCriterion("VIEW_TITLE is not null");
+        public Criteria andDetailTitleIsNotNull() {
+            addCriterion("DETAIL_TITLE is not null");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleEqualTo(String value) {
-            addCriterion("VIEW_TITLE =", value, "viewTitle");
+        public Criteria andDetailTitleEqualTo(String value) {
+            addCriterion("DETAIL_TITLE =", value, "detailTitle");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleNotEqualTo(String value) {
-            addCriterion("VIEW_TITLE <>", value, "viewTitle");
+        public Criteria andDetailTitleNotEqualTo(String value) {
+            addCriterion("DETAIL_TITLE <>", value, "detailTitle");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleGreaterThan(String value) {
-            addCriterion("VIEW_TITLE >", value, "viewTitle");
+        public Criteria andDetailTitleGreaterThan(String value) {
+            addCriterion("DETAIL_TITLE >", value, "detailTitle");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleGreaterThanOrEqualTo(String value) {
-            addCriterion("VIEW_TITLE >=", value, "viewTitle");
+        public Criteria andDetailTitleGreaterThanOrEqualTo(String value) {
+            addCriterion("DETAIL_TITLE >=", value, "detailTitle");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleLessThan(String value) {
-            addCriterion("VIEW_TITLE <", value, "viewTitle");
+        public Criteria andDetailTitleLessThan(String value) {
+            addCriterion("DETAIL_TITLE <", value, "detailTitle");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleLessThanOrEqualTo(String value) {
-            addCriterion("VIEW_TITLE <=", value, "viewTitle");
+        public Criteria andDetailTitleLessThanOrEqualTo(String value) {
+            addCriterion("DETAIL_TITLE <=", value, "detailTitle");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleLike(String value) {
-            addCriterion("VIEW_TITLE like", value, "viewTitle");
+        public Criteria andDetailTitleLike(String value) {
+            addCriterion("DETAIL_TITLE like", value, "detailTitle");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleNotLike(String value) {
-            addCriterion("VIEW_TITLE not like", value, "viewTitle");
+        public Criteria andDetailTitleNotLike(String value) {
+            addCriterion("DETAIL_TITLE not like", value, "detailTitle");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleIn(List<String> values) {
-            addCriterion("VIEW_TITLE in", values, "viewTitle");
+        public Criteria andDetailTitleIn(List<String> values) {
+            addCriterion("DETAIL_TITLE in", values, "detailTitle");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleNotIn(List<String> values) {
-            addCriterion("VIEW_TITLE not in", values, "viewTitle");
+        public Criteria andDetailTitleNotIn(List<String> values) {
+            addCriterion("DETAIL_TITLE not in", values, "detailTitle");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleBetween(String value1, String value2) {
-            addCriterion("VIEW_TITLE between", value1, value2, "viewTitle");
+        public Criteria andDetailTitleBetween(String value1, String value2) {
+            addCriterion("DETAIL_TITLE between", value1, value2, "detailTitle");
             return (Criteria) this;
         }
 
-        public Criteria andViewTitleNotBetween(String value1, String value2) {
-            addCriterion("VIEW_TITLE not between", value1, value2, "viewTitle");
+        public Criteria andDetailTitleNotBetween(String value1, String value2) {
+            addCriterion("DETAIL_TITLE not between", value1, value2, "detailTitle");
             return (Criteria) this;
         }
 

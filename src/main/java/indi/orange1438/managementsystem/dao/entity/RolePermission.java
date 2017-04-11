@@ -1,4 +1,3 @@
-/* https://github.com/orange1438 */
 package indi.orange1438.managementsystem.dao.entity;
 
 import java.io.Serializable;
@@ -10,7 +9,7 @@ import java.util.Date;
  */
 public class RolePermission implements Serializable {
     //串行版本ID
-    private static final long serialVersionUID = 6217217773032072809L;
+    private static final long serialVersionUID = 7811661878843274522L;
 
     // 权限ID
     private Long rolePermissionId;
@@ -30,8 +29,8 @@ public class RolePermission implements Serializable {
     // 编辑权限:1表示能，0表示不能  默认：0
     private Boolean editRights;
 
-    // 查看详细权限:1表示能，0表示不能  默认：0
-    private Boolean viewRights;
+    // 详细权限:1表示能，0表示不能  默认：0
+    private Boolean detailRights;
 
     // 导入权限:1表示能，0表示不能  默认：0
     private Boolean importRights;
@@ -147,20 +146,20 @@ public class RolePermission implements Serializable {
         this.editRights = editRights;
     }
 
-    /** 
-     * 获取 查看详细权限:1表示能，0表示不能 sys_role_permission.VIEW_RIGHTS
-     * @return 查看详细权限:1表示能，0表示不能
+    /**
+     * 获取 详细权限:1表示能，0表示不能 sys_role_permission.DETAIL_RIGHTS
+     * @return 详细权限:1表示能，0表示不能
      */
-    public Boolean getViewRights() {
-        return viewRights;
+    public Boolean getDetailRights() {
+        return detailRights;
     }
 
-    /** 
-     * 设置 查看详细权限:1表示能，0表示不能 sys_role_permission.VIEW_RIGHTS
-     * @param viewRights 查看详细权限:1表示能，0表示不能
+    /**
+     * 设置 详细权限:1表示能，0表示不能 sys_role_permission.DETAIL_RIGHTS
+     * @param detailRights 详细权限:1表示能，0表示不能
      */
-    public void setViewRights(Boolean viewRights) {
-        this.viewRights = viewRights;
+    public void setDetailRights(Boolean detailRights) {
+        this.detailRights = detailRights;
     }
 
     /** 
@@ -272,7 +271,7 @@ public class RolePermission implements Serializable {
         sb.append(", addRights=").append(addRights);
         sb.append(", deleteRights=").append(deleteRights);
         sb.append(", editRights=").append(editRights);
-        sb.append(", viewRights=").append(viewRights);
+        sb.append(", detailRights=").append(detailRights);
         sb.append(", importRights=").append(importRights);
         sb.append(", exportRights=").append(exportRights);
         sb.append(", createTime=").append(createTime);

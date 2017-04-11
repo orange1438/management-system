@@ -138,10 +138,16 @@
                                             <div class='hidden-phone visible-desktop btn-group'>
 
 
+                                                <c:if test="${permission.detailRights}">
+                                                    <a class='btn btn-mini btn-purple' title="详细"
+                                                       onclick="detail('${user.userId }');"><i
+                                                            class='icon-edit'></i></a>
+                                                </c:if>
+
                                                 <c:if test="${user.userName != 'admin'}">
                                                     <c:if test="${permission.editRights}">
                                                         <a class='btn btn-mini btn-info' title="编辑"
-                                                           onclick="editUser('${user.userId }');"><i
+                                                           onclick="edit('${user.userId }');"><i
                                                                 class='icon-edit'></i></a>
                                                     </c:if>
                                                 </c:if>
@@ -149,7 +155,7 @@
                                                 <c:if test="${user.userName!='admin'}">
                                                     <c:if test="${permission.deleteRights}">
                                                         <a class='btn btn-mini btn-danger' title="删除"
-                                                           onclick="delUser('${user.userId }','${user.userName }');"><i
+                                                           onclick="del('${user.userId }','${user.userName }');"><i
                                                                 class='icon-trash'></i></a>
                                                     </c:if>
                                                 </c:if>
@@ -271,8 +277,27 @@
         });
     }
 
+    /**
+     * 详细
+     * @param user_id
+     */
+    function detail(user_id) {
+        top.jzts();
+        layui.use(['layer', 'form'], function () {
+            layer.open({
+                type: 2,
+                title: '<i class="layui-icon" style="font-size: 15px;">&#xe642;</i>详细账户',
+                skin: 'layui-layer-lan', //加上边框
+                area: ['250px', '450px'], //宽高
+                content: '<%=basePath%>/user/toDetail.do?userId=' + user_id,
+                cancel: function (index, layero) {
+                    layer.close(index)
+                }
+            });
+        });
+    }
     //修改
-    function editUser(user_id) {
+    function edit(user_id) {
         top.jzts();
         layui.use(['layer', 'form'], function () {
             layer.open({
@@ -289,7 +314,7 @@
     }
 
     //删除
-    function delUser(userId, msg) {
+    function del(userId, msg) {
         layui.use(['layer', 'form'], function () {
             //询问框
             layer.confirm('确定要删除[' + msg + ']吗?', {

@@ -131,7 +131,7 @@ public class RoleController extends BaseController {
             rolePermission.setAddRights(false);
             rolePermission.setEditRights(false);
             rolePermission.setDeleteRights(false);
-            rolePermission.setViewRights(false);
+            rolePermission.setDetailRights(false);
             rolePermission.setExportRights(false);
             rolePermission.setImportRights(false);
             TableProperties.createProperties(rolePermission, user.getTrueName());
@@ -209,7 +209,7 @@ public class RoleController extends BaseController {
 
     /**
      * 请求角色授权页面
-     * type:add,delete,edit,view,import,export,menu
+     * type:add,delete,edit,detail,import,export,menu
      */
     @RequestMapping(value = "/toAuth")
     public ModelAndView toAuth(@RequestParam String roleId, @RequestParam String type) throws Exception {
@@ -269,9 +269,9 @@ public class RoleController extends BaseController {
                                 subMenuDTO.setHasMenu(true);
                                 checkFlag = true;
                             }
-                        } else if ("view".equals(type)) {
+                        } else if ("detail".equals(type)) {
                             // 如果角色有该菜单的新增权限，就true
-                            if (null != rolePermission && rolePermission.getViewRights()) {
+                            if (null != rolePermission && rolePermission.getDetailRights()) {
                                 subMenuDTO.setHasMenu(true);
                                 checkFlag = true;
                             }
@@ -348,7 +348,7 @@ public class RoleController extends BaseController {
                     rolePermission.setAddRights(false);
                     rolePermission.setEditRights(false);
                     rolePermission.setDeleteRights(false);
-                    rolePermission.setViewRights(false);
+                    rolePermission.setDetailRights(false);
                     rolePermission.setImportRights(false);
                     rolePermission.setExportRights(false);
                     TableProperties.createProperties(rolePermission, user.getTrueName());
@@ -369,7 +369,7 @@ public class RoleController extends BaseController {
                         } else if ("edit".equals(type)) {
                             rolePermission.setEditRights(true);
                         } else if ("view".equals(type)) {
-                            rolePermission.setViewRights(true);
+                            rolePermission.setDetailRights(true);
                         } else if ("import".equals(type)) {
                             rolePermission.setImportRights(true);
                         } else if ("export".equals(type)) {
