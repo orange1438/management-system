@@ -131,27 +131,25 @@ public class LoginController extends BaseController {
         try {
             HttpSession session = this.getSession();
             User user = (User) session.getAttribute(Const.SESSION_USER);
-            if (user != null) {
-                List<MenuDTO> menuList = new ArrayList<MenuDTO>();
-                if (null == session.getAttribute(Const.SESSION_MENULIST)) {
-                    menuList = menuService.getMenuDTOByUserId(user.getUserId());
-                    session.setAttribute(Const.SESSION_MENULIST, menuList);            //菜单权限放入session中
-                } else {
-                    menuList = (List<MenuDTO>) session.getAttribute(Const.SESSION_MENULIST);
-                }
 
-                // 按钮级别权限
-                if (null == session.getAttribute(Const.SESSION_ROLE_PERMISSION)) {
-                    Map rolePermissionMenuDTOList = rolePermissionService.getRolePermissionMenuDTOByUserId(user.getUserId());
-                    session.setAttribute(Const.SESSION_ROLE_PERMISSION, rolePermissionMenuDTOList);            //按钮级别权限放入session中
-                }
-
-                mv.setViewName("system/admin/index");
-                mv.addObject("user", user);
-                mv.addObject("menuList", menuList);
+            List<MenuDTO> menuList = new ArrayList<MenuDTO>();
+            if (null == session.getAttribute(Const.SESSION_MENULIST)) {
+                menuList = menuService.getMenuDTOByUserId(user.getUserId());
+                session.setAttribute(Const.SESSION_MENULIST, menuList);            //菜单权限放入session中
             } else {
-                mv.setViewName("system/admin/login");//session失效后跳转登录页面
+                menuList = (List<MenuDTO>) session.getAttribute(Const.SESSION_MENULIST);
             }
+
+            // 按钮级别权限
+            if (null == session.getAttribute(Const.SESSION_ROLE_PERMISSION)) {
+                Map rolePermissionMenuDTOList = rolePermissionService.getRolePermissionMenuDTOByUserId(user.getUserId());
+                session.setAttribute(Const.SESSION_ROLE_PERMISSION, rolePermissionMenuDTOList);            //按钮级别权限放入session中
+            }
+
+            mv.setViewName("system/admin/index");
+            mv.addObject("user", user);
+            mv.addObject("menuList", menuList);
+
         } catch (Exception e) {
             mv.setViewName("system/admin/login");
             logger.error(e.getMessage(), e);
