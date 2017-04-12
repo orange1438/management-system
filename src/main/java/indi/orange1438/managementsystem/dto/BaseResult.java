@@ -1,5 +1,7 @@
 package indi.orange1438.managementsystem.dto;
 
+import indi.orange1438.managementsystem.enums.CodeResultEnum;
+
 import java.io.Serializable;
 
 /**
@@ -11,12 +13,14 @@ import java.io.Serializable;
  */
 public class BaseResult implements Serializable {
 
-
     // 请求唯一ID
     private String requestId;
 
     // 成功标记
     private boolean success;
+
+    // 操作结果代码 对应enums.CodeResultEnum
+    private int code;
 
     // 消息
     private String message;
@@ -27,6 +31,7 @@ public class BaseResult implements Serializable {
     public BaseResult() {
         this.requestId = null;
         this.success = false;
+        this.code = CodeResultEnum.FAIL.getValue();
         this.message = null;
         this.resultObj = null;
     }
@@ -36,6 +41,12 @@ public class BaseResult implements Serializable {
         this.success = success;
         this.message = message;
         this.resultObj = null;
+
+        if (this.success) {
+            this.code = CodeResultEnum.SUCCESS.getValue();
+        } else {
+            this.code = CodeResultEnum.FAIL.getValue();
+        }
     }
 
     public BaseResult(boolean success, String message, Object resultObj) {
@@ -43,6 +54,11 @@ public class BaseResult implements Serializable {
         this.success = success;
         this.message = message;
         this.resultObj = resultObj;
+        if (this.success) {
+            this.code = CodeResultEnum.SUCCESS.getValue();
+        } else {
+            this.code = CodeResultEnum.FAIL.getValue();
+        }
     }
 
     public BaseResult(String requestId, boolean success, String message, Object resultObj) {
@@ -50,6 +66,11 @@ public class BaseResult implements Serializable {
         this.success = success;
         this.message = message;
         this.resultObj = resultObj;
+        if (this.success) {
+            this.code = CodeResultEnum.SUCCESS.getValue();
+        } else {
+            this.code = CodeResultEnum.FAIL.getValue();
+        }
     }
 
     public String getRequestId() {
@@ -66,6 +87,14 @@ public class BaseResult implements Serializable {
 
     public void setSuccess(boolean success) {
         this.success = success;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getMessage() {
