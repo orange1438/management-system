@@ -17,11 +17,11 @@
 
 ### 使用的框架
 *   bootstrap（前端）、<br>
-*   ichart（前端的图表控件）、<br>
 *   SpringMvc（MVC框架）、<br>
 *   mybabit（数据库访问层）、<br>
+
+*   ECharts（前端的图表控件,监控统计方面可能会用到,目前首页用的条形图的echars.js是最基础版的）、<br>
 *   quartz（定时器，监控方面可能会用到）、<br>
-*   Restful（为传递json等格式使用）、<br>
 
 ### 视情况而用的技术——提高并发处理的能力
 *   redis（缓存，如果不用session，就会用redis来共享session等，方便系统做负载均衡的配置）、<br>
